@@ -13,15 +13,13 @@ import {
 
 import AccountDropdown from './AccountDropdown';
 import { getDisplayName } from 'next/dist/shared/lib/utils';
+import GrayOverlay from './GrayOverlay';
 
 /// Top navbar
 export default function Navbar({}) {
   const { user } = useContext(UserContext);
   const [dropdown, setDropdown] = useState(false);
-
-  // EXPERIMENTAL - delete later
-  const scale = dropdown ? null : 'scale-zero';
-  console.log(scale);
+  const [text, setText] = useState(false);
 
   const signInWithGoogle = async () => {
     const userObject = await auth.signInWithPopup(googleAuthProvider);
@@ -56,20 +54,32 @@ export default function Navbar({}) {
         </div>
 
         <div
-        // Right side iccons
+        // Right side icons
         >
           {
             // User logged in
             user && (
               <div className="relative flex items-center gap-4 ">
                 <div
-                  // Add entry
+                  // Add entry +gray overlay group
                   className="flex items-center gap-1 group"
                 >
                   <span className="navbar-tooltip group-hover:scale-100">
                     add your entry 🖋
                   </span>
-                  <NavBarIcons icon={<FaPlus size="20" />} />
+                  <NavBarIcons
+                    onClick={() => setText(!text)}
+                    icon={<FaPlus size="20" />}
+                  />
+                  {
+                    // Gray overlay when Add entry is toggled
+                    text && (
+                      <GrayOverlay
+                        zIndex="z-30"
+                        onClick={() => setText(!text)}
+                      />
+                    )
+                  }
                 </div>
 
                 <div
@@ -88,27 +98,31 @@ export default function Navbar({}) {
                         height="32"
                         fill="none"
                         tabIndex={1}
-                        className=" rounded-3xl z-10"
+                        className="rounded-3xl z-20"
                       />
                     }
                   ></NavBarIcons>
                   {
                     // Gray overlay when dropdown is toggled
                     dropdown && (
-                      <button
+                      <GrayOverlay
+                        zIndex="z-10"
                         onClick={() => setDropdown(!dropdown)}
-                        className={`fixed top-0 right-0 bottom-0 left-0 w-full h-full
-                              bg-gray-900 opacity-50 
-                              ${scale} transform transition-all duration-300 ease-linear
-                              cursor-default`}
+                      />
+                    )
+                  }
+                  {
+                    // Drowpdown menu
+                    dropdown && (
+                      <AccountDropdown
+                        onClickSignOut={() => {
+                          auth.signOut();
+                          setDropdown(!dropdown);
+                        }}
                       />
                     )
                   }
                 </div>
-                {
-                  // Drowpdown menu
-                  dropdown && <AccountDropdown onClick={() => auth.signOut()} />
-                }
               </div>
             )
           }

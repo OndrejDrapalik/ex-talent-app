@@ -1,8 +1,8 @@
-export default function AccountDropdown({ onClick }) {
+export default function AccountDropdown({ onClickSignOut }) {
   return (
     <div
       // The white background with shadow frame
-      className="absolute right-0 w-28 mt-28 rounded-lg shadow-xl
+      className="absolute right-0 w-28 mt-28 rounded-lg shadow-xl z-20
                 bg-white cursor-pointer
                 transition-all duration-100 ease-linear "
     >
@@ -13,7 +13,7 @@ export default function AccountDropdown({ onClick }) {
       >
         <div className="left-0 pl-2 py-1">👋</div>
         <div
-          onClick={onClick}
+          onClick={onClickSignOut}
           className=" text-right  pr-2 py-1 
                     text-gray-900 group-hover:text-white
                       text-sm font-lato
