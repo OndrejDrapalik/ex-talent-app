@@ -24,4 +24,8 @@
             text-sm font-lato
             transition-all duration-100 scale-0 origin-right;
   }
+
+  .scale-zero {
+    @apply scale-0 transform transition-all duration-300 ease-linear;
+  }
 }
