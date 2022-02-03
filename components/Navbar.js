@@ -1,3 +1,7 @@
+import React, { useContext } from 'react';
+import { AppContext } from '../lib/contexts/app-context';
+import { UserContext } from '../lib/contexts/user-context';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { auth } from '../lib/firebase';
@@ -7,17 +11,27 @@ import AccountDropdown from './AccountDropdown';
 import GrayOverlay from './GrayOverlay';
 
 // Top navbar
-export default function Navbar({
-  user,
-  dropdown,
-  text,
-  effect,
-  signInWithGoogle,
-  onAnimationEnd,
-  onClickSetEntryTrue,
-  onClickFlipEffectState,
-  onClickFlipDropdownState,
-}) {
+export default function Navbar() {
+  const { user } = useContext(UserContext);
+  const { dropdown, setDropdown, entry, setEntry, effect, setEffect } =
+    useContext(AppContext);
+
+  const signInWithGoogle = async () => {
+    const userObject = await auth.signInWithPopup(googleAuthProvider);
+    await saveData(userObject);
+  };
+
+  const saveData = async (props) => {
+    const userData = props.user.multiFactor.user;
+    console.log('logged in user', userData);
+    const userDoc = firestore.doc(`users/${userData.uid}`);
+    userDoc.set({
+      displayName: userData.displayName,
+      photoURL: userData.photoURL,
+      email: userData.email,
+    });
+  };
+
   return (
     <>
       <div
@@ -34,7 +48,7 @@ export default function Navbar({
             className={`flex items-center text-purple-400 z-50 hover:text-white ${
               effect && 'animate-spin'
             } `}
-            onAnimationEnd={onAnimationEnd}
+            onAnimationEnd={() => setEffect(false)}
           >
             {<FaHome size="36" />}
           </div>
@@ -55,14 +69,17 @@ export default function Navbar({
                     <span
                       /// animation only works when there's not a text input field
                       className={`navbar-tooltip ${
-                        !text && 'group-hover:scale-100'
+                        !entry && 'group-hover:scale-100'
                       }`}
                     >
                       🖋 Add your entry
                     </span>
                     <NavBarIcons
                       icon={<FaPlus size="20" />}
-                      onClick={(onClickFlipEffectState, onClickSetEntryTrue)}
+                      onClick={() => {
+                        setEffect(!effect);
+                        setEntry(true);
+                      }}
                     />
                   </div>
                 </Link>
@@ -73,7 +90,7 @@ export default function Navbar({
                 >
                   <NavBarIcons
                     // User icon
-                    onClick={onClickFlipDropdownState}
+                    onClick={() => setDropdown(!dropdown)}
                     icon={
                       <Image
                         loader={() => user?.photoURL}
@@ -92,7 +109,7 @@ export default function Navbar({
                     dropdown && (
                       <GrayOverlay
                         zIndex="z-10"
-                        onClick={onClickFlipDropdownState}
+                        onClick={() => setDropdown(!dropdown)}
                       />
                     )
                   }
@@ -102,7 +119,7 @@ export default function Navbar({
                       <AccountDropdown
                         onClickSignOut={() => {
                           auth.signOut();
-                          onClickFlipDropdownState;
+                          () => setDropdown(!dropdown);
                         }}
                       />
                     )
