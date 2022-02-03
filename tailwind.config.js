@@ -14,10 +14,28 @@ module.exports = {
         secondary: '#0F172A',
         gray: colors.slate,
       },
+
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
         heading: ['Poppins', 'sans-serif'],
         lato: ['"Lato"'],
+      },
+
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        spin: {
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
+      },
+
+      animation: {
+        wiggle: 'wiggle 250ms 10 ease-in-out',
+        spin: 'spin 0.5s linear 1',
       },
     },
   },

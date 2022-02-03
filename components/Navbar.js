@@ -1,57 +1,44 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../lib/context';
-import { auth, firestore, googleAuthProvider } from '../lib/firebase';
-import {
-  FaUserCircle,
-  FaHome,
-  FaPlus,
-  FaRegArrowAltCircleRight,
-  FaUserPlus,
-} from 'react-icons/fa';
+import { auth } from '../lib/firebase';
+import { FaHome, FaPlus, FaUserPlus } from 'react-icons/fa';
 
 import AccountDropdown from './AccountDropdown';
-import { getDisplayName } from 'next/dist/shared/lib/utils';
 import GrayOverlay from './GrayOverlay';
 
-/// Top navbar
-export default function Navbar({}) {
-  const { user } = useContext(UserContext);
-  const [dropdown, setDropdown] = useState(false);
-  const [text, setText] = useState(false);
-
-  const signInWithGoogle = async () => {
-    const userObject = await auth.signInWithPopup(googleAuthProvider);
-    await saveData(userObject);
-  };
-
-  const saveData = async (props) => {
-    const userData = props.user.multiFactor.user;
-    console.log('logged in user', userData);
-    const userDoc = firestore.doc(`users/${userData.uid}`);
-    const payload = userDoc.set({
-      displayName: userData.displayName,
-      photoURL: userData.photoURL,
-      email: userData.email,
-    });
-  };
-
+// Top navbar
+export default function Navbar({
+  user,
+  dropdown,
+  text,
+  effect,
+  signInWithGoogle,
+  onAnimationEnd,
+  onClickSetEntryTrue,
+  onClickFlipEffectState,
+  onClickFlipDropdownState,
+}) {
   return (
     <>
       <div
         // NAV BAR
-        // add custom values with "h-[56px]""
+        /// add custom values with "h-[56px]""
         className="top-0 w-screen h-16  px-6
                   flex flex-row justify-between items-center
                   bg-secondary text-primary shadow-mg"
       >
-        <div
-          // Home button
-          className="flex items-center text-purple-400 hover:text-white"
-        >
-          {<FaHome size="36" />}
-        </div>
+        <Link href={'/'} passHref>
+          <div
+            // Home button + some test animation on click w effect state
+            /// animation only works when Plus sign button is clicked
+            className={`flex items-center text-purple-400 z-50 hover:text-white ${
+              effect && 'animate-spin'
+            } `}
+            onAnimationEnd={onAnimationEnd}
+          >
+            {<FaHome size="36" />}
+          </div>
+        </Link>
 
         <div
         // Right side icons
@@ -60,35 +47,33 @@ export default function Navbar({}) {
             // User logged in
             user && (
               <div className="relative flex items-center gap-4 ">
-                <div
-                  // Add entry +gray overlay group
-                  className="flex items-center gap-1 group"
-                >
-                  <span className="navbar-tooltip group-hover:scale-100">
-                    add your entry 🖋
-                  </span>
-                  <NavBarIcons
-                    onClick={() => setText(!text)}
-                    icon={<FaPlus size="20" />}
-                  />
-                  {
-                    // Gray overlay when Add entry is toggled
-                    text && (
-                      <GrayOverlay
-                        zIndex="z-30"
-                        onClick={() => setText(!text)}
-                      />
-                    )
-                  }
-                </div>
+                <Link href={`/admin/${user.uid}`} passHref>
+                  <div
+                    // Add entry plus icon + animation on hover
+                    className="flex items-center gap-1 group"
+                  >
+                    <span
+                      /// animation only works when there's not a text input field
+                      className={`navbar-tooltip ${
+                        !text && 'group-hover:scale-100'
+                      }`}
+                    >
+                      🖋 Add your entry
+                    </span>
+                    <NavBarIcons
+                      icon={<FaPlus size="20" />}
+                      onClick={(onClickFlipEffectState, onClickSetEntryTrue)}
+                    />
+                  </div>
+                </Link>
 
                 <div
-                  // User icon + gray overlay group
+                  // User icon + Dropdown + Gray overlay group
                   className="flex items-center gap-1 "
                 >
                   <NavBarIcons
                     // User icon
-                    onClick={() => setDropdown(!dropdown)}
+                    onClick={onClickFlipDropdownState}
                     icon={
                       <Image
                         loader={() => user?.photoURL}
@@ -107,7 +92,7 @@ export default function Navbar({}) {
                     dropdown && (
                       <GrayOverlay
                         zIndex="z-10"
-                        onClick={() => setDropdown(!dropdown)}
+                        onClick={onClickFlipDropdownState}
                       />
                     )
                   }
@@ -117,7 +102,7 @@ export default function Navbar({}) {
                       <AccountDropdown
                         onClickSignOut={() => {
                           auth.signOut();
-                          setDropdown(!dropdown);
+                          onClickFlipDropdownState;
                         }}
                       />
                     )
@@ -132,7 +117,7 @@ export default function Navbar({}) {
               <div className="relative flex items-center gap-4">
                 <div className="relative flex items-center gap-1 group">
                   <span className="navbar-tooltip group-hover:scale-100">
-                    Sign up before you add your entry 🖋
+                    🖋 Sign up before you add your entry
                   </span>
                   <NavBarIcons
                     onClick={signInWithGoogle}
