@@ -1,12 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../lib/contexts/user-context';
-import { auth, firestore, googleAuthProvider } from '../lib/firebase';
-
-import Navbar from '../components/Navbar';
+import React, { useContext } from 'react';
 
 export default function Home() {
-  const { user } = useContext(UserContext);
-
   return (
     <>
       <Title />

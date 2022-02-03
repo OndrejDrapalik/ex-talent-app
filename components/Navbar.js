@@ -4,7 +4,7 @@ import { UserContext } from '../lib/contexts/user-context';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { auth } from '../lib/firebase';
+import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { FaHome, FaPlus, FaUserPlus } from 'react-icons/fa';
 
 import AccountDropdown from './AccountDropdown';
@@ -93,11 +93,11 @@ export default function Navbar() {
                     onClick={() => setDropdown(!dropdown)}
                     icon={
                       <Image
-                        loader={() => user?.photoURL}
                         src={user?.photoURL}
-                        alt="profile pic"
-                        width="32"
-                        height="32"
+                        alt="user-profile-picture"
+                        width={32}
+                        height={32}
+                        unoptimized
                         fill="none"
                         tabIndex={1}
                         className="rounded-3xl z-20"
@@ -116,12 +116,7 @@ export default function Navbar() {
                   {
                     // Drowpdown menu
                     dropdown && (
-                      <AccountDropdown
-                        onClickSignOut={() => {
-                          auth.signOut();
-                          () => setDropdown(!dropdown);
-                        }}
-                      />
+                      <AccountDropdown onClickSignOut={() => auth.signOut()} />
                     )
                   }
                 </div>
@@ -137,12 +132,18 @@ export default function Navbar() {
                     🖋 Sign up before you add your entry
                   </span>
                   <NavBarIcons
-                    onClick={signInWithGoogle}
+                    onClick={() => {
+                      signInWithGoogle();
+                      setDropdown(!dropdown);
+                    }}
                     icon={<FaPlus size="20" />}
                   />
                 </div>
                 <NavBarIcons
-                  onClick={signInWithGoogle}
+                  onClick={() => {
+                    signInWithGoogle();
+                    setDropdown(!dropdown);
+                  }}
                   icon={<FaUserPlus size="26" />}
                 />
               </div>
