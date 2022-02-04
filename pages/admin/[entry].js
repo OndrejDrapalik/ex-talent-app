@@ -5,15 +5,15 @@ import GrayOverlay from '../../components/GrayOverlay';
 import AddTextForm from '../../components/AddTextForm';
 
 export default function EntryPage({}) {
-  const { message, entry, setEntry } = useContext(AppContext);
+  const { entry, setEntry } = useContext(AppContext);
   return (
-    <div>
-      {entry && (
-        <GrayOverlay zIndex="z-20" onClick={() => setEntry(!setEntry)} />
-      )}
+    <div className="flex flex-col items-center">
+      {entry && <GrayOverlay zIndex="z-20" />}
 
-      <AddTextForm zIndex="z-20"></AddTextForm>
-      <p>{message}</p>
+      <AddTextForm
+        zIndex="z-20"
+        onClick={() => setEntry(!setEntry)}
+      ></AddTextForm>
     </div>
   );
 }
