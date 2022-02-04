@@ -37,6 +37,9 @@ module.exports = {
         wiggle: 'wiggle 250ms 10 ease-in-out',
         spin: 'spin 0.5s linear 1',
       },
+      backgroundImage: {
+        'check-box': "url('../public/images/checkMark.png')",
+      },
     },
   },
   plugins: [],
