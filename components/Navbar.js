@@ -127,18 +127,6 @@ export default function Navbar() {
             // User NOT logged in
             !user && (
               <div className="relative flex items-center gap-4">
-                <div className="relative flex items-center gap-1 group">
-                  <span className="navbar-tooltip group-hover:scale-100">
-                    🖋 Sign up before you add your entry
-                  </span>
-                  <NavBarIcons
-                    onClick={() => {
-                      signInWithGoogle();
-                      setDropdown(!dropdown);
-                    }}
-                    icon={<FaPlus size="20" />}
-                  />
-                </div>
                 <NavBarIcons
                   onClick={() => {
                     signInWithGoogle();
