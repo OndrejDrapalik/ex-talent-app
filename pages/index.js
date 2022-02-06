@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import Navbar from '../components/Navbar';
+import React, { useContext } from "react";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
 
 const Title = () => {
   return (
-    <div className="flex flex-col items-center mt-10 font-normal text-4xl font-lato">
+    <div className="mt-10 flex flex-col items-center font-lato text-4xl font-normal">
       <h1>Please meet some talented people who’ve worked at Avast.</h1>
     </div>
   );

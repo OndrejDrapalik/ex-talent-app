@@ -1,6 +1,6 @@
-import '../styles/index.css';
-import Navbar from '../components/Navbar';
-import AppState from '../lib/contexts/AppState';
+import "../styles/index.css";
+import Navbar from "../components/Navbar";
+import AppState from "../lib/contexts/AppState";
 
 function MyApp({ Component, pageProps }) {
   return (

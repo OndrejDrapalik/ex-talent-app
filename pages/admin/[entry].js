@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../lib/contexts/app-context';
+import React, { useContext } from "react";
+import { AppContext } from "../../lib/contexts/app-context";
 
-import GrayOverlay from '../../components/GrayOverlay';
-import AddTextForm from '../../components/AddTextForm';
+import GrayOverlay from "../../components/GrayOverlay";
+import AddTextForm from "../../components/AddTextForm";
 
 export default function EntryPage({}) {
   const { entry, setEntry } = useContext(AppContext);

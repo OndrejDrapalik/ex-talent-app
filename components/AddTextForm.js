@@ -8,13 +8,13 @@ const TextArea = ({ label, ...props }) => {
   return (
     <div className="form-control flex flex-col ">
       <label
-        className="text-gray-400 text-sm  "
+        className="text-sm text-gray-400  "
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
       <textarea
-        className=" w-auto h-36 border rounded-sm pl-1"
+        className=" h-36 w-auto rounded-sm border pl-1"
         {...field}
         {...props}
       ></textarea>
@@ -33,19 +33,19 @@ const MyTextInput = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-gray-400 text-sm  "
+        className="text-sm text-gray-400  "
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
 
       <input
-        className="text-input w-[275px] h-7  border rounded-sm  pl-1
-        bg-gray-100
-        autofill:bg-white autofill:text-gray-700
-        focus:bg-white text-gray-900  
-        placeholder-gray-400 focus:placeholder-white
-        focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+        className="text-input h-7 w-[275px]  rounded-sm border  bg-gray-100
+        pl-1
+        text-gray-900 placeholder-gray-400
+        autofill:bg-white autofill:text-gray-700  
+        focus:border-green-500 focus:bg-white
+        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
         {...field}
         {...props}
       />
@@ -61,19 +61,19 @@ const MyTextInputRequired = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-gray-400 text-sm  after:content-['*'] after:ml-0.5 after:text-red-500"
+        className="text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
 
       <input
-        className="text-input w-[275px] h-7 border rounded-sm pl-1
-        bg-gray-100
-        autofill:bg-white autofill:text-gray-700
-        focus:bg-white text-gray-900  
-        placeholder-gray-400 focus:placeholder-white
-        focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+        className="text-input h-7 w-[275px] rounded-sm border bg-gray-100
+        pl-1
+        text-gray-900 placeholder-gray-400
+        autofill:bg-white autofill:text-gray-700  
+        focus:border-green-500 focus:bg-white
+        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
         {...field}
         {...props}
       />
@@ -108,7 +108,7 @@ const MySelect = ({ label, ...props }) => {
   return (
     <div>
       <label
-        className="text-gray-400 text-sm  after:content-['*'] after:ml-0.5 after:text-red-500"
+        className="text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
       >
         {label}
@@ -116,7 +116,7 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className=" text-gray-900  flex w-[275px] h-7 border rounded-sm  bg-gray-100
+        className="flex  h-7 w-[275px] rounded-sm border bg-gray-100  text-gray-900
                     invalid:text-gray-400"
       />
       {meta.touched && meta.error ? (
@@ -177,15 +177,15 @@ export default function AddTextForm({ zIndex }) {
         <>
           <div
             // Blue background
-            className={`fixed top-0 right-0 bottom-0 left-0 w-full h-full ${zIndex}
-                          bg-secondary opacity-100 
-                          cursor-default`}
+            className={`fixed top-0 right-0 bottom-0 left-0 h-full w-full ${zIndex}
+                          bg-secondary cursor-default 
+                          opacity-100`}
           ></div>
           <div
             // White window
-            className={`${zIndex} flex flex-col gap-4
-             px-14 pt-14 pb-14  mt-10 rounded-lg
-                  bg-primary  shadow-md`}
+            className={`${zIndex} bg-primary mt-10 flex
+             flex-col gap-4 rounded-lg  px-14 pt-14
+                  pb-14  shadow-md`}
           >
             <h1 className="text-3xl text-gray-900">Welcome.</h1>
             <Form className="flex flex-col gap-8">
@@ -217,7 +217,7 @@ export default function AddTextForm({ zIndex }) {
                 // Info about your work
                 className="flex flex-col gap-3"
               >
-                <div className="flex flex-row justify-between items-end">
+                <div className="flex flex-row items-end justify-between">
                   <MySelect
                     label="Department"
                     name="department"
@@ -313,15 +313,15 @@ export default function AddTextForm({ zIndex }) {
               >
                 <MyCheckbox
                   name="remoteWork"
-                  className="appearance-none border-2 bg-contain  w-4 h-4 cursor-pointer rounded-sm
-                      checked:bg-check-box checked:bg-secondary checked:border-secondary"
+                  className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
+                      rounded-sm border-2 bg-contain"
                 >
                   <div>I am open to remote work.</div>
                 </MyCheckbox>
                 <MyCheckbox
                   name="relocation"
-                  className="appearance-none border-2 bg-contain  w-4 h-4 cursor-pointer rounded-sm
-                      checked:bg-check-box checked:bg-secondary checked:border-secondary"
+                  className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
+                      rounded-sm border-2 bg-contain"
                 >
                   <div>I am open to relocation.</div>
                 </MyCheckbox>
@@ -329,21 +329,21 @@ export default function AddTextForm({ zIndex }) {
 
               <div
                 // Buttons
-                className="flex justify-between items-center gap-4"
+                className="flex items-center justify-between gap-4"
               >
                 <Link href={'/'} passHref>
                   <button
                     type="reset"
-                    className="px-12 py-2 rounded-md
-                            bg-gray-200"
+                    className="rounded-md bg-gray-200 px-12
+                            py-2"
                   >
                     Cancel
                   </button>
                 </Link>
                 <button
                   type="submit"
-                  className="px-12 py-2 rounded-md
-                            bg-green-500"
+                  className="rounded-md bg-green-500 px-12
+                            py-2"
                 >
                   Submit
                 </button>

@@ -12,7 +12,7 @@ import GrayOverlay from './GrayOverlay';
 
 // Top navbar
 export default function Navbar() {
-  const { user } = useContext(UserContext);
+  const { user, image } = useContext(UserContext);
   const { dropdown, setDropdown, entry, setEntry, effect, setEffect } =
     useContext(AppContext);
 
@@ -37,15 +37,15 @@ export default function Navbar() {
       <div
         // NAV BAR
         /// add custom values with "h-[56px]""
-        className="top-0 w-screen h-16  px-6
-                  flex flex-row justify-between items-center
-                  bg-secondary text-primary shadow-mg"
+        className="bg-secondary text-primary shadow-mg  top-0
+                  flex h-16 w-screen flex-row
+                  items-center justify-between px-6"
       >
         <Link href={'/'} passHref>
           <div
             // Home button + some test animation on click w effect state
             /// animation only works when Plus sign button is clicked
-            className={`flex items-center text-purple-400 z-50 hover:text-white ${
+            className={`z-50 flex items-center text-purple-400 hover:text-white ${
               effect && 'animate-spin'
             } `}
             onAnimationEnd={() => setEffect(false)}
@@ -64,7 +64,7 @@ export default function Navbar() {
                 <Link href={`/admin/${user.uid}`} passHref>
                   <div
                     // Add entry plus icon + animation on hover
-                    className="flex items-center gap-1 group"
+                    className="group flex items-center gap-1"
                   >
                     <span
                       /// animation only works when there's not a text input field
@@ -93,14 +93,14 @@ export default function Navbar() {
                     onClick={() => setDropdown(!dropdown)}
                     icon={
                       <Image
-                        src={user?.photoURL}
+                        src={image || '/images/hacker.png'}
                         alt="user-profile-picture"
                         width={32}
                         height={32}
                         unoptimized
                         fill="none"
                         tabIndex={1}
-                        className="rounded-3xl z-20"
+                        className="z-20 rounded-3xl"
                       />
                     }
                   ></NavBarIcons>
