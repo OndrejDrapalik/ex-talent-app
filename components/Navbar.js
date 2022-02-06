@@ -93,7 +93,7 @@ export default function Navbar() {
                     onClick={() => setDropdown(!dropdown)}
                     icon={
                       <Image
-                        src={image || '/images/hacker.png'}
+                        src={user?.photoURL || '/images/hacker.png'}
                         alt="user-profile-picture"
                         width={32}
                         height={32}

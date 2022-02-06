@@ -126,7 +126,7 @@ const MySelect = ({ label, ...props }) => {
   );
 };
 
-export default function AddTextForm({ zIndex }) {
+export default function AddTextForm({ zIndex, onSubmit }) {
   return (
     <>
       <Formik
@@ -151,7 +151,7 @@ export default function AddTextForm({ zIndex }) {
             .max(20, 'Must be 20 characters or less')
             .required('Required'),
           jobTitle: Yup.string()
-            .max(20, 'Must be 20 characters or less')
+            .max(50, 'Must be 50 characters or less')
             .required('Required'),
           company: Yup.string()
             .oneOf(['Avast', 'Norton', 'Other'])
@@ -159,20 +159,21 @@ export default function AddTextForm({ zIndex }) {
           department: Yup.string().required('Required'),
           location: Yup.string().required('Required'),
           linkedIn: Yup.string().matches(
-            /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+            /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
             'Enter correct url'
           ),
           otherURL: Yup.string().matches(
-            /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+            /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
             'Enter correct url'
           ),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        // onSubmit={(values, { setSubmitting }) => {
+        //   setTimeout(() => {
+        //     alert(JSON.stringify(values, null, 2));
+        //     setSubmitting(false);
+        //   }, 500);
+        // }}
+        onSubmit={onSubmit}
       >
         <>
           <div
