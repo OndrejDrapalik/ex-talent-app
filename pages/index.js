@@ -22,16 +22,16 @@ export default function Home(props) {
   return (
     <>
       <Navbar />
-      <Title />
-      <PostFeed entries={entries} />
+      <div
+        className="font-lato mt-10  flex flex-row
+                  items-center px-[5vw] text-5xl font-normal lg:px-[10vw] xl:px-[22vw]
+                  "
+      >
+        <h1>Please meet some talented people who’ve worked at Avast.</h1>
+      </div>
+      <div className="grid grid-cols-1 gap-5 px-[5vw] pt-14 sm:grid-cols-2  lg:px-[10vw] xl:px-[22vw]">
+        <PostFeed entries={entries} />
+      </div>
     </>
   );
 }
-
-const Title = () => {
-  return (
-    <div className="font-lato mt-10 flex flex-col items-center text-4xl font-normal">
-      <h1>Please meet some talented people who’ve worked at Avast.</h1>
-    </div>
-  );
-};
