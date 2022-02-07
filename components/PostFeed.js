@@ -1,10 +1,6 @@
 export default function PostFeed({ entries }) {
   return entries
-    ? entries.map((item) => (
-        <div key={item.values.id}>
-          <PostItem entry={item} />
-        </div>
-      ))
+    ? entries.map((item) => <PostItem entry={item} key={item.id} />)
     : null;
 }
 
@@ -13,10 +9,11 @@ const PostItem = ({ entry }) => {
     <>
       <div
         // Inner box styling
-        className="rounded-lg bg-green-600 px-14 pb-14 pt-10 shadow-md"
+        className="rounded-lg border bg-white px-5 py-10 drop-shadow-lg"
       >
         <div>{entry.values.firstName}</div>
-        {entry.values.jobTitle}
+        <div>{entry.values.jobTitle}</div>
+        <div>{entry.values.aboutYou}</div>
       </div>
     </>
   );
