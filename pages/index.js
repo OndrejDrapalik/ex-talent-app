@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 
 import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 import PostFeed from '../components/PostFeed';
+import { FaFirstAid } from 'react-icons/fa';
 
 export async function getServerSideProps() {
   const postQuery = firestore
@@ -19,6 +20,15 @@ export async function getServerSideProps() {
 
 export default function Home(props) {
   const [entries, setEntries] = useState(props.entries);
+
+  const length = entries.length;
+  // Takes the whole number
+  const firstHalf = Math.floor(length / 2);
+  const secondHalf = length - firstHalf;
+
+  const colA = entries.slice(0, firstHalf);
+  const colB = entries.slice(firstHalf, length);
+
   return (
     <>
       <Navbar />
@@ -29,8 +39,16 @@ export default function Home(props) {
       >
         <h1>Please meet some talented people who’ve worked at Avast.</h1>
       </div>
-      <div className="grid grid-cols-1 gap-5 px-[5vw] pt-14 sm:grid-cols-2  lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
+      {/* <div className="grid grid-cols-1 gap-5 px-[5vw] pt-14 sm:grid-cols-2  lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
         <PostFeed entries={entries} />
+      </div> */}
+      <div className="flex flex-col px-[5vw] pt-14 sm:flex-row sm:gap-5 lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
+        <div className="sm:w-1/2">
+          <PostFeed entries={colA} />
+        </div>
+        <div className="sm:w-1/2">
+          <PostFeed entries={colB} />
+        </div>
       </div>
     </>
   );

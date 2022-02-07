@@ -1,6 +1,10 @@
 export default function PostFeed({ entries }) {
   return entries
-    ? entries.map((item) => <PostItem entry={item} key={item.id} />)
+    ? entries.map((item) => (
+        <div key={item.id} className="pb-5">
+          <PostItem entry={item} key={item.id} />
+        </div>
+      ))
     : null;
 }
 
