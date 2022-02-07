@@ -20,11 +20,15 @@ export async function getServerSideProps() {
 
 export default function Home(props) {
   const [entries, setEntries] = useState(props.entries);
+  console.log('entries', entries);
+
+  // sort is a mutable fn, but with sppread we make a copy first
+  const shuffle = [...entries].sort(() => Math.random() - 0.5);
+  console.log('shuffeled entries', shuffle);
 
   const length = entries.length;
   // Takes the whole number
   const firstHalf = Math.floor(length / 2);
-  const secondHalf = length - firstHalf;
 
   const colA = entries.slice(0, firstHalf);
   const colB = entries.slice(firstHalf, length);
