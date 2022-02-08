@@ -1,7 +1,10 @@
 import React from 'react';
-import { Formik, Form, useField, Field } from 'formik';
+import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
+
+import { useContext, useEffect } from 'react';
+import { UserContext } from '../lib/contexts/user-context';
 
 const TextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -127,232 +130,251 @@ const MySelect = ({ label, ...props }) => {
 };
 
 export default function AddTextForm({ zIndex, onSubmit }) {
+  const { entryCheck } = useContext(UserContext);
+
   return (
-    <>
-      <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          department: '',
-          jobTitle: '',
-          company: '',
-          location: '',
-          linkedIn: '',
-          otherURL: '',
-          remoteWork: false,
-          relocation: false,
-          aboutYou: '',
-        }}
-        validationSchema={Yup.object({
-          firstName: Yup.string()
-            .max(15, 'Must be 15 characters or less')
-            .required('Required'),
-          lastName: Yup.string()
-            .max(20, 'Must be 20 characters or less')
-            .required('Required'),
-          jobTitle: Yup.string()
-            .max(50, 'Must be 50 characters or less')
-            .required('Required'),
-          company: Yup.string()
-            .oneOf(['Avast', 'Norton', 'Other'])
-            .required('Required'),
-          department: Yup.string().required('Required'),
-          location: Yup.string().required('Required'),
-          linkedIn: Yup.string().matches(
-            /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
-            'Enter correct url'
-          ),
-          otherURL: Yup.string().matches(
-            /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
-            'Enter correct url'
-          ),
-        })}
-        // onSubmit={(values, { setSubmitting }) => {
-        //   setTimeout(() => {
-        //     alert(JSON.stringify(values, null, 2));
-        //     setSubmitting(false);
-        //   }, 500);
-        // }}
-        onSubmit={onSubmit}
-      >
-        <>
-          <div
-            // Blue background
-            className={`fixed top-0 right-0 bottom-0 left-0 h-full w-full ${zIndex}
+    <Formik
+      enableReinitialize={true}
+      setFieldValue
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        department: '',
+        jobTitle: '',
+        company: '',
+        location: '',
+        linkedIn: '',
+        otherURL: '',
+        remoteWork: false,
+        relocation: false,
+        aboutYou: '',
+      }}
+      validationSchema={Yup.object({
+        firstName: Yup.string()
+          .max(15, 'Must be 15 characters or less')
+          .required('Required'),
+        lastName: Yup.string()
+          .max(20, 'Must be 20 characters or less')
+          .required('Required'),
+        jobTitle: Yup.string()
+          .max(50, 'Must be 50 characters or less')
+          .required('Required'),
+        company: Yup.string()
+          .oneOf(['Avast', 'Norton', 'Other'])
+          .required('Required'),
+        department: Yup.string().required('Required'),
+        location: Yup.string().required('Required'),
+        linkedIn: Yup.string().matches(
+          /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
+          'Enter correct url'
+        ),
+        otherURL: Yup.string().matches(
+          /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
+          'Enter correct url'
+        ),
+      })}
+      onSubmit={onSubmit}
+    >
+      {({ setFieldValue, initialValues }) => {
+        /// is there a way how to go around not using the lintrule?
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+          if (entryCheck) {
+            const fields = Object.keys(initialValues);
+            fields.forEach((field) =>
+              setFieldValue(field, entryCheck.values[field], false)
+            );
+          }
+        }, []);
+
+        return (
+          <>
+            <div
+              // Blue background
+              className={`fixed top-0 right-0 bottom-0 left-0 h-full w-full ${zIndex}
                           bg-secondary cursor-default 
                           opacity-100`}
-          ></div>
-          <div
-            // White window
-            className={`${zIndex} bg-primary mt-10 flex
+            ></div>
+            <div
+              // White window
+              className={`${zIndex} bg-primary mt-10 flex
              flex-col gap-4 rounded-lg  px-14 pt-14
                   pb-14  shadow-md`}
-          >
-            <h1 className="text-3xl text-gray-900">Welcome.</h1>
-            <Form className="flex flex-col gap-8">
-              <div
-                // Full name
-                className="flex flex-row gap-6 "
-              >
-                <div className="flex flex-col ">
-                  <MyTextInputRequired
-                    label="First Name"
-                    name="firstName"
-                    type="text"
-                    placeholder="Ondrej"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <MyTextInputRequired
-                    label="Last Name"
-                    name="lastName"
-                    type="text"
-                    placeholder="Drapalik"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div
-                // Info about your work
-                className="flex flex-col gap-3"
-              >
-                <div className="flex flex-row items-end justify-between">
-                  <MySelect
-                    label="Department"
-                    name="department"
-                    className="flex flex-col "
-                    required
-                  >
-                    <option disabled value="" className="text-gray-400">
-                      My department
-                    </option>
-                    <option value="designer">Designer</option>
-                    <option value="development">Developer</option>
-                    <option value="product">Product Manager</option>
-                    <option value="other">Other</option>
-                  </MySelect>
+            >
+              <h1 className="text-3xl text-gray-900">Welcome.</h1>
+              <Form className="flex flex-col gap-8">
+                <div
+                  // Full name
+                  className="flex flex-row gap-6 "
+                >
+                  <div className="flex flex-col ">
+                    <MyTextInputRequired
+                      label="First Name"
+                      name="firstName"
+                      type="text"
+                      placeholder="Ondrej"
+                      required
+                    />
+                  </div>
                   <div className="flex flex-col">
                     <MyTextInputRequired
-                      label="Job Title"
-                      name="jobTitle"
+                      label="Last Name"
+                      name="lastName"
                       type="text"
-                      placeholder="Marketing Communication Specialist"
+                      placeholder="Drapalik"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="flex flex-row justify-between">
-                  <MySelect
-                    label="Company"
-                    name="company"
-                    className="flex flex-col"
-                    required
-                  >
-                    <option disabled value="" className="text-gray-400">
-                      My company
-                    </option>
-                    <option value="Avast">Avast</option>
-                    <option value="Norton">Norton</option>
-                    <option value="Other">Other</option>
-                  </MySelect>
+                <div
+                  // Info about your work
+                  className="flex flex-col gap-3"
+                >
+                  <div className="flex flex-row items-end justify-between">
+                    <MySelect
+                      label="Department"
+                      name="department"
+                      className="flex flex-col "
+                      required
+                    >
+                      <option
+                        disabled
+                        selected
+                        value=""
+                        className="text-gray-400"
+                      >
+                        My department
+                      </option>
+                      <option value="designer">Designer</option>
+                      <option value="development">Developer</option>
+                      <option value="product">Product Manager</option>
+                      <option value="other">Other</option>
+                    </MySelect>
 
-                  <MySelect
-                    label="Location"
-                    name="location"
-                    className="flex flex-col "
-                    required
-                  >
-                    <option disabled selected value="">
-                      My location
-                    </option>
-                    <option value="designer">Designer</option>
-                    <option value="development">Developer</option>
-                    <option value="product">Product Manager</option>
-                    <option value="other">Other</option>
-                  </MySelect>
+                    <div className="flex flex-col">
+                      <MyTextInputRequired
+                        label="Job Title"
+                        name="jobTitle"
+                        type="text"
+                        placeholder="Marketing Communication Specialist"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row justify-between">
+                    <MySelect
+                      label="Company"
+                      name="company"
+                      className="flex flex-col"
+                      required
+                    >
+                      <option
+                        disabled
+                        selected
+                        value=""
+                        className="text-gray-400"
+                      >
+                        My company
+                      </option>
+                      <option value="Avast">Avast</option>
+                      <option value="Norton">Norton</option>
+                      <option value="Other">Other</option>
+                    </MySelect>
+
+                    <MySelect
+                      label="Location"
+                      name="location"
+                      className="flex flex-col "
+                      required
+                    >
+                      <option disabled selected value="">
+                        My location
+                      </option>
+                      <option value="designer">Designer</option>
+                      <option value="development">Developer</option>
+                      <option value="product">Product Manager</option>
+                      <option value="other">Other</option>
+                    </MySelect>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                // Links
-                className="flex flex-row justify-between"
-              >
-                <div className="flex flex-col">
-                  <MyTextInput
-                    label="LinkedIn URL"
-                    name="linkedIn"
+                <div
+                  // Links
+                  className="flex flex-row justify-between"
+                >
+                  <div className="flex flex-col">
+                    <MyTextInput
+                      label="LinkedIn URL"
+                      name="linkedIn"
+                      type="text"
+                      placeholder="linkedin.com/in/ondrej-drapalik-65a071a5/"
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <MyTextInput
+                      label="Other URL"
+                      name="otherURL"
+                      type="text"
+                      placeholder="github.com/OndrejDrapalik"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <TextArea
+                    label="About you"
+                    name="aboutYou"
                     type="text"
-                    placeholder="linkedin.com/in/ondrej-drapalik-65a071a5/"
+                    placeholder="My text"
                   />
                 </div>
 
-                <div className="flex flex-col">
-                  <MyTextInput
-                    label="Other URL"
-                    name="otherURL"
-                    type="text"
-                    placeholder="github.com/OndrejDrapalik"
-                  />
+                <div>
+                  <MyCheckbox
+                    name="remoteWork"
+                    className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
+                      rounded-sm border-2 bg-contain"
+                  >
+                    <div>I am open to remote work.</div>
+                  </MyCheckbox>
+                  <MyCheckbox
+                    name="relocation"
+                    className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
+                      rounded-sm border-2 bg-contain"
+                  >
+                    <div>I am open to relocation.</div>
+                  </MyCheckbox>
                 </div>
-              </div>
 
-              <div>
-                <TextArea
-                  label="About you"
-                  name="aboutYou"
-                  type="text"
-                  placeholder="My text"
-                  rows="3"
-                />
-              </div>
-
-              <div
-              // Checkboxes
-              >
-                <MyCheckbox
-                  name="remoteWork"
-                  className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
-                      rounded-sm border-2 bg-contain"
+                <div
+                  // Buttons
+                  className="flex items-center justify-between gap-4"
                 >
-                  <div>I am open to remote work.</div>
-                </MyCheckbox>
-                <MyCheckbox
-                  name="relocation"
-                  className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
-                      rounded-sm border-2 bg-contain"
-                >
-                  <div>I am open to relocation.</div>
-                </MyCheckbox>
-              </div>
-
-              <div
-                // Buttons
-                className="flex items-center justify-between gap-4"
-              >
-                <Link href={'/'} passHref>
+                  <Link href={'/'} passHref>
+                    <button
+                      type="reset"
+                      className="rounded-md bg-gray-200 px-12
+                            py-2"
+                    >
+                      Cancel
+                    </button>
+                  </Link>
                   <button
-                    type="reset"
-                    className="rounded-md bg-gray-200 px-12
+                    type="submit"
+                    className="rounded-md bg-green-500 px-12
                             py-2"
                   >
-                    Cancel
+                    Submit
                   </button>
-                </Link>
-                <button
-                  type="submit"
-                  className="rounded-md bg-green-500 px-12
-                            py-2"
-                >
-                  Submit
-                </button>
-              </div>
-            </Form>
-          </div>
-        </>
-      </Formik>
-    </>
+                </div>
+              </Form>
+            </div>
+          </>
+        );
+      }}
+    </Formik>
   );
 }

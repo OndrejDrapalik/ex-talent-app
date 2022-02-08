@@ -35,6 +35,7 @@ export default function Navbar() {
   };
 
   // const entryDoc = true;
+  console.log('entryCheck', entryCheck);
 
   return (
     <>

@@ -1,23 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../lib/contexts/app-context';
+import { UserContext } from '../../lib/contexts/user-context';
 
 import GrayOverlay from '../../components/GrayOverlay';
 import AddTextForm from '../../components/AddTextForm';
 
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
-const entryRef = firestore
-  .collection('users')
-  .doc(auth.currentUser.uid)
-  .collection('entry collection')
-  .doc('entry doc');
-
 export default function EntryPage({}) {
+  const { user } = useContext(UserContext);
   const { entry, setEntry } = useContext(AppContext);
 
+  const entryRef = firestore
+    .collection('users')
+    .doc(user.uid)
+    .collection('entry collection')
+    .doc('entry doc');
+
   const handleFormikSubmit = async (values) => {
-    // alert(JSON.stringify(values, null, 2));
-    await entryRef.set({
+    alert(JSON.stringify(values, null, 2));
+    await entryRef.update({
       values,
       updatedAt: serverTimestamp(),
       id: auth.currentUser.uid,

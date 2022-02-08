@@ -2,7 +2,7 @@ export default function PostFeed({ entries }) {
   return entries
     ? entries.map((item) => (
         <div key={item.id} className="pb-5">
-          <PostItem entry={item} key={item.id} />
+          <PostItem entry={item} />
         </div>
       ))
     : null;
