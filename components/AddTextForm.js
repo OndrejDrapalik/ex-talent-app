@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../lib/contexts/user-context';
 
+import Autocomplete, { usePlacesWidget } from 'react-google-autocomplete';
+
 const TextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
@@ -139,6 +141,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       initialValues={{
         firstName: '',
         lastName: '',
+        country: '',
+        countryAnother: '',
         department: '',
         jobTitle: '',
         company: '',
@@ -175,7 +179,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       })}
       onSubmit={onSubmit}
     >
-      {({ setFieldValue, initialValues }) => {
+      {({ setFieldValue, initialValues, handleChange, values }) => {
         /// is there a way how to go around not using the lintrule?
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
@@ -186,6 +190,17 @@ export default function AddTextForm({ zIndex, onSubmit }) {
             );
           }
         }, []);
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { ref } = usePlacesWidget({
+          apiKey: process.env.GOOGLE_MAPS_API_KEY,
+          onPlaceSelected: (place) => {
+            console.log('ref', ref);
+            setFieldValue('country', place.formatted_address);
+          },
+        });
+
+        console.log('ref', ref);
 
         return (
           <>
@@ -214,12 +229,35 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     className="flex flex-row gap-6 "
                   >
                     <div className="flex flex-col ">
-                      <MyTextInputRequired
+                      {/* <MyTextInputRequired
                         label="First Name"
                         name="firstName"
                         type="text"
                         placeholder="Ondrej"
                         required
+                      /> */}
+                      <MyTextInput
+                        color="secondary"
+                        variant="outlined"
+                        inputref={ref}
+                        id="country"
+                        name="country"
+                        placeholder="Country"
+                        onChange={handleChange}
+                        value={values.country}
+                      />
+                      <Autocomplete
+                        id="countryAnother"
+                        placeholder="countryAnother"
+                        apiKey={process.env.GOOGLE_MAPS_API_KEY}
+                        onPlaceSelected={(place) =>
+                          setFieldValue(
+                            'countryAnother',
+                            place.formatted_address
+                          )
+                        }
+                        onChange={handleChange}
+                        value={values.countryAnother}
                       />
                     </div>
                     <div className="flex flex-col">
@@ -248,9 +286,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       </div>
                       <div className="flex flex-col">
                         <MyTextInputRequired
-                          label="Country"
+                          label="Countryyy"
                           type="text"
-                          name="country"
+                          name="countryyy"
                           placeholder="Prague"
                           required
                         ></MyTextInputRequired>
@@ -281,7 +319,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     >
                       <option
                         disabled
-                        selected
+                        // selected
                         value=""
                         className="text-gray-400"
                       >
@@ -302,7 +340,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     >
                       <option
                         disabled
-                        selected
+                        // selected
                         value=""
                         className="text-gray-400"
                       >
