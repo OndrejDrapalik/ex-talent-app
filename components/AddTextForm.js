@@ -201,29 +201,61 @@ export default function AddTextForm({ zIndex, onSubmit }) {
              flex-col gap-4 rounded-lg  px-14 pt-14
                   pb-14  shadow-md`}
             >
-              <h1 className="text-3xl text-gray-900">Welcome.</h1>
+              <h1 className="text-3xl text-gray-900">
+                {entryCheck ? 'Edit you entry' : 'Add your entry'}
+              </h1>
               <Form className="flex flex-col gap-8">
                 <div
-                  // Full name
-                  className="flex flex-row gap-6 "
+                  // Personal info group
+                  className="flex flex-col gap-3"
                 >
-                  <div className="flex flex-col ">
-                    <MyTextInputRequired
-                      label="First Name"
-                      name="firstName"
-                      type="text"
-                      placeholder="Ondrej"
-                      required
-                    />
+                  <div
+                    // Full name
+                    className="flex flex-row gap-6 "
+                  >
+                    <div className="flex flex-col ">
+                      <MyTextInputRequired
+                        label="First Name"
+                        name="firstName"
+                        type="text"
+                        placeholder="Ondrej"
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <MyTextInputRequired
+                        label="Last Name"
+                        name="lastName"
+                        type="text"
+                        placeholder="Drapalik"
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <MyTextInputRequired
-                      label="Last Name"
-                      name="lastName"
-                      type="text"
-                      placeholder="Drapalik"
-                      required
-                    />
+
+                  <div
+                  // Address
+                  >
+                    <div className="flex flex-row justify-between">
+                      <div className="flex flex-col">
+                        <MyTextInputRequired
+                          label="City"
+                          type="text"
+                          name="city"
+                          placeholder="Prague"
+                          required
+                        ></MyTextInputRequired>
+                      </div>
+                      <div className="flex flex-col">
+                        <MyTextInputRequired
+                          label="Country"
+                          type="text"
+                          name="country"
+                          placeholder="Prague"
+                          required
+                        ></MyTextInputRequired>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -232,6 +264,15 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   className="flex flex-col gap-3"
                 >
                   <div className="flex flex-row items-end justify-between">
+                    <div className="flex flex-col">
+                      <MyTextInputRequired
+                        label="Job Title"
+                        name="jobTitle"
+                        type="text"
+                        placeholder="Marketing Communication Specialist"
+                        required
+                      />
+                    </div>
                     <MySelect
                       label="Department"
                       name="department"
@@ -251,19 +292,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       <option value="product">Product Manager</option>
                       <option value="other">Other</option>
                     </MySelect>
-
-                    <div className="flex flex-col">
-                      <MyTextInputRequired
-                        label="Job Title"
-                        name="jobTitle"
-                        type="text"
-                        placeholder="Marketing Communication Specialist"
-                        required
-                      />
-                    </div>
                   </div>
-
-                  <div className="flex flex-row justify-between">
+                  <div className="flex flex-col">
                     <MySelect
                       label="Company"
                       name="company"
@@ -281,21 +311,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       <option value="Avast">Avast</option>
                       <option value="Norton">Norton</option>
                       <option value="Other">Other</option>
-                    </MySelect>
-
-                    <MySelect
-                      label="Location"
-                      name="location"
-                      className="flex flex-col "
-                      required
-                    >
-                      <option disabled selected value="">
-                        My location
-                      </option>
-                      <option value="designer">Designer</option>
-                      <option value="development">Developer</option>
-                      <option value="product">Product Manager</option>
-                      <option value="other">Other</option>
                     </MySelect>
                   </div>
                 </div>

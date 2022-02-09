@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../lib/contexts/app-context';
 import { UserContext } from '../../lib/contexts/user-context';
 
-import GrayOverlay from '../../components/GrayOverlay';
+import GrayOverlay from '../../components/NavbarComponents/HelperComponents/GrayOverlay';
 import AddTextForm from '../../components/AddTextForm';
 
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
@@ -19,7 +19,7 @@ export default function EntryPage({}) {
 
   const handleFormikSubmit = async (values) => {
     alert(JSON.stringify(values, null, 2));
-    await entryRef.update({
+    await entryRef.set({
       values,
       updatedAt: serverTimestamp(),
       id: auth.currentUser.uid,
