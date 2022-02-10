@@ -17,7 +17,7 @@ const PostItem = ({ entry }) => {
       >
         <div>{entry.values.firstName}</div>
         <div>{entry.values.jobTitle}</div>
-        <div>{entry.values.aboutYou}</div>
+        <div className="whitespace-pre-line">{entry.values.aboutYou}</div>
       </div>
     </>
   );

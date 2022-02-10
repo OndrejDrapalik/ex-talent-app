@@ -1,10 +1,10 @@
 import React from 'react';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
-import Link from 'next/link';
 
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../lib/contexts/user-context';
+import { useRouter } from 'next/router';
 
 import Autocomplete from 'react-google-autocomplete';
 import useGoogle from 'react-google-autocomplete/lib/usePlacesAutocompleteService';
@@ -46,12 +46,12 @@ const MyTextInput = ({ label, ...props }) => {
       </label>
 
       <input
-        className="text-input h-7 w-[275px]  rounded-sm border  bg-gray-100
-        pl-1
-        text-gray-900 placeholder-gray-400
-        autofill:bg-white autofill:text-gray-700  
-        focus:border-green-500 focus:bg-white
-        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
+        className="text-input h-7 min-w-fit rounded-sm  border bg-gray-100  pl-1
+        text-gray-900
+        placeholder-gray-400 autofill:bg-white
+        autofill:text-gray-700 focus:border-green-500  
+        focus:bg-white focus:placeholder-white
+        focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
         {...field}
         {...props}
       />
@@ -67,19 +67,20 @@ const MyTextInputRequired = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
+        className="text-sm text-gray-400 after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
 
       <input
-        className="text-input h-7 w-[275px] rounded-sm border bg-gray-100
-        pl-1
-        text-gray-900 placeholder-gray-400
-        autofill:bg-white autofill:text-gray-700  
-        focus:border-green-500 focus:bg-white
-        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
+        className="text-input h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
+        
+        text-gray-900
+        placeholder-gray-400 autofill:bg-white
+        autofill:text-gray-700 focus:border-green-500  
+        focus:bg-white focus:placeholder-white
+        focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
         {...field}
         {...props}
       />
@@ -122,8 +123,8 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="flex  h-7 w-[275px] rounded-sm border bg-gray-100  text-gray-900
-                    invalid:text-gray-400"
+        className="flex h-7 min-w-full rounded-sm border bg-gray-100 text-gray-900 invalid:text-gray-400  md:w-[275px]
+                    md:min-w-fit"
       />
       {meta.touched && meta.error ? (
         <div className="error absolute mt-[1px]">{meta.error}</div>
@@ -134,6 +135,7 @@ const MySelect = ({ label, ...props }) => {
 
 export default function AddTextForm({ zIndex, onSubmit }) {
   const { entryCheck } = useContext(UserContext);
+  const router = useRouter();
 
   return (
     <Formik
@@ -161,7 +163,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         lastName: Yup.string()
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
-        // City needs validation!
         jobTitle: Yup.string()
           .max(50, 'Must be 50 characters or less')
           .required('Required'),
@@ -181,6 +182,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       onSubmit={onSubmit}
       handleChange
 
+      // Debugging kit
       // validator={() => ({})}
       // onSubmit={() => {
       //   console.log('submit!');
@@ -223,21 +225,30 @@ export default function AddTextForm({ zIndex, onSubmit }) {
             ></div>
             <div
               // White window
-              className={`${zIndex} bg-primary mt-10 flex
-             flex-col gap-4 rounded-lg  px-14 pt-14
-                  pb-14  shadow-md`}
+              className={`${zIndex} bg-primary px-[5vw]sm:flex-col  
+                        mt-16 flex flex-col gap-4  
+                        rounded-lg px-[12vw] pt-14 
+                        pb-14 md:px-[5vw] lg:px-[6vw] xl:px-[7vw] 2xl:px-[8vw]
+                  `}
             >
-              <h1 className="text-3xl text-gray-900">
+              <h1 className="flex text-3xl text-gray-900">
                 {entryCheck ? 'Edit you entry' : 'Add your entry'}
               </h1>
-              <Form className="flex flex-col gap-8">
+              <Form
+                onKeyUp={(e) => {
+                  e.key === 'Escape' && router.push('/');
+                }}
+                className="flex flex-col gap-8"
+              >
                 <div
                   // Personal info group
                   className="flex flex-col gap-4"
                 >
                   <div
                     // Full name
-                    className="flex flex-row gap-6 "
+                    className="md: flex flex-col gap-4 md:flex-row
+                              md:gap-6
+                              "
                   >
                     <div className="flex flex-col ">
                       <MyTextInputRequired
@@ -269,16 +280,19 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       City
                     </label>
                     <Autocomplete
-                      className="text-input flex h-7 w-[275px] rounded-sm border bg-gray-100
-                                    pl-1
-                                    text-gray-900 placeholder-gray-400
-                                    autofill:bg-white autofill:text-gray-700  
-                                    focus:border-green-500 focus:bg-white
-                                    focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
+                      className="text-input flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
+                                    text-gray-900
+                                    placeholder-gray-400 autofill:bg-white
+                                    autofill:text-gray-700 focus:border-green-500  
+                                    focus:bg-white focus:placeholder-white
+                                    focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
                       id="city"
                       placeholder="My city"
                       language="en"
                       name="city"
+                      onKeyPress={(e) => {
+                        e.key === 'Enter' && e.preventDefault();
+                      }}
                       value={values.city}
                       apiKey={process.env.GOOGLE_MAPS_API_KEY}
                       onPlaceSelected={(place) => {
@@ -289,10 +303,17 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                           'justCity',
                           place.address_components[0].long_name
                         );
-                        setFieldValue(
-                          'justCountry',
-                          place.address_components[3].long_name
-                        );
+                        if (place.address_components.length < 4) {
+                          setFieldValue(
+                            'justCountry',
+                            place.address_components[2].long_name
+                          );
+                        } else {
+                          setFieldValue(
+                            'justCountry',
+                            place.address_components[3].long_name
+                          );
+                        }
                       }}
                       onChange={handleChange}
                       options={{
@@ -306,6 +327,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       name="justCity"
                       type="text"
                       className="hidden"
+                      value={values.justCity}
                     />
                     <MyTextInput
                       // Invisible cmpnt
@@ -313,6 +335,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       name="justCountry"
                       type="text"
                       className="hidden"
+                      value={values.justCountry}
                     />
                     {/* <div
                       // react-google-autocomplete –> custom implementation part 2
@@ -352,9 +375,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                 <div
                   // Info about your work
-                  className="flex flex-col gap-3"
+                  className="flex flex-col gap-4"
                 >
-                  <div className="flex flex-row items-end justify-between">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                     <div className="flex flex-col">
                       <MyTextInputRequired
                         label="Job Title"
@@ -378,10 +401,63 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       >
                         My department
                       </option>
-                      <option value="designer">Designer</option>
-                      <option value="development">Developer</option>
-                      <option value="product">Product Manager</option>
-                      <option value="other">Other</option>
+                      <option value="">All functions</option>
+                      <option value="Accounting / Auditing">
+                        Accounting / Auditing
+                      </option>
+                      <option value="Administrative">Administrative</option>
+                      <option value="Advertising">Advertising</option>
+                      <option value="Analyst">Analyst</option>
+                      <option value="Art / Creative">Art / Creative</option>
+                      <option value="Business Development">
+                        Business Development
+                      </option>
+                      <option value="Consulting">Consulting</option>
+                      <option value="Customer Service">Customer Service</option>
+                      <option value="Data Science">Data Science</option>
+                      <option value="Design">Design</option>
+                      <option value="Distribution">Distribution</option>
+                      <option value="Education">Education</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Finance">Finance</option>
+                      <option value="General Business">General Business</option>
+                      <option value="Healthcare Provider">
+                        Healthcare Provider
+                      </option>
+                      <option value="Human Resources">Human Resources</option>
+                      <option value="Information Technology">
+                        Information Technology
+                      </option>
+                      <option value="Legal">Legal</option>
+                      <option value="Management">Management</option>
+                      <option value="Manufacturing">Manufacturing</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Other">Other</option>
+                      <option value="Policy">Policy</option>
+                      <option value="Product Management">
+                        Product Management
+                      </option>
+                      <option value="Production">Production</option>
+                      <option value="Project Management">
+                        Project Management
+                      </option>
+                      <option value="Public Relations">Public Relations</option>
+                      <option value="Purchasing">Purchasing</option>
+                      <option value="Quality Assurance">
+                        Quality Assurance
+                      </option>
+                      <option value="Recruiting">Recruiting</option>
+                      <option value="Research">Research</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Science">Science</option>
+                      <option value="Strategy / Planning">
+                        Strategy / Planning
+                      </option>
+                      <option value="Supply Chain">Supply Chain</option>
+                      <option value="Training">Training</option>
+                      <option value="Writing / Editing">
+                        Writing / Editing
+                      </option>
                     </MySelect>
                   </div>
                   <div className="flex flex-col">
@@ -408,14 +484,14 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                 <div
                   // Links
-                  className="flex flex-row justify-between"
+                  className="flex flex-col gap-4 md:flex-row md:justify-between"
                 >
                   <div className="flex flex-col">
                     <MyTextInput
                       label="LinkedIn URL"
                       name="linkedIn"
                       type="text"
-                      placeholder="linkedin.com/in/ondrej-drapalik-65a071a5/"
+                      placeholder="linkedin.com/in/ondrejdrapalik/"
                     />
                   </div>
 
@@ -459,17 +535,17 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   // Buttons
                   className="flex items-center justify-between gap-4"
                 >
-                  <Link href={'/'} passHref>
-                    <button
-                      type="reset"
-                      className="rounded-md bg-gray-200 px-12
+                  <button
+                    type="reset"
+                    onClick={() => router.push('/')}
+                    className="rounded-md bg-gray-200 px-12
                             py-2"
-                    >
-                      Cancel
-                    </button>
-                  </Link>
+                  >
+                    Cancel
+                  </button>
 
                   <button
+                    onClick={() => router.push('/')}
                     type="submit"
                     className="rounded-md bg-green-500 px-12
                             py-2"

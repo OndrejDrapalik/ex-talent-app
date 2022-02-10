@@ -28,6 +28,7 @@ export default function EntryPage({}) {
 
   return (
     <div className="flex flex-col items-center">
+      {/* Deprecated ?*/}
       {entry && <GrayOverlay zIndex="z-20" />}
 
       <AddTextForm
