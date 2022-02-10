@@ -3,10 +3,11 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../lib/contexts/user-context';
 
 import Autocomplete from 'react-google-autocomplete';
+import useGoogle from 'react-google-autocomplete/lib/usePlacesAutocompleteService';
 
 const TextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -142,10 +143,11 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         firstName: '',
         lastName: '',
         city: '',
+        justCity: '',
+        justCountry: '',
         department: '',
         jobTitle: '',
         company: '',
-        location: '',
         linkedIn: '',
         otherURL: '',
         remoteWork: false,
@@ -196,6 +198,21 @@ export default function AddTextForm({ zIndex, onSubmit }) {
           }
         }, [initialValues, setFieldValue]);
 
+        {
+          /* // react-google-autocomplete –> custom implementation part 1
+        const {
+          placePredictions,
+          getPlacePredictions,
+          isPlacePredictionsLoading,
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+        } = useGoogle({
+          apiKey: process.env.REACT_APP_GOOGLE,
+        });
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const [value, setValue] = useState('');
+        console.log('placePredictions', placePredictions); */
+        }
+
         return (
           <>
             <div
@@ -231,6 +248,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                         required
                       />
                     </div>
+
                     <div className="flex flex-col">
                       <MyTextInputRequired
                         label="Last Name"
@@ -243,7 +261,11 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
+                    <label
+                      // react-google-autocomplete –> formik example - easier, straightforward implementation
+
+                      className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
+                    >
                       City
                     </label>
                     <Autocomplete
@@ -257,13 +279,74 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       placeholder="My city"
                       language="en"
                       name="city"
-                      apiKey={process.env.GOOGLE_MAPS_API_KEY}
-                      onPlaceSelected={(place) =>
-                        setFieldValue('city', place.formatted_address)
-                      }
                       value={values.city}
+                      apiKey={process.env.GOOGLE_MAPS_API_KEY}
+                      onPlaceSelected={(place) => {
+                        console.log('place:', place);
+
+                        setFieldValue('city', place.formatted_address);
+                        setFieldValue(
+                          'justCity',
+                          place.address_components[0].long_name
+                        );
+                        setFieldValue(
+                          'justCountry',
+                          place.address_components[3].long_name
+                        );
+                      }}
                       onChange={handleChange}
+                      options={{
+                        types: ['(cities)'],
+                      }}
                     />
+
+                    <MyTextInput
+                      // Invisible cmpnt
+                      onChange={handleChange}
+                      name="justCity"
+                      type="text"
+                      className="hidden"
+                    />
+                    <MyTextInput
+                      // Invisible cmpnt
+                      onChange={handleChange}
+                      name="justCountry"
+                      type="text"
+                      className="hidden"
+                    />
+                    {/* <div
+                      // react-google-autocomplete –> custom implementation part 2
+                      className="flex flex-col "
+                    >
+                      <MyTextInputRequired
+                        label="City"
+                        name="city"
+                        type="text"
+                        autocomplete="chrome-off"
+                        placeholder="My city"
+                        onChange={(evt) => {
+                          getPlacePredictions({ input: evt.target.value });
+                          setFieldValue('city', evt.target.values);
+                          handleChange;
+                        }}
+                        value={values.city}
+                      />
+                    </div>
+                    <div>
+                      {!isPlacePredictionsLoading &&
+                        placePredictions.map((item) => (
+                          // Can we further customised
+                          <li
+                            key={item.description}
+                            onClick={() => {
+                              setFieldValue('city', item.description);
+                              getPlacePredictions({ input: '' });
+                            }}
+                          >
+                            {item.description}
+                          </li>
+                        ))}
+                    </div> */}
                   </div>
                 </div>
 
