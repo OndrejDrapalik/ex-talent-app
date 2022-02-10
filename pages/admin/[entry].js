@@ -13,7 +13,7 @@ export default function EntryPage({}) {
 
   const entryRef = firestore
     .collection('users')
-    .doc(user.uid)
+    .doc(auth.currentUser.uid)
     .collection('entry collection')
     .doc('entry doc');
 

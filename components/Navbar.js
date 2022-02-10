@@ -22,7 +22,7 @@ export default function Navbar() {
     await saveData(userObject);
   };
 
-  const saveData = async (props) => {
+  const saveData = (props) => {
     const userData = props.user.multiFactor.user;
     console.log('logged in user', userData);
     const userDoc = firestore.doc(`users/${userData.uid}`);

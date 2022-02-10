@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../lib/contexts/user-context';
 
-import Autocomplete, { usePlacesWidget } from 'react-google-autocomplete';
+import Autocomplete from 'react-google-autocomplete';
 
 const TextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -141,8 +141,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       initialValues={{
         firstName: '',
         lastName: '',
-        country: '',
-        countryAnother: '',
+        city: '',
         department: '',
         jobTitle: '',
         company: '',
@@ -160,6 +159,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         lastName: Yup.string()
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
+        // City needs validation!
         jobTitle: Yup.string()
           .max(50, 'Must be 50 characters or less')
           .required('Required'),
@@ -167,7 +167,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
           .oneOf(['Avast', 'Norton', 'Other'])
           .required('Required'),
         department: Yup.string().required('Required'),
-        location: Yup.string().required('Required'),
         linkedIn: Yup.string().matches(
           /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
           'Enter correct url'
@@ -178,8 +177,14 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         ),
       })}
       onSubmit={onSubmit}
+      handleChange
+
+      // validator={() => ({})}
+      // onSubmit={() => {
+      //   console.log('submit!');
+      // }}
     >
-      {({ setFieldValue, initialValues, handleChange, values }) => {
+      {({ props, setFieldValue, initialValues, handleChange, values }) => {
         /// is there a way how to go around not using the lintrule?
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
@@ -189,18 +194,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
               setFieldValue(field, entryCheck.values[field], false)
             );
           }
-        }, []);
-
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const { ref } = usePlacesWidget({
-          apiKey: process.env.GOOGLE_MAPS_API_KEY,
-          onPlaceSelected: (place) => {
-            console.log('ref', ref);
-            setFieldValue('country', place.formatted_address);
-          },
-        });
-
-        console.log('ref', ref);
+        }, [initialValues, setFieldValue]);
 
         return (
           <>
@@ -222,42 +216,19 @@ export default function AddTextForm({ zIndex, onSubmit }) {
               <Form className="flex flex-col gap-8">
                 <div
                   // Personal info group
-                  className="flex flex-col gap-3"
+                  className="flex flex-col gap-4"
                 >
                   <div
                     // Full name
                     className="flex flex-row gap-6 "
                   >
                     <div className="flex flex-col ">
-                      {/* <MyTextInputRequired
+                      <MyTextInputRequired
                         label="First Name"
                         name="firstName"
                         type="text"
                         placeholder="Ondrej"
                         required
-                      /> */}
-                      <MyTextInput
-                        color="secondary"
-                        variant="outlined"
-                        inputref={ref}
-                        id="country"
-                        name="country"
-                        placeholder="Country"
-                        onChange={handleChange}
-                        value={values.country}
-                      />
-                      <Autocomplete
-                        id="countryAnother"
-                        placeholder="countryAnother"
-                        apiKey={process.env.GOOGLE_MAPS_API_KEY}
-                        onPlaceSelected={(place) =>
-                          setFieldValue(
-                            'countryAnother',
-                            place.formatted_address
-                          )
-                        }
-                        onChange={handleChange}
-                        value={values.countryAnother}
                       />
                     </div>
                     <div className="flex flex-col">
@@ -271,29 +242,28 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </div>
                   </div>
 
-                  <div
-                  // Address
-                  >
-                    <div className="flex flex-row justify-between">
-                      <div className="flex flex-col">
-                        <MyTextInputRequired
-                          label="City"
-                          type="text"
-                          name="city"
-                          placeholder="Prague"
-                          required
-                        ></MyTextInputRequired>
-                      </div>
-                      <div className="flex flex-col">
-                        <MyTextInputRequired
-                          label="Countryyy"
-                          type="text"
-                          name="countryyy"
-                          placeholder="Prague"
-                          required
-                        ></MyTextInputRequired>
-                      </div>
-                    </div>
+                  <div className="flex flex-col">
+                    <label className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
+                      City
+                    </label>
+                    <Autocomplete
+                      className="text-input flex h-7 w-[275px] rounded-sm border bg-gray-100
+                                    pl-1
+                                    text-gray-900 placeholder-gray-400
+                                    autofill:bg-white autofill:text-gray-700  
+                                    focus:border-green-500 focus:bg-white
+                                    focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
+                      id="city"
+                      placeholder="My city"
+                      language="en"
+                      name="city"
+                      apiKey={process.env.GOOGLE_MAPS_API_KEY}
+                      onPlaceSelected={(place) =>
+                        setFieldValue('city', place.formatted_address)
+                      }
+                      value={values.city}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
@@ -415,6 +385,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       Cancel
                     </button>
                   </Link>
+
                   <button
                     type="submit"
                     className="rounded-md bg-green-500 px-12
