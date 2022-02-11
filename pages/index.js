@@ -1,27 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 
 import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 import PostFeed from '../components/PostFeed';
 import { FaFirstAid } from 'react-icons/fa';
 
-export async function getServerSideProps() {
-  const postQuery = firestore
-    .collectionGroup('entry collection')
-    .orderBy('id', 'desc');
+// export async function getServerSideProps() {
+//   const postQuery = firestore.collectionGroup('entry collection');
 
-  const entries = (await postQuery.get()).docs.map(postToJSON);
-  console.log(entries);
+//   const entries = (await postQuery.get()).docs.map(postToJSON);
 
-  return {
-    props: { entries },
-  };
-}
+//   return {
+//     props: { entries },
+//   };
+// }
 
 export default function Home(props) {
-  const [entries, setEntries] = useState(props.entries);
+  const [entries, setEntries] = useState([
+    {
+      //Featured profile aka spotlight featire - could be serverside rendered.
+      id: 'AN2saSPTmVUXdCPwIYSkUQow5ev2',
+      updatedAt: 1644527278414,
+      values: {
+        aboutYou: 'xxxyyyzzzzz\n"empty link"',
+        company: 'Avast',
+        relocation: false,
+        otherURL: 'https://soundcloud.com/paul-jane-446853655',
+        jobTitle: 'Music Producer',
+        firstName: 'Paul',
+        department: 'development',
+        linkedIn: '',
+        remoteWork: true,
+        lastName: 'Jane',
+      },
+    },
+  ]);
+  console.log(entries);
 
-  // sort is a mutable fn, but with sppread we make a copy first
+  useEffect(() => {
+    async function fetchData() {
+      let response = await firestore.collectionGroup('entry collection').get();
+      response = response.docs.map(postToJSON);
+      console.log('useEffect repsponse:', response);
+      setEntries(response);
+    }
+
+    fetchData();
+  }, []);
+
+  // // sort is a mutable fn, but with sppread we make a copy first
   const shuffle = [...entries].sort(() => Math.random() - 0.5);
 
   // Takes the whole number

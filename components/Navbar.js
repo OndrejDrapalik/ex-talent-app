@@ -88,7 +88,7 @@ export default function Navbar() {
                 <NavBarIcons
                   onClick={() => {
                     signInWithGoogle();
-                    setDropdown(!dropdown);
+                    setDropdown(false);
                   }}
                   icon={<FaUserPlus size="26" />}
                 />
