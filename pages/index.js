@@ -5,57 +5,42 @@ import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 import PostFeed from '../components/PostFeed';
 import { FaFirstAid } from 'react-icons/fa';
 
-// export async function getServerSideProps() {
-//   const postQuery = firestore.collectionGroup('entry collection');
+// SSR is used for inital render for better UX
+export async function getServerSideProps() {
+  const postQuery = firestore
+    .collectionGroup('entry collection')
+    .orderBy('id', 'asc');
 
-//   const entries = (await postQuery.get()).docs.map(postToJSON);
+  const firstLoad = (await postQuery.get()).docs.map(postToJSON);
 
-//   return {
-//     props: { entries },
-//   };
-// }
+  return {
+    props: { firstLoad },
+  };
+}
 
 export default function Home(props) {
-  const [entries, setEntries] = useState([
-    {
-      //Featured profile aka spotlight featire - could be serverside rendered.
-      id: 'AN2saSPTmVUXdCPwIYSkUQow5ev2',
-      updatedAt: 1644527278414,
-      values: {
-        aboutYou: 'xxxyyyzzzzz\n"empty link"',
-        company: 'Avast',
-        relocation: false,
-        otherURL: 'https://soundcloud.com/paul-jane-446853655',
-        jobTitle: 'Music Producer',
-        firstName: 'Paul',
-        department: 'development',
-        linkedIn: '',
-        remoteWork: true,
-        lastName: 'Jane',
-      },
-    },
-  ]);
-  console.log(entries);
+  const [firstData] = useState(props.firstLoad);
+  const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Once all data are fetched, we swap firstLoad data with entries that are further
+  // randomised
   useEffect(() => {
     async function fetchData() {
-      let response = await firestore.collectionGroup('entry collection').get();
-      response = response.docs.map(postToJSON);
-      console.log('useEffect repsponse:', response);
+      let response = await firstData;
       setEntries(response);
+      setLoading(false);
     }
 
     fetchData();
-  }, []);
+  }, [firstData]);
 
-  // // sort is a mutable fn, but with sppread we make a copy first
   const shuffle = [...entries].sort(() => Math.random() - 0.5);
-
-  // Takes the whole number
   const firstHalf = Math.floor(entries.length / 2);
 
-  const colA = shuffle.slice(0, firstHalf);
-  const colB = shuffle.slice(firstHalf, entries.length);
+  const colA = (loading ? firstData : shuffle).slice(0, firstHalf);
+  const colB = (loading ? firstData : shuffle).slice(firstHalf, entries.length);
+  console.log(loading ? 'loading firstLoad' : 'loading SHUFFLE');
 
   return (
     <>

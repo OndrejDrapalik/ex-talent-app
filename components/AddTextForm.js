@@ -293,7 +293,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       onKeyPress={(e) => {
                         e.key === 'Enter' && e.preventDefault();
                       }}
-                      value={values.city}
+                      value={values.city || ''}
                       apiKey={process.env.GOOGLE_MAPS_API_KEY}
                       onPlaceSelected={(place) => {
                         console.log('place:', place);
@@ -327,7 +327,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       name="justCity"
                       type="text"
                       className="hidden"
-                      value={values.justCity}
+                      value={values.justCity || ''}
                     />
                     <MyTextInput
                       // Invisible cmpnt
@@ -335,7 +335,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       name="justCountry"
                       type="text"
                       className="hidden"
-                      value={values.justCountry}
+                      value={values.justCountry || ''}
                     />
                     {/* <div
                       // react-google-autocomplete –> custom implementation part 2
