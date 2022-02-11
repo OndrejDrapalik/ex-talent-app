@@ -53,11 +53,11 @@ export default function Home(props) {
         <h1>Please meet some talented people who’ve worked at Avast.</h1>
       </div>
 
-      <div className="flex flex-col px-[5vw] pt-14 sm:flex-row sm:gap-5 lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
-        <div className="sm:w-1/2">
+      <div className="md: flex flex-col px-[5vw] pt-14  md:flex-row md:gap-5 lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
+        <div className="md:w-1/2 ">
           <PostFeed entries={colA} />
         </div>
-        <div className="sm:w-1/2">
+        <div className="md:w-1/2 ">
           <PostFeed entries={colB} />
         </div>
       </div>
