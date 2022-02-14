@@ -2,37 +2,37 @@ export default function AccountDropdown({ onClickSignOut }) {
   return (
     <div
       // The white background with shadow frame
-      className="absolute right-0 w-28 mt-28 rounded-lg shadow-xl z-20
-                bg-white cursor-pointer
+      className="absolute right-0 z-20 mt-16 w-28 cursor-pointer rounded-lg
+                bg-white shadow-xl
                 transition-all duration-100 ease-linear "
     >
       <div
         // Logout group
-        className="flex flex-row justify-between items-center group
+        className="group flex flex-row items-center justify-between
                   hover:bg-gray-700"
       >
-        <div className="left-0 pl-2 py-1">👋</div>
+        <div className="left-0 py-1 pl-2">👋</div>
         <div
           onClick={onClickSignOut}
-          className=" text-right  pr-2 py-1 
-                    text-gray-900 group-hover:text-white
-                      text-sm font-lato
-                      transition-all duration-100 ease-linear"
+          className=" font-lato  py-1 pr-2 
+                    text-right text-sm
+                      text-gray-900 transition-all
+                      duration-100 ease-linear group-hover:text-white"
         >
           Sign out
         </div>
       </div>
       <div
         // Other group
-        className="flex flex-row justify-between items-center group
+        className="group flex flex-row items-center justify-between
                   hover:bg-gray-700"
       >
-        <div className="left-0 pl-2 py-1">💸</div>
+        <div className="left-0 py-1 pl-2">💸</div>
         <p
-          className=" text-right  pr-2 py-1
-                    text-gray-900 group-hover:text-white
-                      text-sm font-lato
-                      transition-all duration-100 ease-linear"
+          className=" font-lato  py-1 pr-2
+                    text-right text-sm
+                      text-gray-900 transition-all
+                      duration-100 ease-linear group-hover:text-white"
         >
           Send help
         </p>
