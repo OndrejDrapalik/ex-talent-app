@@ -25,8 +25,11 @@ export default function Home(props) {
   const [shuffle, setShuffle] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [uniqueCountrySelect, setUniqueCountrySelect] = useState([]);
+  const [cleanCountry, setCleanCountry] = useState([]);
   const [countrySelected, setCountrySelected] = useState('');
+
+  const [cleanDepartment, setCleanDepartment] = useState([]);
+  const [departmentSelected, setDepartmentSelected] = useState('');
 
   // Swap firstLoad data with entries that are further once all data are fetched
   useEffect(() => {
@@ -45,16 +48,24 @@ export default function Home(props) {
     setShuffle(shuffleEntries);
   }, [entries]);
 
-  // Make names in the country dropdown unique
+  // Clean & order entries data for usage in the filters
   useEffect(() => {
-    const unfiltered = entries.map((item) => item.values.justCountry);
-    const unique = unfiltered.filter(
-      (item, index) => unfiltered.indexOf(item) >= index
+    const mapCountries = entries.map((item) => item.values.justCountry);
+    const filterCountries = mapCountries.filter(
+      (item, index) => mapCountries.indexOf(item) >= index
     );
+    const orderCountries = filterCountries.sort();
+    setCleanCountry(orderCountries);
 
-    setUniqueCountrySelect(unique);
+    const mapDepartments = entries.map((item) => item.values.department);
+    const filterDepartments = mapDepartments.filter(
+      (item, index) => mapDepartments.indexOf(item) >= index
+    );
+    const orderDepartments = filterDepartments.sort();
+    setCleanDepartment(orderDepartments);
   }, [entries]);
 
+  // TODO Needs similar treatment like handleDepartmentChange
   const handleCountryChange = (e) => {
     setCountrySelected(e.target.value);
     if (e.target.value !== '') {
@@ -64,6 +75,37 @@ export default function Home(props) {
         (item) => item.values.justCountry === e.target.value
       );
       setShuffle(countryFilter);
+    } else {
+      setShuffle(entries);
+    }
+  };
+
+  const handleDepartmentChange = (e) => {
+    setDepartmentSelected(e.target.value);
+    // Department selected but not country
+    if (e.target.value !== '' && countrySelected === '') {
+      /// Reassign fresh values everytime this callback runs
+      shuffle = entries;
+      const departmentFilter = shuffle.filter(
+        (item) => item.values.department === e.target.value
+      );
+      setShuffle(departmentFilter);
+      // Country selected but not department
+    } else if (e.target.value === '' && countrySelected !== '') {
+      shuffle = entries;
+      const departmentFilter = shuffle.filter(
+        (item) => item.values.justCountry === countrySelected
+      );
+      setShuffle(departmentFilter);
+      // Both country and department selected
+    } else if (e.target.value !== '' && countrySelected !== '') {
+      shuffle = entries;
+      const departmentFilter = shuffle.filter(
+        (item) =>
+          item.values.department === e.target.value &&
+          item.values.justCountry === countrySelected
+      );
+      setShuffle(departmentFilter);
     } else {
       setShuffle(entries);
     }
@@ -91,7 +133,21 @@ export default function Home(props) {
             onChange={(e) => handleCountryChange(e)}
           >
             <option value="">All countries</option>
-            {uniqueCountrySelect.map((item, index) => (
+            {cleanCountry.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="pt-5 text-xl font-normal">
+          <select
+            name="departmentFilter"
+            value={departmentSelected}
+            onChange={(e) => handleDepartmentChange(e)}
+          >
+            <option value="">All departments</option>
+            {cleanDepartment.map((item, index) => (
               <option key={index} value={item}>
                 {item}
               </option>
