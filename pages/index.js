@@ -65,50 +65,82 @@ export default function Home(props) {
     setCleanDepartment(orderDepartments);
   }, [entries]);
 
-  // TODO Needs similar treatment like handleDepartmentChange
-  const handleCountryChange = (e) => {
+  // Filter rendering logic
+  useEffect(() => {
+    const filter = {
+      country: countrySelected,
+      department: departmentSelected,
+    };
+
+    const updateFiltersOr = () => {
+      const filteredData = entries.filter((i) => {
+        const countryMatch = filter.country === i.values.justCountry;
+        const departmentMatch = filter.department === i.values.department;
+        return countryMatch || departmentMatch;
+      });
+      setShuffle(filteredData);
+    };
+
+    const updateFiltersAnd = () => {
+      const filteredData = entries.filter((i) => {
+        const countryMatch = filter.country === i.values.justCountry;
+        const departmentMatch = filter.department === i.values.department;
+        return countryMatch && departmentMatch;
+      });
+      setShuffle(filteredData);
+    };
+
+    !countrySelected && !departmentSelected && setShuffle(entries);
+    !countrySelected && departmentSelected && updateFiltersOr();
+    countrySelected && !departmentSelected && updateFiltersOr();
+    countrySelected && departmentSelected && updateFiltersAnd();
+  }, [countrySelected, departmentSelected, entries]);
+
+  const handleChange = (e) => {
     setCountrySelected(e.target.value);
-    if (e.target.value !== '') {
-      // Reassign fresh values everytime this callback runs
-      shuffle = entries;
-      const countryFilter = shuffle.filter(
-        (item) => item.values.justCountry === e.target.value
-      );
-      setShuffle(countryFilter);
-    } else {
-      setShuffle(entries);
-    }
+
+    // if (e.target.value !== '') {
+    //   // Reassign fresh values everytime this callback runs
+    //   shuffle = entries;
+    //   const countryFilter = shuffle.filter(
+    //     (item) => item.values.justCountry === e.target.value
+    //   );
+    //   setShuffle(countryFilter);
+    // } else {
+    //   setShuffle(entries);
+    // }
   };
 
   const handleDepartmentChange = (e) => {
     setDepartmentSelected(e.target.value);
-    // Department selected but not country
-    if (e.target.value !== '' && countrySelected === '') {
-      /// Reassign fresh values everytime this callback runs
-      shuffle = entries;
-      const departmentFilter = shuffle.filter(
-        (item) => item.values.department === e.target.value
-      );
-      setShuffle(departmentFilter);
-      // Country selected but not department
-    } else if (e.target.value === '' && countrySelected !== '') {
-      shuffle = entries;
-      const departmentFilter = shuffle.filter(
-        (item) => item.values.justCountry === countrySelected
-      );
-      setShuffle(departmentFilter);
-      // Both country and department selected
-    } else if (e.target.value !== '' && countrySelected !== '') {
-      shuffle = entries;
-      const departmentFilter = shuffle.filter(
-        (item) =>
-          item.values.department === e.target.value &&
-          item.values.justCountry === countrySelected
-      );
-      setShuffle(departmentFilter);
-    } else {
-      setShuffle(entries);
-    }
+
+    // // Department selected but not country
+    // if (e.target.value !== '' && countrySelected === '') {
+    //   /// Reassign fresh values everytime this callback runs
+    //   shuffle = entries;
+    //   const departmentFilter = shuffle.filter(
+    //     (item) => item.values.department === e.target.value
+    //   );
+    //   setShuffle(departmentFilter);
+    //   // Country selected but not department
+    // } else if (e.target.value === '' && countrySelected !== '') {
+    //   shuffle = entries;
+    //   const departmentFilter = shuffle.filter(
+    //     (item) => item.values.justCountry === countrySelected
+    //   );
+    //   setShuffle(departmentFilter);
+    //   // Both country and department selected
+    // } else if (e.target.value !== '' && countrySelected !== '') {
+    //   shuffle = entries;
+    //   const departmentFilter = shuffle.filter(
+    //     (item) =>
+    //       item.values.department === e.target.value &&
+    //       item.values.justCountry === countrySelected
+    //   );
+    //   setShuffle(departmentFilter);
+    // } else {
+    //   setShuffle(entries);
+    // }
   };
 
   const firstHalf = Math.floor(entries.length / 2);
@@ -130,7 +162,7 @@ export default function Home(props) {
           <select
             name="countryFilter"
             value={countrySelected}
-            onChange={(e) => handleCountryChange(e)}
+            onChange={(e) => handleChange(e)}
           >
             <option value="">All countries</option>
             {cleanCountry.map((item, index) => (
