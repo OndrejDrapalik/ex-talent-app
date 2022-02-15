@@ -126,16 +126,27 @@ export default function Home(props) {
     <>
       <Navbar />
       <div
-        className="font-lato mt-10  flex flex-col
-                   px-[5vw] text-5xl font-normal lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
+        // container
+        className="mt-10  flex flex-col
+        px-[5vw] font-normal lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
                   "
       >
-        <h1>Please meet some talented people who’ve worked at Avast.</h1>
-        <div className="flex flex-row justify-between  pt-5 text-xl font-normal">
-          <div className="flex flex-row">
+        <h1 className="text-5xl ">
+          Please meet some talented people who’ve worked at Avast.
+        </h1>
+        <div
+          className="flex flex-col pt-5 text-base font-normal
+        
+        "
+        >
+          <div
+            // Main filters
+            className=" flex flex-col justify-between md:flex-row"
+          >
             <div>
               <select
                 name="countryFilter"
+                className="filter-main "
                 value={countrySelected}
                 onChange={(e) => setCountrySelected(e.target.value)}
               >
@@ -147,22 +158,25 @@ export default function Home(props) {
                 ))}
               </select>
             </div>
-            <div className="w-[2vw] appearance-none" />
-            {/* <div>
-              <select
-                name="companyFilter"
-                value={departmentSelected}
-                onChange={(e) => setDepartmentSelected(e.target.value)}
-              >
-                <option value="">All companies</option>
-                <option value="Avast">Avast</option>
-                <option value="Avira">Avira</option>
-                <option value="Norton">Norton</option>
-              </select>
-            </div> */}
             <div>
               <select
                 name="departmentFilter"
+                className="filter-main"
+                value={departmentSelected}
+                onChange={(e) => setDepartmentSelected(e.target.value)}
+              >
+                <option value="">All departments</option>
+                {cleanDepartment.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                name="departmentFilter"
+                className="filter-main "
                 value={departmentSelected}
                 onChange={(e) => setDepartmentSelected(e.target.value)}
               >
@@ -175,20 +189,28 @@ export default function Home(props) {
               </select>
             </div>
           </div>
-          <div className="flex flex-row">
+          <div className="w-[20px] appearance-none" />
+          <div
+            // Minor fiters
+            className="flex flex-row md:flex-row"
+          >
             <div>
               <button
                 onClick={() => setRemoteSelected(!remoteSelected)}
-                className={`border ${remoteSelected && 'bg-green-200'}`}
+                className={`filter-minor px-4 ${
+                  remoteSelected && 'bg-green-200'
+                }`}
               >
                 Open to remote
               </button>
             </div>
-            <div className="w-[2vw] appearance-none" />
+            <div className="w-[8px] appearance-none" />
             <div>
               <button
                 onClick={() => setRelocationSlected(!relocationSelected)}
-                className={`border ${relocationSelected && 'bg-green-200'}`}
+                className={`filter-minor px-4 ${
+                  relocationSelected && 'bg-green-200'
+                }`}
               >
                 Open to relocation
               </button>
@@ -197,10 +219,19 @@ export default function Home(props) {
         </div>
       </div>
 
-      <div className="md: flex flex-col px-[5vw] pt-14  md:flex-row md:gap-5 lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]">
+      <div
+        className="flex flex-col px-[5vw] pt-14 
+       md:flex-row lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
+       
+       "
+      >
         <div className="md:w-1/2 ">
           <PostFeed entries={colA} />
         </div>
+        <div
+          // Instead of 'md:gap-5' in the div above I use this div to create the space
+          className="w-0 appearance-none md:w-5"
+        />
         <div className="md:w-1/2 ">
           <PostFeed entries={colB} />
         </div>

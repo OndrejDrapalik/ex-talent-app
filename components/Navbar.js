@@ -65,7 +65,7 @@ export default function Navbar() {
             // ICONs conditional rendering
             user ? (
               // User logged
-              <div className="relative flex items-center gap-4 ">
+              <div className="relative flex items-center">
                 <CreateOrEditEntry
                   onClick={() => {
                     setEffect(!effect);
@@ -75,7 +75,7 @@ export default function Navbar() {
                   entry={entry}
                   entryCheck={entryCheck}
                 />
-
+                <div className="w-4 appearance-none" />
                 <TopRightMenu
                   photoURL={user?.photoURL}
                   dropdown={dropdown}
