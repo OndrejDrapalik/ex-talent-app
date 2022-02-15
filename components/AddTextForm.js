@@ -7,7 +7,6 @@ import { UserContext } from '../lib/contexts/user-context';
 import { useRouter } from 'next/router';
 
 import Autocomplete from 'react-google-autocomplete';
-import useGoogle from 'react-google-autocomplete/lib/usePlacesAutocompleteService';
 
 const TextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -163,6 +162,11 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         lastName: Yup.string()
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
+        city: Yup.string()
+          .min(2, 'Too Short!')
+          .max(70, 'Too Long!')
+          .required('Required'),
+
         jobTitle: Yup.string()
           .max(50, 'Must be 50 characters or less')
           .required('Required'),
@@ -180,7 +184,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         ),
       })}
       onSubmit={onSubmit}
-      handleChange
 
       // Debugging kit
       // validator={() => ({})}
@@ -188,7 +191,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       //   console.log('submit!');
       // }}
     >
-      {({ props, setFieldValue, initialValues, handleChange, values }) => {
+      {({ setFieldValue, initialValues, handleChange, values }) => {
         /// is there a way how to go around not using the lintrule?
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
@@ -199,21 +202,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
             );
           }
         }, [initialValues, setFieldValue]);
-
-        {
-          /* // react-google-autocomplete –> custom implementation part 1
-        const {
-          placePredictions,
-          getPlacePredictions,
-          isPlacePredictionsLoading,
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-        } = useGoogle({
-          apiKey: process.env.REACT_APP_GOOGLE,
-        });
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const [value, setValue] = useState('');
-        console.log('placePredictions', placePredictions); */
-        }
 
         return (
           <>
@@ -272,11 +260,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <label
-                      // react-google-autocomplete –> formik example - easier, straightforward implementation
-
-                      className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
-                    >
+                    <label className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
                       City
                     </label>
                     <Autocomplete
@@ -298,21 +282,25 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       onPlaceSelected={(place) => {
                         console.log('place:', place);
 
-                        setFieldValue('city', place.formatted_address);
-                        setFieldValue(
-                          'justCity',
-                          place.address_components[0].long_name
-                        );
-                        if (place.address_components.length < 4) {
+                        try {
+                          setFieldValue('city', place.formatted_address);
                           setFieldValue(
-                            'justCountry',
-                            place.address_components[2].long_name
+                            'justCity',
+                            place.address_components[0].long_name
                           );
-                        } else {
-                          setFieldValue(
-                            'justCountry',
-                            place.address_components[3].long_name
-                          );
+                          if (place.address_components.length < 4) {
+                            setFieldValue(
+                              'justCountry',
+                              place.address_components[2].long_name
+                            );
+                          } else {
+                            setFieldValue(
+                              'justCountry',
+                              place.address_components[3].long_name
+                            );
+                          }
+                        } catch (error) {
+                          console.log(error);
                         }
                       }}
                       onChange={handleChange}
@@ -337,39 +325,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       className="hidden"
                       value={values.justCountry || ''}
                     />
-                    {/* <div
-                      // react-google-autocomplete –> custom implementation part 2
-                      className="flex flex-col "
-                    >
-                      <MyTextInputRequired
-                        label="City"
-                        name="city"
-                        type="text"
-                        autocomplete="chrome-off"
-                        placeholder="My city"
-                        onChange={(evt) => {
-                          getPlacePredictions({ input: evt.target.value });
-                          setFieldValue('city', evt.target.values);
-                          handleChange;
-                        }}
-                        value={values.city}
-                      />
-                    </div>
-                    <div>
-                      {!isPlacePredictionsLoading &&
-                        placePredictions.map((item) => (
-                          // Can we further customised
-                          <li
-                            key={item.description}
-                            onClick={() => {
-                              setFieldValue('city', item.description);
-                              getPlacePredictions({ input: '' });
-                            }}
-                          >
-                            {item.description}
-                          </li>
-                        ))}
-                    </div> */}
                   </div>
                 </div>
 
@@ -545,7 +500,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   </button>
 
                   <button
-                    onClick={() => router.push('/')}
                     type="submit"
                     className="rounded-md bg-green-500 px-12
                             py-2"

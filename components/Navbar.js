@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const signInWithGoogle = async () => {
     const userObject = await auth.signInWithPopup(googleAuthProvider);
-    await saveData(userObject);
+    saveData(userObject);
   };
 
   const saveData = (props) => {
@@ -73,6 +73,7 @@ export default function Navbar() {
                   }}
                   linkPath={`/admin/${user.uid}`}
                   entry={entry}
+                  entryCheck={entryCheck}
                 />
 
                 <TopRightMenu

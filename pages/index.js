@@ -9,7 +9,7 @@ import Filters from '../components/Filters';
 // SSR is used for inital render for better UX
 export async function getServerSideProps() {
   const postQuery = firestore
-    .collectionGroup('entry collection')
+    .collectionGroup('entry_collection')
     .orderBy('id', 'asc');
 
   const firstLoad = (await postQuery.get()).docs.map(postToJSON);
@@ -54,9 +54,10 @@ export default function Home(props) {
   // Clean & order entries data for usage in the filters
   useEffect(() => {
     const mapCountries = entries.map((item) => item.values.justCountry);
-    const filterCountries = mapCountries.filter(
-      (item, index) => mapCountries.indexOf(item) >= index
-    );
+    const filterCountries = mapCountries
+      .filter((item, index) => mapCountries.indexOf(item) >= index)
+      .filter((item) => item !== '');
+
     const orderCountries = filterCountries.sort();
     setCleanCountry(orderCountries);
 
@@ -76,12 +77,7 @@ export default function Home(props) {
       const filterCountry = entries.filter(
         (i) => countrySelected === i.values.justCountry
       );
-      console.log('Filtered empty', filtered);
       countrySelected ? (filtered = filterCountry) : (filtered = entries);
-      console.log('Filtered filled', filtered);
-
-      console.log('countrySelected value:', countrySelected);
-      console.log('Printing:', countrySelected ? 'filterCountry' : 'entries');
       setShuffle(filtered);
     };
 
@@ -90,8 +86,6 @@ export default function Home(props) {
         (i) => departmentSelected === i.values.department
       );
       departmentSelected ? (filtered = filterDepartment) : filtered;
-      console.log('Filter after department logic', filtered);
-
       setShuffle(filtered);
     };
 
@@ -100,8 +94,6 @@ export default function Home(props) {
         (i) => remoteSelected === i.values.remoteWork
       );
       remoteSelected ? (filtered = filterRemote) : filtered;
-      console.log('Filter after remote logic', filtered);
-
       setShuffle(filtered);
     };
 
@@ -110,8 +102,6 @@ export default function Home(props) {
         (i) => relocationSelected === i.values.relocation
       );
       relocationSelected ? (filtered = filterRelocation) : filtered;
-      console.log('Filter after relocation logic', filtered);
-
       setShuffle(filtered);
     };
 

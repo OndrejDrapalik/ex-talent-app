@@ -1,41 +1,32 @@
-import React, { useContext, useEffect } from 'react';
-import { AppContext } from '../../lib/contexts/app-context';
-import { UserContext } from '../../lib/contexts/user-context';
+import React from 'react';
+import { useRouter } from 'next/router';
 
-import GrayOverlay from '../../components/NavbarComponents/HelperComponents/GrayOverlay';
 import AddTextForm from '../../components/AddTextForm';
 
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
 export default function EntryPage({}) {
-  const { user } = useContext(UserContext);
-  const { entry, setEntry } = useContext(AppContext);
+  const router = useRouter();
 
   const entryRef = firestore
     .collection('users')
     .doc(auth.currentUser.uid)
-    .collection('entry collection')
-    .doc('entry doc');
+    .collection('entry_collection')
+    .doc('entry_doc');
 
   const handleFormikSubmit = async (values) => {
-    alert(JSON.stringify(values, null, 2));
+    // alert(JSON.stringify(values, null, 2));
     await entryRef.set({
       values,
       updatedAt: serverTimestamp(),
       id: auth.currentUser.uid,
     });
+    router.push('/');
   };
 
   return (
     <div className="flex flex-col items-center">
-      {/* Deprecated ?*/}
-      {entry && <GrayOverlay zIndex="z-20" />}
-
-      <AddTextForm
-        zIndex="z-20"
-        onClick={() => setEntry(!setEntry)}
-        onSubmit={handleFormikSubmit}
-      ></AddTextForm>
+      <AddTextForm zIndex="z-20" onSubmit={handleFormikSubmit}></AddTextForm>
     </div>
   );
 }
