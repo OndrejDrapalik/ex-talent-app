@@ -31,6 +31,9 @@ export default function Home(props) {
   const [cleanDepartment, setCleanDepartment] = useState([]);
   const [departmentSelected, setDepartmentSelected] = useState('');
 
+  const [remoteSelected, setRemoteSelected] = useState(false);
+  const [relocationSelected, setRelocationSlected] = useState(false);
+
   // Swap firstLoad data with entries that are further once all data are fetched
   useEffect(() => {
     async function fetchData() {
@@ -67,81 +70,62 @@ export default function Home(props) {
 
   // Filter rendering logic
   useEffect(() => {
-    const filter = {
-      country: countrySelected,
-      department: departmentSelected,
+    let filtered = [];
+
+    const countryFilter = () => {
+      const filterCountry = entries.filter(
+        (i) => countrySelected === i.values.justCountry
+      );
+      console.log('Filtered empty', filtered);
+      countrySelected ? (filtered = filterCountry) : (filtered = entries);
+      console.log('Filtered filled', filtered);
+
+      console.log('countrySelected value:', countrySelected);
+      console.log('Printing:', countrySelected ? 'filterCountry' : 'entries');
+      setShuffle(filtered);
     };
 
-    const updateFiltersOr = () => {
-      const filteredData = entries.filter((i) => {
-        const countryMatch = filter.country === i.values.justCountry;
-        const departmentMatch = filter.department === i.values.department;
-        return countryMatch || departmentMatch;
-      });
-      setShuffle(filteredData);
+    const departmentFilter = () => {
+      const filterDepartment = filtered.filter(
+        (i) => departmentSelected === i.values.department
+      );
+      departmentSelected ? (filtered = filterDepartment) : filtered;
+      console.log('Filter after department logic', filtered);
+
+      setShuffle(filtered);
     };
 
-    const updateFiltersAnd = () => {
-      const filteredData = entries.filter((i) => {
-        const countryMatch = filter.country === i.values.justCountry;
-        const departmentMatch = filter.department === i.values.department;
-        return countryMatch && departmentMatch;
-      });
-      setShuffle(filteredData);
+    const remoteFilter = () => {
+      const filterRemote = filtered.filter(
+        (i) => remoteSelected === i.values.remoteWork
+      );
+      remoteSelected ? (filtered = filterRemote) : filtered;
+      console.log('Filter after remote logic', filtered);
+
+      setShuffle(filtered);
     };
 
-    !countrySelected && !departmentSelected && setShuffle(entries);
-    !countrySelected && departmentSelected && updateFiltersOr();
-    countrySelected && !departmentSelected && updateFiltersOr();
-    countrySelected && departmentSelected && updateFiltersAnd();
-  }, [countrySelected, departmentSelected, entries]);
+    const relocationFilter = () => {
+      const filterRelocation = filtered.filter(
+        (i) => relocationSelected === i.values.relocation
+      );
+      relocationSelected ? (filtered = filterRelocation) : filtered;
+      console.log('Filter after relocation logic', filtered);
 
-  const handleChange = (e) => {
-    setCountrySelected(e.target.value);
+      setShuffle(filtered);
+    };
 
-    // if (e.target.value !== '') {
-    //   // Reassign fresh values everytime this callback runs
-    //   shuffle = entries;
-    //   const countryFilter = shuffle.filter(
-    //     (item) => item.values.justCountry === e.target.value
-    //   );
-    //   setShuffle(countryFilter);
-    // } else {
-    //   setShuffle(entries);
-    // }
-  };
-
-  const handleDepartmentChange = (e) => {
-    setDepartmentSelected(e.target.value);
-
-    // // Department selected but not country
-    // if (e.target.value !== '' && countrySelected === '') {
-    //   /// Reassign fresh values everytime this callback runs
-    //   shuffle = entries;
-    //   const departmentFilter = shuffle.filter(
-    //     (item) => item.values.department === e.target.value
-    //   );
-    //   setShuffle(departmentFilter);
-    //   // Country selected but not department
-    // } else if (e.target.value === '' && countrySelected !== '') {
-    //   shuffle = entries;
-    //   const departmentFilter = shuffle.filter(
-    //     (item) => item.values.justCountry === countrySelected
-    //   );
-    //   setShuffle(departmentFilter);
-    //   // Both country and department selected
-    // } else if (e.target.value !== '' && countrySelected !== '') {
-    //   shuffle = entries;
-    //   const departmentFilter = shuffle.filter(
-    //     (item) =>
-    //       item.values.department === e.target.value &&
-    //       item.values.justCountry === countrySelected
-    //   );
-    //   setShuffle(departmentFilter);
-    // } else {
-    //   setShuffle(entries);
-    // }
-  };
+    countryFilter();
+    departmentFilter();
+    remoteFilter();
+    relocationFilter();
+  }, [
+    countrySelected,
+    departmentSelected,
+    entries,
+    relocationSelected,
+    remoteSelected,
+  ]);
 
   const firstHalf = Math.floor(entries.length / 2);
   const colA = (loading ? firstData : shuffle).slice(0, firstHalf);
@@ -153,38 +137,73 @@ export default function Home(props) {
       <Navbar />
       <div
         className="font-lato mt-10  flex flex-col
-                  items-center px-[5vw] text-5xl font-normal lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
+                   px-[5vw] text-5xl font-normal lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
                   "
       >
         <h1>Please meet some talented people who’ve worked at Avast.</h1>
-
-        <div className="pt-5 text-xl font-normal">
-          <select
-            name="countryFilter"
-            value={countrySelected}
-            onChange={(e) => handleChange(e)}
-          >
-            <option value="">All countries</option>
-            {cleanCountry.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="pt-5 text-xl font-normal">
-          <select
-            name="departmentFilter"
-            value={departmentSelected}
-            onChange={(e) => handleDepartmentChange(e)}
-          >
-            <option value="">All departments</option>
-            {cleanDepartment.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-row justify-between  pt-5 text-xl font-normal">
+          <div className="flex flex-row">
+            <div>
+              <select
+                name="countryFilter"
+                value={countrySelected}
+                onChange={(e) => setCountrySelected(e.target.value)}
+              >
+                <option value="">All countries</option>
+                {cleanCountry.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-[2vw] appearance-none" />
+            {/* <div>
+              <select
+                name="companyFilter"
+                value={departmentSelected}
+                onChange={(e) => setDepartmentSelected(e.target.value)}
+              >
+                <option value="">All companies</option>
+                <option value="Avast">Avast</option>
+                <option value="Avira">Avira</option>
+                <option value="Norton">Norton</option>
+              </select>
+            </div> */}
+            <div>
+              <select
+                name="departmentFilter"
+                value={departmentSelected}
+                onChange={(e) => setDepartmentSelected(e.target.value)}
+              >
+                <option value="">All departments</option>
+                {cleanDepartment.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="flex flex-row">
+            <div>
+              <button
+                onClick={() => setRemoteSelected(!remoteSelected)}
+                className={`border ${remoteSelected && 'bg-green-200'}`}
+              >
+                Open to remote
+              </button>
+            </div>
+            <div className="w-[2vw] appearance-none" />
+            <div>
+              <button
+                onClick={() => setRelocationSlected(!relocationSelected)}
+                className={`border ${relocationSelected && 'bg-green-200'}`}
+              >
+                Open to relocation
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

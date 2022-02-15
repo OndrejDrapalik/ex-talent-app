@@ -21,9 +21,9 @@ const PostItem = ({ entry }) => {
         <div>{entry.values.jobTitle}</div>
         <div>{entry.values.department}</div>
         <div>{entry.values.city}</div>
-        {entry.values.remoteWork ? 'Open to remote work' : null}
+        {entry.values.remoteWork ? 'Open to remote' : null}
         {entry.values.remoteWork && entry.values.relocation ? ', ' : null}
-        {entry.values.relocation ? 'Open to remote relocation' : null}
+        {entry.values.relocation ? 'Open to  relocation' : null}
         <div className="font-bold">
           <a
             href={entry.values.linkedIn}

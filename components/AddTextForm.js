@@ -520,7 +520,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
                       rounded-sm border-2 bg-contain"
                   >
-                    <div>I am open to remote work.</div>
+                    <div>I am open to remote.</div>
                   </MyCheckbox>
                   <MyCheckbox
                     name="relocation"
