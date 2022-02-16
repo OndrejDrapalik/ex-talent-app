@@ -40,7 +40,7 @@ module.exports = {
       backgroundImage: {
         'check-box': "url('../public/images/checkMark.png')",
         arrowDown:
-          "url('https://img.icons8.com/ios/24/000000/expand-arrow--v2.png')",
+          "url('https://img.icons8.com/ios/18/000000/expand-arrow--v2.png')",
       },
     },
   },

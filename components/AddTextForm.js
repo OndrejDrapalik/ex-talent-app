@@ -122,8 +122,10 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="flex h-7 min-w-full rounded-sm border bg-gray-100 text-gray-900 invalid:text-gray-400  md:w-[275px]
-                    md:min-w-fit"
+        className="bg-arrowDown flex h-7 min-w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
+                    text-gray-900
+                    [background-position:97%] invalid:text-gray-400 md:w-[275px] md:min-w-fit
+                    "
       />
       {meta.touched && meta.error ? (
         <div className="error absolute mt-[1px]">{meta.error}</div>
@@ -226,16 +228,16 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 onKeyUp={(e) => {
                   e.key === 'Escape' && router.push('/');
                 }}
-                className="flex flex-col gap-8"
+                className="flex flex-col "
               >
                 <div
                   // Personal info group
-                  className="flex flex-col gap-4"
+                  className="flex flex-col "
                 >
                   <div
                     // Full name
-                    className="md: flex flex-col gap-4 md:flex-row
-                              md:gap-6
+                    className="md: flex flex-col md:flex-row
+                              
                               "
                   >
                     <div className="flex flex-col ">
@@ -247,7 +249,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                         required
                       />
                     </div>
-
+                    <div
+                      // Instead of 'md:gap-8' in the div above I use this div to create the space
+                      className=" w-4 bg-blue-400  md:w-6"
+                    />
                     <div className="flex flex-col">
                       <MyTextInputRequired
                         label="Last Name"
@@ -258,9 +263,12 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       />
                     </div>
                   </div>
-
+                  <div
+                    // Instead of 'md:gap-8' in the div above I use this div to create the space
+                    className="h-4 bg-pink-400"
+                  />
                   <div className="flex flex-col">
-                    <label className="flex text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
+                    <label className="flex h-6 pt-0.5 text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
                       City
                     </label>
                     <Autocomplete
@@ -327,12 +335,15 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     />
                   </div>
                 </div>
-
+                <div
+                  // Instead of 'md:gap-8' in the div above I use this div to create the space
+                  className="h-8 bg-green-400"
+                />
                 <div
                   // Info about your work
-                  className="flex flex-col gap-4"
+                  className="flex flex-col"
                 >
-                  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                  <div className="flex flex-col md:flex-row md:items-end md:justify-between">
                     <div className="flex flex-col">
                       <MyTextInputRequired
                         label="Job Title"
@@ -415,6 +426,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       </option>
                     </MySelect>
                   </div>
+                  <div
+                    // Instead of 'md:gap-8' in the div above I use this div to create the space
+                    className="h-4 appearance-none bg-pink-400"
+                  />
                   <div className="flex flex-col">
                     <MySelect
                       label="Company"
@@ -436,7 +451,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </MySelect>
                   </div>
                 </div>
-
+                <div
+                  // Instead of 'md:gap-8' in the div above I use this div to create the space
+                  className="h-8 bg-green-400"
+                />
                 <div
                   // Links
                   className="flex flex-col gap-4 md:flex-row md:justify-between"
@@ -459,7 +477,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     />
                   </div>
                 </div>
-
+                <div
+                  // Instead of 'md:gap-8' in the div above I use this div to create the space
+                  className="h-8 bg-green-400"
+                />
                 <div>
                   <TextArea
                     label="About you"
@@ -468,7 +489,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     placeholder="My text"
                   />
                 </div>
-
+                <div
+                  // Instead of 'md:gap-8' in the div above I use this div to create the space
+                  className="h-8 bg-green-400"
+                />
                 <div>
                   <MyCheckbox
                     name="remoteWork"
@@ -485,7 +509,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <div>I am open to relocation.</div>
                   </MyCheckbox>
                 </div>
-
+                <div
+                  // Instead of 'md:gap-8' in the div above I use this div to create the space
+                  className="h-8 bg-green-400"
+                />
                 <div
                   // Buttons
                   className="flex items-center justify-between gap-4"
