@@ -2,8 +2,8 @@ export default function AccountDropdown({ onClickSignOut }) {
   return (
     <div
       // The white background with shadow frame
-      className="absolute right-0 z-20 mt-16 w-28 cursor-pointer rounded-lg
-                bg-white shadow-xl
+      className="absolute  top-[52px] right-0 z-20 w-28 cursor-pointer rounded-lg
+                bg-white shadow-xl 
                 transition-all duration-100 ease-linear "
     >
       <div

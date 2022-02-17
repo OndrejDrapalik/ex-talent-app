@@ -12,7 +12,7 @@ export default function TopRightMenu({
   return (
     <div
       // User icon + Dropdown + Gray overlay group
-      className="flex items-center gap-1 "
+      className=" flex items-center"
     >
       <NavBarIcons
         // User icon
@@ -26,7 +26,7 @@ export default function TopRightMenu({
             unoptimized
             fill="none"
             tabIndex={1}
-            className="z-20 rounded-3xl"
+            className="z-20 rounded-full"
           />
         }
       ></NavBarIcons>

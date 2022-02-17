@@ -7,7 +7,7 @@
 /* Custom classes */
 @layer components {
   .navbar-icons {
-    @apply relative flex h-12 w-12
+    @apply flex h-12 w-12
             cursor-pointer items-center 
             justify-center overflow-hidden 
             rounded-3xl bg-gray-800
@@ -18,11 +18,11 @@
   }
 
   .navbar-tooltip {
-    @apply font-lato m-2 w-auto min-w-max
-            origin-right scale-0
-            rounded-md bg-white
-            p-2 text-sm
-            text-gray-900 shadow-md transition-all duration-300;
+    @apply font-lato m-2  flex  w-[20vw]
+            origin-right scale-0 rounded-md
+            bg-white p-2
+            text-sm text-gray-900
+            shadow-md transition-all duration-300 sm:w-auto;
   }
 
   .scale-zero {

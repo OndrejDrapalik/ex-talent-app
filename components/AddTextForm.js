@@ -122,9 +122,9 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="bg-arrowDown flex h-7 min-w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
-                    text-gray-900
-                    [background-position:97%] invalid:text-gray-400 md:w-[275px] md:min-w-fit
+        className="bg-arrowDown flex h-7 w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
+                    pl-1 text-gray-900
+                    [background-position:99%] invalid:text-gray-400 md:w-[275px] md:min-w-fit
                     "
       />
       {meta.touched && meta.error ? (
@@ -215,15 +215,19 @@ export default function AddTextForm({ zIndex, onSubmit }) {
             ></div>
             <div
               // White window
-              className={`${zIndex} bg-primary px-[5vw]sm:flex-col  
-                        mt-16 flex flex-col gap-4  
-                        rounded-lg px-[12vw] pt-14 
-                        pb-14 md:px-[5vw] lg:px-[6vw] xl:px-[7vw] 2xl:px-[8vw]
+              className={`${zIndex} bg-primary  mt-10  flex w-[90vw] flex-col
+                         rounded-lg px-[5vw]  
+                        pt-10 pb-10 
+                       md:w-auto  md:px-10 
                   `}
             >
               <h1 className="flex text-3xl text-gray-900">
                 {entryCheck ? 'Edit you entry' : 'Add your entry'}
               </h1>
+              <div
+                // Instead of 'md:gap-8' in the div above I use this div to create the space
+                className="h-5 "
+              />
               <Form
                 onKeyUp={(e) => {
                   e.key === 'Escape' && router.push('/');
@@ -236,11 +240,11 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 >
                   <div
                     // Full name
-                    className="md: flex flex-col md:flex-row
+                    className="flex flex-col md:flex-row
                               
                               "
                   >
-                    <div className="flex flex-col ">
+                    <div className="flex flex-col pb-2">
                       <MyTextInputRequired
                         label="First Name"
                         name="firstName"
@@ -251,9 +255,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </div>
                     <div
                       // Instead of 'md:gap-8' in the div above I use this div to create the space
-                      className=" w-4 bg-blue-400  md:w-6"
+                      className="md:w-6"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex flex-col pb-2">
                       <MyTextInputRequired
                         label="Last Name"
                         name="lastName"
@@ -263,16 +267,13 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       />
                     </div>
                   </div>
-                  <div
-                    // Instead of 'md:gap-8' in the div above I use this div to create the space
-                    className="h-4 bg-pink-400"
-                  />
-                  <div className="flex flex-col">
-                    <label className="flex h-6 pt-0.5 text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
+
+                  <div className="flex flex-col pb-2">
+                    <label className="flex  text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
                       City
                     </label>
                     <Autocomplete
-                      className="text-input flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
+                      className="text-input mt-0.25 flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
                                     text-gray-900
                                     placeholder-gray-400 autofill:bg-white
                                     autofill:text-gray-700 focus:border-green-500  
@@ -337,14 +338,14 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 </div>
                 <div
                   // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-8 bg-green-400"
+                  className="h-5 "
                 />
                 <div
                   // Info about your work
                   className="flex flex-col"
                 >
-                  <div className="flex flex-col md:flex-row md:items-end md:justify-between">
-                    <div className="flex flex-col">
+                  <div className="flex flex-col md:flex-row md:items-end ">
+                    <div className="flex flex-col pb-2">
                       <MyTextInputRequired
                         label="Job Title"
                         name="jobTitle"
@@ -353,88 +354,97 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                         required
                       />
                     </div>
-                    <MySelect
-                      label="Department"
-                      name="department"
-                      className="flex flex-col "
-                      required
-                    >
-                      <option
-                        disabled
-                        // selected
-                        value=""
-                        className="text-gray-400"
+                    <div
+                      // Instead of 'md:gap-8' in the div above I use this div to create the space
+                      className="md:w-6"
+                    />
+                    <div className="flex flex-col pb-2">
+                      <MySelect
+                        label="Department"
+                        name="department"
+                        className="flex flex-col "
+                        required
                       >
-                        My department
-                      </option>
-                      <option value="">All functions</option>
-                      <option value="Accounting / Auditing">
-                        Accounting / Auditing
-                      </option>
-                      <option value="Administrative">Administrative</option>
-                      <option value="Advertising">Advertising</option>
-                      <option value="Analyst">Analyst</option>
-                      <option value="Art / Creative">Art / Creative</option>
-                      <option value="Business Development">
-                        Business Development
-                      </option>
-                      <option value="Consulting">Consulting</option>
-                      <option value="Customer Service">Customer Service</option>
-                      <option value="Data Science">Data Science</option>
-                      <option value="Design">Design</option>
-                      <option value="Distribution">Distribution</option>
-                      <option value="Education">Education</option>
-                      <option value="Engineering">Engineering</option>
-                      <option value="Finance">Finance</option>
-                      <option value="General Business">General Business</option>
-                      <option value="Healthcare Provider">
-                        Healthcare Provider
-                      </option>
-                      <option value="Human Resources">Human Resources</option>
-                      <option value="Information Technology">
-                        Information Technology
-                      </option>
-                      <option value="Legal">Legal</option>
-                      <option value="Management">Management</option>
-                      <option value="Manufacturing">Manufacturing</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Other">Other</option>
-                      <option value="Policy">Policy</option>
-                      <option value="Product Management">
-                        Product Management
-                      </option>
-                      <option value="Production">Production</option>
-                      <option value="Project Management">
-                        Project Management
-                      </option>
-                      <option value="Public Relations">Public Relations</option>
-                      <option value="Purchasing">Purchasing</option>
-                      <option value="Quality Assurance">
-                        Quality Assurance
-                      </option>
-                      <option value="Recruiting">Recruiting</option>
-                      <option value="Research">Research</option>
-                      <option value="Sales">Sales</option>
-                      <option value="Science">Science</option>
-                      <option value="Strategy / Planning">
-                        Strategy / Planning
-                      </option>
-                      <option value="Supply Chain">Supply Chain</option>
-                      <option value="Training">Training</option>
-                      <option value="Writing / Editing">
-                        Writing / Editing
-                      </option>
-                    </MySelect>
+                        <option
+                          disabled
+                          // selected
+                          value=""
+                          className="text-gray-400"
+                        >
+                          My department
+                        </option>
+                        <option value="">All functions</option>
+                        <option value="Accounting / Auditing">
+                          Accounting / Auditing
+                        </option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Advertising">Advertising</option>
+                        <option value="Analyst">Analyst</option>
+                        <option value="Art / Creative">Art / Creative</option>
+                        <option value="Business Development">
+                          Business Development
+                        </option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Customer Service">
+                          Customer Service
+                        </option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Design">Design</option>
+                        <option value="Distribution">Distribution</option>
+                        <option value="Education">Education</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Finance">Finance</option>
+                        <option value="General Business">
+                          General Business
+                        </option>
+                        <option value="Healthcare Provider">
+                          Healthcare Provider
+                        </option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Information Technology">
+                          Information Technology
+                        </option>
+                        <option value="Legal">Legal</option>
+                        <option value="Management">Management</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Other">Other</option>
+                        <option value="Policy">Policy</option>
+                        <option value="Product Management">
+                          Product Management
+                        </option>
+                        <option value="Production">Production</option>
+                        <option value="Project Management">
+                          Project Management
+                        </option>
+                        <option value="Public Relations">
+                          Public Relations
+                        </option>
+                        <option value="Purchasing">Purchasing</option>
+                        <option value="Quality Assurance">
+                          Quality Assurance
+                        </option>
+                        <option value="Recruiting">Recruiting</option>
+                        <option value="Research">Research</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Science">Science</option>
+                        <option value="Strategy / Planning">
+                          Strategy / Planning
+                        </option>
+                        <option value="Supply Chain">Supply Chain</option>
+                        <option value="Training">Training</option>
+                        <option value="Writing / Editing">
+                          Writing / Editing
+                        </option>
+                      </MySelect>
+                    </div>
                   </div>
-                  <div
-                    // Instead of 'md:gap-8' in the div above I use this div to create the space
-                    className="h-4 appearance-none bg-pink-400"
-                  />
-                  <div className="flex flex-col">
+
+                  <div className="flex flex-col pb-2">
                     <MySelect
                       label="Company"
                       name="company"
-                      className="flex flex-col"
+                      className="flex flex-col "
                       required
                     >
                       <option
@@ -453,13 +463,13 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 </div>
                 <div
                   // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-8 bg-green-400"
+                  className="h-5 "
                 />
                 <div
                   // Links
-                  className="flex flex-col gap-4 md:flex-row md:justify-between"
+                  className="flex flex-col  md:flex-row "
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col pb-2">
                     <MyTextInput
                       label="LinkedIn URL"
                       name="linkedIn"
@@ -467,8 +477,11 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       placeholder="linkedin.com/in/ondrejdrapalik/"
                     />
                   </div>
-
-                  <div className="flex flex-col">
+                  <div
+                    // Instead of 'md:gap-8' in the div above I use this div to create the space
+                    className="md:w-6"
+                  />
+                  <div className="flex flex-col pb-2">
                     <MyTextInput
                       label="Other URL"
                       name="otherURL"
@@ -479,9 +492,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 </div>
                 <div
                   // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-8 bg-green-400"
+                  className="h-5 "
                 />
-                <div>
+                <div className="pb-2">
                   <TextArea
                     label="About you"
                     name="aboutYou"
@@ -489,11 +502,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     placeholder="My text"
                   />
                 </div>
-                <div
-                  // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-8 bg-green-400"
-                />
-                <div>
+
+                <div className="pb-4">
                   <MyCheckbox
                     name="remoteWork"
                     className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
@@ -509,27 +519,27 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <div>I am open to relocation.</div>
                   </MyCheckbox>
                 </div>
-                <div
-                  // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-8 bg-green-400"
-                />
+
                 <div
                   // Buttons
-                  className="flex items-center justify-between gap-4"
+                  className="flex items-center justify-between"
                 >
                   <button
                     type="reset"
                     onClick={() => router.push('/')}
-                    className="rounded-md bg-gray-200 px-12
-                            py-2"
+                    className="w-[40vw] rounded-md bg-gray-200 py-2 
+                            md:w-[275px]"
                   >
                     Cancel
                   </button>
-
+                  <div
+                    // Instead of 'md:gap-8' in the div above I use this div to create the space
+                    className="w-6 md:w-6"
+                  />
                   <button
                     type="submit"
-                    className="rounded-md bg-green-500 px-12
-                            py-2"
+                    className="w-[40vw] rounded-md  bg-green-500 py-2 
+                            md:w-[275px]"
                   >
                     Submit
                   </button>

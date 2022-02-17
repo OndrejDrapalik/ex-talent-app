@@ -42,7 +42,7 @@ export default function Navbar() {
         // NAV BAR
         /// add custom values with "h-[56px]""
         className="bg-secondary text-primary shadow-mg  top-0
-                  flex h-16 w-screen flex-row
+                  flex h-16 w-screen 
                   items-center justify-between px-[5vw] lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]"
       >
         <Link href={'/'} passHref>

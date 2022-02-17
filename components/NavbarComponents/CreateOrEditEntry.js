@@ -12,7 +12,7 @@ export default function CreateOrEditEntry({
     <Link href={linkPath} passHref>
       <div
         // Add entry plus icon + animation on hover
-        className="group flex items-center gap-1"
+        className="group flex items-center"
       >
         <span
           /// animation only works when there's not a text input field
@@ -27,7 +27,7 @@ export default function CreateOrEditEntry({
     <Link href={linkPath} passHref>
       <div
         // Add entry plus icon + animation on hover
-        className="group flex items-center gap-1"
+        className="group flex items-center"
       >
         <span
           /// animation only works when there's not a text input field
