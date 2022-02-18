@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-
-import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 import PostFeed from '../components/PostFeed';
-import { FaFirstAid } from 'react-icons/fa';
-import Filters from '../components/Filters';
+
+import { firestore, postToJSON } from '../lib/firebase';
 
 // SSR is used for inital render for better UX
 export async function getServerSideProps() {
@@ -34,7 +32,7 @@ export default function Home(props) {
   const [remoteSelected, setRemoteSelected] = useState(false);
   const [relocationSelected, setRelocationSlected] = useState(false);
 
-  // Swap firstLoad data with entries that are further once all data are fetched
+  // Swap firstLoad data with entries that are further shuffled once all data are fetched
   useEffect(() => {
     async function fetchData() {
       let response = await firstData;

@@ -4,8 +4,10 @@ import { UserContext } from '../lib/contexts/user-context';
 
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { FaHome, FaUserPlus } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 import TopRightMenu from './NavbarComponents/TopRightMenu';
 import NavBarIcons from './NavbarComponents/HelperComponents/NavBarIcons';
@@ -17,9 +19,15 @@ export default function Navbar() {
   const { dropdown, setDropdown, entry, setEntry, effect, setEffect } =
     useContext(AppContext);
 
+  const router = useRouter();
+
   const signInWithGoogle = async () => {
-    const userObject = await auth.signInWithPopup(googleAuthProvider);
-    saveData(userObject);
+    try {
+      const userObject = await auth.signInWithPopup(googleAuthProvider);
+      saveData(userObject);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const saveData = (props) => {
@@ -31,6 +39,24 @@ export default function Navbar() {
       photoURL: userData.photoURL,
       email: userData.email,
     });
+  };
+
+  const deleteAccount = async () => {
+    console.log('delete account');
+    console.log(user);
+
+    if (confirm('You are about to delete your account.') == true) {
+      await firestore
+        .doc(`users/${user.uid}/entry_collection/entry_doc`)
+        .delete();
+      await firestore.doc(`users/${user.uid}`).delete();
+      await auth.signOut();
+      toast.success('Account deleted successfully!');
+      router.reload();
+    } else {
+      toast.error('You have cancelled the request!');
+      setDropdown(!dropdown);
+    }
   };
 
   // const entryDoc = true;
@@ -81,6 +107,7 @@ export default function Navbar() {
                   dropdown={dropdown}
                   onClick={() => setDropdown(!dropdown)}
                   onClickSignOut={() => auth.signOut()}
+                  onClickDeleteAccount={deleteAccount}
                 />
               </div>
             ) : (

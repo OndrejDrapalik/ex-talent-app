@@ -373,7 +373,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                         >
                           My department
                         </option>
-                        <option value="">All functions</option>
                         <option value="Accounting / Auditing">
                           Accounting / Auditing
                         </option>

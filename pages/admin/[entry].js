@@ -1,11 +1,16 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 import AddTextForm from '../../components/AddTextForm';
 
+import { useContext } from 'react';
+import { UserContext } from '../../lib/contexts/user-context';
+
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
-export default function EntryPage({}) {
+export default function EntryPage() {
+  const { entryCheck } = useContext(UserContext);
   const router = useRouter();
 
   const entryRef = firestore
@@ -21,6 +26,10 @@ export default function EntryPage({}) {
       updatedAt: serverTimestamp(),
       id: auth.currentUser.uid,
     });
+
+    !entryCheck && toast.success('Post created successfully!');
+    entryCheck && toast.success('Post edited successfully!');
+
     router.push('/');
   };
 

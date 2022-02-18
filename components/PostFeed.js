@@ -46,10 +46,11 @@ const PostItem = ({ entry }) => {
             className="pb-3"
           >
             {entry.values.linkedIn && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center">
                 <div>
                   <FaLinkedinIn size="18" />
                 </div>
+                <div className="w-3" />
                 <a
                   className="hover:opacity-50"
                   href={
@@ -65,10 +66,11 @@ const PostItem = ({ entry }) => {
               </div>
             )}
             {entry.values.otherURL && (
-              <div className="flex items-center gap-3">
-                <div className="mr-0.5">
+              <div className="flex items-center">
+                <div className=" mr-0.5">
                   <FaLink size="16" />
                 </div>
+                <div className="w-3" />
                 <a
                   className="hover:opacity-50"
                   href={
@@ -85,8 +87,9 @@ const PostItem = ({ entry }) => {
             )}
           </div>
         )}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center">
           <FaUser size="18" />
+          <div className="w-3" />
           <div className="whitespace-pre-line">{entry.values.aboutYou}</div>
         </div>
       </div>
