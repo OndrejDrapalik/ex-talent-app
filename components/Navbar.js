@@ -65,64 +65,68 @@ export default function Navbar() {
   return (
     <>
       <div
-        // NAV BAR
-        /// add custom values with "h-[56px]""
-        className="bg-secondary text-primary shadow-mg  top-0
-                  flex h-16 w-screen 
-                  items-center justify-between px-[5vw] lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]"
+        // Dumb background
+        className="bg-secondary h-16 w-screen"
       >
-        <Link href={'/'} passHref>
-          <div
-            // Home button + some test animation on click w effect state
-            /// animation only works when Plus sign button is clicked
-            className={`z-10 flex items-center text-purple-400 hover:text-white ${
-              effect && 'animate-spin'
-            } `}
-            onAnimationEnd={() => setEffect(false)}
-          >
-            {<FaHome size="36" />}
-          </div>
-        </Link>
-
         <div
-        // Right side icons
+          // NAV BAR heart
+          className="text-primary shadow-mg  top-0
+                  m-auto flex h-16 
+                  max-w-6xl items-center justify-between px-[5vw] md:px-10"
         >
-          {
-            // ICONs conditional rendering
-            user ? (
-              // User logged
-              <div className="relative flex items-center">
-                <CreateOrEditEntry
-                  onClick={() => {
-                    setEffect(!effect);
-                    setEntry(true);
-                  }}
-                  linkPath={`/admin/${user.uid}`}
-                  entry={entry}
-                  entryCheck={entryCheck}
-                />
-                <div className="w-4 appearance-none" />
-                <TopRightMenu
-                  photoURL={user?.photoURL}
-                  dropdown={dropdown}
-                  onClick={() => setDropdown(!dropdown)}
-                  onClickSignOut={() => auth.signOut()}
-                  onClickDeleteAccount={deleteAccount}
-                />
-              </div>
-            ) : (
-              // User NOT logged in
-              <div className="relative flex items-center gap-4">
-                <NavBarIcons
-                  onClick={() => {
-                    signInWithGoogle();
-                    setDropdown(false);
-                  }}
-                  icon={<FaUserPlus size="26" />}
-                />
-              </div>
-            )
-          }
+          <Link href={'/'} passHref>
+            <div
+              // Home button + some test animation on click w effect state
+              /// animation only works when Plus sign button is clicked
+              className={`z-10 flex items-center text-purple-400 hover:text-white ${
+                effect && 'animate-spin'
+              } `}
+              onAnimationEnd={() => setEffect(false)}
+            >
+              {<FaHome size="36" />}
+            </div>
+          </Link>
+
+          <div
+          // Right side icons
+          >
+            {
+              // ICONs conditional rendering
+              user ? (
+                // User logged
+                <div className="relative flex items-center">
+                  <CreateOrEditEntry
+                    onClick={() => {
+                      setEffect(!effect);
+                      setEntry(true);
+                    }}
+                    linkPath={`/admin/${user.uid}`}
+                    entry={entry}
+                    entryCheck={entryCheck}
+                  />
+                  <div className="invisible w-4" />
+                  <TopRightMenu
+                    photoURL={user?.photoURL}
+                    dropdown={dropdown}
+                    onClick={() => setDropdown(!dropdown)}
+                    onClickSignOut={() => auth.signOut()}
+                    onClickDeleteAccount={deleteAccount}
+                  />
+                </div>
+              ) : (
+                // User NOT logged in
+                <div className="relative flex items-center gap-4">
+                  <NavBarIcons
+                    onClick={() => {
+                      signInWithGoogle();
+                      setDropdown(false);
+                    }}
+                    icon={<FaUserPlus size="26" />}
+                  />
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
     </>

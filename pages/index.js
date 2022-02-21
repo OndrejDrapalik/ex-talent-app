@@ -124,27 +124,25 @@ export default function Home(props) {
     <>
       <Navbar />
       <div
-        // container
-        className="mt-10  flex flex-col
-        px-[5vw] font-normal lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
-                  "
+        // Container main
+        className="m-auto max-w-6xl px-[5vw] md:px-10"
       >
-        <h1 className="text-5xl ">
+        <h1 className="pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
           Please meet some talented people who’ve worked at Avast.
         </h1>
         <div
-          className="flex flex-col pt-5 text-base font-normal
-        
-        "
+          // Filter group
+          className="flex-col 
+                  "
         >
           <div
             // Main filters
-            className=" flex flex-col justify-between md:flex-row"
+            className=" grid grid-cols-1 md:grid-cols-3 md:gap-4"
           >
-            <div>
+            <div className="w-auto">
               <select
                 name="countryFilter"
-                className="filter-main "
+                className="filter-main w-full"
                 value={countrySelected}
                 onChange={(e) => setCountrySelected(e.target.value)}
               >
@@ -156,10 +154,10 @@ export default function Home(props) {
                 ))}
               </select>
             </div>
-            <div>
+            <div className="w-auto">
               <select
                 name="departmentFilter"
-                className="filter-main"
+                className="filter-main w-full"
                 value={departmentSelected}
                 onChange={(e) => setDepartmentSelected(e.target.value)}
               >
@@ -171,10 +169,10 @@ export default function Home(props) {
                 ))}
               </select>
             </div>
-            <div>
+            <div className="w-auto">
               <select
                 name="departmentFilter"
-                className="filter-main "
+                className="filter-main w-full"
                 value={departmentSelected}
                 onChange={(e) => setDepartmentSelected(e.target.value)}
               >
@@ -187,10 +185,9 @@ export default function Home(props) {
               </select>
             </div>
           </div>
-          <div className="w-[20px] appearance-none" />
           <div
             // Minor fiters
-            className="flex flex-row md:flex-row"
+            className="flex flex-row md:flex-row "
           >
             <div>
               <button
@@ -202,7 +199,7 @@ export default function Home(props) {
                 Open to remote
               </button>
             </div>
-            <div className="w-[8px] appearance-none" />
+            <div className=" w-2 md:w-4" />
             <div>
               <button
                 onClick={() => setRelocationSlected(!relocationSelected)}
@@ -215,23 +212,21 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </div>
-
-      <div
-        className="flex flex-col px-[5vw] pt-14 
-       md:flex-row lg:px-[6vw] xl:px-[15vw] 2xl:px-[22vw]
-       
-       "
-      >
-        <div className="md:w-1/2 ">
-          <PostFeed entries={colA} />
-        </div>
         <div
-          // Instead of 'md:gap-5' in the div above I use this div to create the space
-          className="w-0 appearance-none md:w-5"
-        />
-        <div className="md:w-1/2 ">
-          <PostFeed entries={colB} />
+          // EntryFeed
+          className="flex flex-col  pt-10 
+       md:flex-row"
+        >
+          <div className="md:w-1/2 ">
+            <PostFeed entries={colA} />
+          </div>
+          <div
+            // Instead of 'md:gap-5' in the div above I use this div to create the space
+            className=" w-0 md:w-5"
+          />
+          <div className="md:w-1/2 ">
+            <PostFeed entries={colB} />
+          </div>
         </div>
       </div>
     </>
