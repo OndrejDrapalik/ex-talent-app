@@ -48,11 +48,10 @@ const PostItem = ({ entry }) => {
             {entry.values.linkedIn && (
               <div className="flex items-center">
                 <div>
-                  <FaLinkedinIn size="18" />
+                  <FaLinkedinIn size="16" />
                 </div>
-                <div className="w-3" />
                 <a
-                  className="hover:opacity-50"
+                  className="pl-3 hover:opacity-50"
                   href={
                     entry.values.linkedIn.slice(0, 8) !== 'https://'
                       ? 'https://' + entry.values.linkedIn
@@ -67,12 +66,11 @@ const PostItem = ({ entry }) => {
             )}
             {entry.values.otherURL && (
               <div className="flex items-center">
-                <div className=" mr-0.5">
+                <div className="">
                   <FaLink size="16" />
                 </div>
-                <div className="w-3" />
                 <a
-                  className="hover:opacity-50"
+                  className="pl-3 hover:opacity-50"
                   href={
                     entry.values.otherURL.slice(0, 8) !== 'https://'
                       ? 'https://' + entry.values.otherURL
@@ -87,10 +85,11 @@ const PostItem = ({ entry }) => {
             )}
           </div>
         )}
-        <div className="flex items-center">
-          <FaUser size="18" />
-          <div className="w-3" />
-          <div className="whitespace-pre-line">{entry.values.aboutYou}</div>
+        <div className="flex ">
+          <FaUser size="16" className="min-w-[16px] translate-y-1" />
+          <div className="whitespace-pre-line pl-3">
+            {entry.values.aboutYou}
+          </div>
         </div>
       </div>
     </>

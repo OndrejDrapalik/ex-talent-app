@@ -83,7 +83,7 @@ export default function Navbar() {
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
-              {<FaHome size="36" />}
+              {<FaHome size="36" onClick={() => router.reload()} />}
             </div>
           </Link>
 
