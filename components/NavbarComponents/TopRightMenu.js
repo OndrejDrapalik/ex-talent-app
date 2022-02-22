@@ -20,7 +20,7 @@ export default function TopRightMenu({
         onClick={onClick}
         icon={
           <Image
-            src={photoURL || '/images/hacker.png'}
+            src={!photoURL ? photoURL : '/hacker.png'}
             alt="user-profile-picture"
             width={32}
             height={32}

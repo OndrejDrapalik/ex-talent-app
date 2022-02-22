@@ -83,7 +83,13 @@ export default function Navbar() {
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
-              {<FaHome size="36" onClick={() => router.reload()} />}
+              {
+                <FaHome
+                  size="36"
+                  onClick={() => router.reload()}
+                  className="cursor-pointer"
+                />
+              }
             </div>
           </Link>
 
@@ -106,7 +112,7 @@ export default function Navbar() {
                   />
                   <div className="invisible w-4" />
                   <TopRightMenu
-                    photoURL={user?.photoURL}
+                    photoURL={user.photoURL}
                     dropdown={dropdown}
                     onClick={() => setDropdown(!dropdown)}
                     onClickSignOut={() => auth.signOut()}

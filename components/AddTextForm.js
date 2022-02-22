@@ -1,5 +1,5 @@
-import React from 'react';
-import { Formik, Form, useField } from 'formik';
+import React, { useCallback } from 'react';
+import { Formik, Form, useField, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { useContext, useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ const TextArea = ({ label, ...props }) => {
         {...props}
       ></textarea>
       {meta.touched && meta.error ? (
-        <div className="error absolute mt-[50px]">{meta.error}</div>
+        <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -55,7 +55,7 @@ const MyTextInput = ({ label, ...props }) => {
         {...props}
       />
       {meta.touched && meta.error ? (
-        <div className="error absolute mt-[50px]">{meta.error}</div>
+        <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
     </>
   );
@@ -84,7 +84,7 @@ const MyTextInputRequired = ({ label, ...props }) => {
         {...props}
       />
       {meta.touched && meta.error ? (
-        <div className="error absolute mt-[50px]">{meta.error}</div>
+        <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
     </>
   );
@@ -103,7 +103,7 @@ const MyCheckbox = ({ children, ...props }) => {
         {children}
       </label>
       {meta.touched && meta.error ? (
-        <div className="error absolute mt-[1px]">{meta.error}</div>
+        <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -128,7 +128,7 @@ const MySelect = ({ label, ...props }) => {
                     "
       />
       {meta.touched && meta.error ? (
-        <div className="error absolute mt-[1px]">{meta.error}</div>
+        <div className="error  mt-[2px]">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -186,6 +186,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
         ),
       })}
       onSubmit={onSubmit}
+      isValid
 
       // Debugging kit
       // validator={() => ({})}
@@ -193,17 +194,19 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       //   console.log('submit!');
       // }}
     >
-      {({ setFieldValue, initialValues, handleChange, values }) => {
-        /// is there a way how to go around not using the lintrule?
+      {(formik) => {
+        console.log('formik', formik);
+
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
+          console.log('formik hook runnsssss');
           if (entryCheck) {
-            const fields = Object.keys(initialValues);
+            const fields = Object.keys(formik.values);
             fields.forEach((field) =>
-              setFieldValue(field, entryCheck.values[field], false)
+              formik.setFieldValue(field, entryCheck.values[field], false)
             );
           }
-        }, [initialValues, setFieldValue]);
+        }, []);
 
         return (
           <>
@@ -244,7 +247,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                               
                               "
                   >
-                    <div className="flex flex-col pb-2">
+                    <div className="flex flex-col pb-2 ">
                       <MyTextInputRequired
                         label="First Name"
                         name="firstName"
@@ -257,7 +260,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       // Instead of 'md:gap-8' in the div above I use this div to create the space
                       className="md:w-6"
                     />
-                    <div className="flex flex-col pb-2">
+                    <div className="flex flex-col pb-2 ">
                       <MyTextInputRequired
                         label="Last Name"
                         name="lastName"
@@ -273,7 +276,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       City
                     </label>
                     <Autocomplete
-                      className="text-input mt-0.25 flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
+                      className="text-input  mt-0.25 flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
                                     text-gray-900
                                     placeholder-gray-400 autofill:bg-white
                                     autofill:text-gray-700 focus:border-green-500  
@@ -286,24 +289,25 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       onKeyPress={(e) => {
                         e.key === 'Enter' && e.preventDefault();
                       }}
-                      value={values.city || ''}
+                      value={formik.values.city || ''}
+                      {...formik.getFieldProps('city')}
                       apiKey={process.env.GOOGLE_MAPS_API_KEY}
                       onPlaceSelected={(place) => {
                         console.log('place:', place);
 
                         try {
-                          setFieldValue('city', place.formatted_address);
-                          setFieldValue(
+                          formik.setFieldValue('city', place.formatted_address);
+                          formik.setFieldValue(
                             'justCity',
                             place.address_components[0].long_name
                           );
                           if (place.address_components.length < 4) {
-                            setFieldValue(
+                            formik.setFieldValue(
                               'justCountry',
                               place.address_components[2].long_name
                             );
                           } else {
-                            setFieldValue(
+                            formik.setFieldValue(
                               'justCountry',
                               place.address_components[3].long_name
                             );
@@ -312,34 +316,40 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                           console.log(error);
                         }
                       }}
-                      onChange={handleChange}
                       options={{
                         types: ['(cities)'],
                       }}
                     />
+                    {formik.touched.city && formik.errors.city ? (
+                      <div className="error absolute mt-[50px]">
+                        {formik.errors.city}
+                      </div>
+                    ) : null}
+
+                    <div
+                      // Instead of 'md:gap-8' in the div above I use this div to create the space
+                      className="h-5 "
+                    />
 
                     <MyTextInput
                       // Invisible cmpnt
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
                       name="justCity"
                       type="text"
                       className="hidden"
-                      value={values.justCity || ''}
+                      value={formik.values.justCity || ''}
                     />
                     <MyTextInput
                       // Invisible cmpnt
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
                       name="justCountry"
                       type="text"
                       className="hidden"
-                      value={values.justCountry || ''}
+                      value={formik.values.justCountry || ''}
                     />
                   </div>
                 </div>
-                <div
-                  // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-5 "
-                />
+
                 <div
                   // Info about your work
                   className="flex flex-col"
@@ -537,7 +547,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   />
                   <button
                     type="submit"
-                    className="w-[40vw] rounded-md  bg-green-500 py-2 
+                    disabled={!formik.isValid}
+                    className="w-[40vw] rounded-md bg-green-500  py-2 disabled:opacity-30 
                             md:w-[275px]"
                   >
                     Submit
