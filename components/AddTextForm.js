@@ -24,7 +24,7 @@ const MyCity = ({ setFieldValue, label, ...props }) => {
                 placeholder-gray-400 autofill:bg-white
                 autofill:text-gray-700 focus:border-green-500  
                 focus:bg-white focus:placeholder-white
-                focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
+                focus:outline-none focus:ring-1 focus:ring-green-500 "
         id="city"
         placeholder="My city"
         language="en"
@@ -77,14 +77,14 @@ const TextArea = ({ label, logCharCount, ...props }) => {
         {label}
       </label>
       <textarea
-        className=" h-36 w-auto rounded-sm border pl-1"
+        className=" h-[15vh] w-auto rounded-sm border pl-1"
         {...field}
         {...props}
       ></textarea>
       <div className="flex flex-row-reverse justify-between">
         <div
           className={`text-xs ${
-            logCharCount < 1000 ? 'text-gray-400' : 'text-red-600'
+            logCharCount <= 1000 ? 'text-gray-400' : 'text-red-600'
           } `}
         >
           {logCharCount}/1000
@@ -109,12 +109,12 @@ const MyTextInput = ({ label, ...props }) => {
       </label>
 
       <input
-        className="text-input h-7 min-w-fit rounded-sm  border bg-gray-100  pl-1
+        className="text-input h-7 rounded-sm  border bg-gray-100  pl-1
         text-gray-900
         placeholder-gray-400 autofill:bg-white
         autofill:text-gray-700 focus:border-green-500  
         focus:bg-white focus:placeholder-white
-        focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
+        focus:outline-none focus:ring-1 focus:ring-green-500 "
         {...field}
         {...props}
       />
@@ -137,13 +137,13 @@ const MyTextInputRequired = ({ label, ...props }) => {
       </label>
 
       <input
-        className="text-input h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
+        className="text-input h-7 rounded-sm border bg-gray-100
         
-        text-gray-900
-        placeholder-gray-400 autofill:bg-white
-        autofill:text-gray-700 focus:border-green-500  
-        focus:bg-white focus:placeholder-white
-        focus:outline-none focus:ring-1 focus:ring-green-500 md:w-[275px]"
+        pl-1
+        text-gray-900 placeholder-gray-400
+        autofill:bg-white autofill:text-gray-700  
+        focus:border-green-500 focus:bg-white
+        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
         {...field}
         {...props}
       />
@@ -157,22 +157,22 @@ const MyTextInputRequired = ({ label, ...props }) => {
 const MyCheckbox = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'checkbox' });
   return (
-    <div>
-      <label className="checkbox-input flex flex-row items-center gap-2">
-        <input className="" type="checkbox" {...field} {...props} />
+    <>
+      <label className="checkbox-input flex flex-row items-center">
+        <input type="checkbox" {...field} {...props} />
         {children}
       </label>
       {meta.touched && meta.error ? (
         <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
-    </div>
+    </>
   );
 };
 
 const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div>
+    <>
       <label
         className="text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
@@ -182,15 +182,15 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="bg-arrowDown flex h-7 w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
+        className="bg-arrowDown flex h-7  w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
                     pl-1 text-gray-900
-                    [background-position:99%] invalid:text-gray-400 md:w-[275px] md:min-w-fit
+                    [background-position:99%] invalid:text-gray-400  
                     "
       />
       {meta.touched && meta.error ? (
-        <div className="error  mt-[2px]">{meta.error}</div>
+        <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
-    </div>
+    </>
   );
 };
 
@@ -281,19 +281,14 @@ export default function AddTextForm({ zIndex, onSubmit }) {
               ></div>
               <div
                 // White window
-                className={`${zIndex} bg-primary  mt-10  flex w-[90vw] flex-col
-                         rounded-lg px-[5vw]  
-                        pt-10 pb-10 
-                       md:w-auto  md:px-10 
+                className={`${zIndex} bg-primary m-auto flex w-screen max-w-3xl flex-col rounded-lg px-[3vw]
+                         py-[2vh] md:my-[3vh] md:px-10
                   `}
               >
-                <h1 className="flex text-3xl text-gray-900">
+                <h1 className="flex pb-[2vh] text-3xl text-gray-900">
                   {entryCheck ? 'Edit you entry' : 'Add your entry'}
                 </h1>
-                <div
-                  // Instead of 'md:gap-8' in the div above I use this div to create the space
-                  className="h-5 "
-                />
+
                 <Form
                   onKeyUp={(e) => {
                     e.key === 'Escape' && router.push('/');
@@ -302,49 +297,34 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                 >
                   <div
                     // Personal info group
-                    className="flex flex-col "
+                    className=" grid grid-cols-1 pb-[2vh] md:grid-cols-2 md:gap-x-5"
                   >
-                    <div
-                      // Full name
-                      className="flex flex-col md:flex-row
-                              
-                              "
-                    >
-                      <div className="flex flex-col pb-2 ">
-                        <MyTextInputRequired
-                          label="First Name"
-                          name="firstName"
-                          type="text"
-                          placeholder="Ondrej"
-                          required
-                        />
-                      </div>
-                      <div
-                        // Instead of 'md:gap-8' in the div above I use this div to create the space
-                        className="md:w-6"
+                    <div className="flex w-full flex-col pb-2">
+                      <MyTextInputRequired
+                        label="First Name"
+                        name="firstName"
+                        type="text"
+                        placeholder="Ondrej"
+                        required
                       />
-                      <div className="flex flex-col pb-2 ">
-                        <MyTextInputRequired
-                          label="Last Name"
-                          name="lastName"
-                          type="text"
-                          placeholder="Drapalik"
-                          required
-                        />
-                      </div>
                     </div>
 
-                    <div className="flex flex-col pb-2">
+                    <div className="flex w-full flex-col pb-2 ">
+                      <MyTextInputRequired
+                        label="Last Name"
+                        name="lastName"
+                        type="text"
+                        placeholder="Drapalik"
+                        required
+                      />
+                    </div>
+
+                    <div className="flex w-full flex-col pb-2">
                       <MyCity
                         name="city"
                         value={values.city || ''}
                         label="City"
                         setFieldValue={setFieldValue}
-                      />
-
-                      <div
-                        // Instead of 'md:gap-8' in the div above I use this div to create the space
-                        className="h-5 "
                       />
 
                       <MyTextInput
@@ -366,103 +346,96 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                   <div
                     // Info about your work
-                    className="flex flex-col"
+                    className="grid grid-cols-1 pb-[2vh] md:grid-cols-2 md:gap-x-5"
                   >
-                    <div className="flex flex-col md:flex-row md:items-end ">
-                      <div className="flex flex-col pb-2">
-                        <MyTextInputRequired
-                          label="Job Title"
-                          name="jobTitle"
-                          type="text"
-                          placeholder="Marketing Communication Specialist"
-                          required
-                        />
-                      </div>
-                      <div
-                        // Instead of 'md:gap-8' in the div above I use this div to create the space
-                        className="md:w-6"
+                    <div className="flex flex-col pb-2">
+                      <MyTextInputRequired
+                        label="Job Title"
+                        name="jobTitle"
+                        type="text"
+                        placeholder="Marketing Communication Specialist"
+                        required
                       />
-                      <div className="flex flex-col pb-2">
-                        <MySelect
-                          label="Department"
-                          name="department"
-                          className="flex flex-col "
-                          required
+                    </div>
+
+                    <div className="flex flex-col pb-2">
+                      <MySelect
+                        label="Department"
+                        name="department"
+                        className="flex flex-col"
+                        required
+                      >
+                        <option
+                          disabled
+                          // selected
+                          value=""
+                          className="text-gray-400"
                         >
-                          <option
-                            disabled
-                            // selected
-                            value=""
-                            className="text-gray-400"
-                          >
-                            My department
-                          </option>
-                          <option value="Accounting / Auditing">
-                            Accounting / Auditing
-                          </option>
-                          <option value="Administrative">Administrative</option>
-                          <option value="Advertising">Advertising</option>
-                          <option value="Analyst">Analyst</option>
-                          <option value="Art / Creative">Art / Creative</option>
-                          <option value="Business Development">
-                            Business Development
-                          </option>
-                          <option value="Consulting">Consulting</option>
-                          <option value="Customer Service">
-                            Customer Service
-                          </option>
-                          <option value="Data Science">Data Science</option>
-                          <option value="Design">Design</option>
-                          <option value="Distribution">Distribution</option>
-                          <option value="Education">Education</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Finance">Finance</option>
-                          <option value="General Business">
-                            General Business
-                          </option>
-                          <option value="Healthcare Provider">
-                            Healthcare Provider
-                          </option>
-                          <option value="Human Resources">
-                            Human Resources
-                          </option>
-                          <option value="Information Technology">
-                            Information Technology
-                          </option>
-                          <option value="Legal">Legal</option>
-                          <option value="Management">Management</option>
-                          <option value="Manufacturing">Manufacturing</option>
-                          <option value="Marketing">Marketing</option>
-                          <option value="Other">Other</option>
-                          <option value="Policy">Policy</option>
-                          <option value="Product Management">
-                            Product Management
-                          </option>
-                          <option value="Production">Production</option>
-                          <option value="Project Management">
-                            Project Management
-                          </option>
-                          <option value="Public Relations">
-                            Public Relations
-                          </option>
-                          <option value="Purchasing">Purchasing</option>
-                          <option value="Quality Assurance">
-                            Quality Assurance
-                          </option>
-                          <option value="Recruiting">Recruiting</option>
-                          <option value="Research">Research</option>
-                          <option value="Sales">Sales</option>
-                          <option value="Science">Science</option>
-                          <option value="Strategy / Planning">
-                            Strategy / Planning
-                          </option>
-                          <option value="Supply Chain">Supply Chain</option>
-                          <option value="Training">Training</option>
-                          <option value="Writing / Editing">
-                            Writing / Editing
-                          </option>
-                        </MySelect>
-                      </div>
+                          My department
+                        </option>
+                        <option value="Accounting / Auditing">
+                          Accounting / Auditing
+                        </option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Advertising">Advertising</option>
+                        <option value="Analyst">Analyst</option>
+                        <option value="Art / Creative">Art / Creative</option>
+                        <option value="Business Development">
+                          Business Development
+                        </option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Customer Service">
+                          Customer Service
+                        </option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Design">Design</option>
+                        <option value="Distribution">Distribution</option>
+                        <option value="Education">Education</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Finance">Finance</option>
+                        <option value="General Business">
+                          General Business
+                        </option>
+                        <option value="Healthcare Provider">
+                          Healthcare Provider
+                        </option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Information Technology">
+                          Information Technology
+                        </option>
+                        <option value="Legal">Legal</option>
+                        <option value="Management">Management</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Other">Other</option>
+                        <option value="Policy">Policy</option>
+                        <option value="Product Management">
+                          Product Management
+                        </option>
+                        <option value="Production">Production</option>
+                        <option value="Project Management">
+                          Project Management
+                        </option>
+                        <option value="Public Relations">
+                          Public Relations
+                        </option>
+                        <option value="Purchasing">Purchasing</option>
+                        <option value="Quality Assurance">
+                          Quality Assurance
+                        </option>
+                        <option value="Recruiting">Recruiting</option>
+                        <option value="Research">Research</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Science">Science</option>
+                        <option value="Strategy / Planning">
+                          Strategy / Planning
+                        </option>
+                        <option value="Supply Chain">Supply Chain</option>
+                        <option value="Training">Training</option>
+                        <option value="Writing / Editing">
+                          Writing / Editing
+                        </option>
+                      </MySelect>
                     </div>
 
                     <div className="flex flex-col pb-2">
@@ -486,13 +459,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       </MySelect>
                     </div>
                   </div>
-                  <div
-                    // Instead of 'md:gap-8' in the div above I use this div to create the space
-                    className="h-5 "
-                  />
+
                   <div
                     // Links
-                    className="flex flex-col  md:flex-row "
+                    className="grid grid-cols-1 pb-[2vh] md:grid-cols-2 md:gap-x-5"
                   >
                     <div className="flex flex-col pb-2">
                       <MyTextInput
@@ -502,10 +472,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                         placeholder="linkedin.com/in/ondrejdrapalik/"
                       />
                     </div>
-                    <div
-                      // Instead of 'md:gap-8' in the div above I use this div to create the space
-                      className="md:w-6"
-                    />
+
                     <div className="flex flex-col pb-2">
                       <MyTextInput
                         label="Other URL"
@@ -515,10 +482,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       />
                     </div>
                   </div>
-                  <div
-                    // Instead of 'md:gap-8' in the div above I use this div to create the space
-                    className="h-5 "
-                  />
+
                   <div className="pb-2">
                     <TextArea
                       label="About you"
@@ -529,20 +493,20 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     />
                   </div>
 
-                  <div className="pb-4">
+                  <div className="pb-5">
                     <MyCheckbox
                       name="remoteWork"
-                      className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
-                      rounded-sm border-2 bg-contain"
+                      className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary h-4  w-4 cursor-pointer appearance-none rounded-sm
+                      border-2 bg-contain"
                     >
-                      <div>I am open to remote.</div>
+                      <div className="pl-2">I am open to remote.</div>
                     </MyCheckbox>
                     <MyCheckbox
                       name="relocation"
                       className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
                       rounded-sm border-2 bg-contain"
                     >
-                      <div>I am open to relocation.</div>
+                      <div className="pl-2">I am open to relocation.</div>
                     </MyCheckbox>
                   </div>
 

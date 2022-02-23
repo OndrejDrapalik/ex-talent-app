@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
@@ -10,14 +10,20 @@ import { UserContext } from '../../lib/contexts/user-context';
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
 export default function EntryPage() {
-  const { entryCheck } = useContext(UserContext);
+  const { user, entryCheck } = useContext(UserContext);
   const router = useRouter();
 
-  const entryRef = firestore
-    .collection('users')
-    .doc(auth.currentUser.uid)
-    .collection('entry_collection')
-    .doc('entry_doc');
+  useEffect(() => {
+    if (user) {
+      console.log('user.uid', user.uid);
+      const entryRef = firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('entry_collection')
+        .doc('entry_doc');
+      return entryRef;
+    }
+  }, [user]);
 
   const handleFormikSubmit = async (values) => {
     // alert(JSON.stringify(values, null, 2));
