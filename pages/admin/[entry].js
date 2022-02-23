@@ -11,23 +11,23 @@ import { firestore, auth, serverTimestamp } from '../../lib/firebase';
 
 export default function EntryPage() {
   const { user, entryCheck } = useContext(UserContext);
+  const [entryRefValue, setEntryRefValue] = useState('');
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
-      console.log('user.uid', user.uid);
       const entryRef = firestore
         .collection('users')
         .doc(user.uid)
         .collection('entry_collection')
         .doc('entry_doc');
-      return entryRef;
+      setEntryRefValue(entryRef);
     }
   }, [user]);
 
   const handleFormikSubmit = async (values) => {
     // alert(JSON.stringify(values, null, 2));
-    await entryRef.set({
+    await entryRefValue.set({
       values,
       updatedAt: serverTimestamp(),
       id: auth.currentUser.uid,
