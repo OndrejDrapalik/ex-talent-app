@@ -65,12 +65,13 @@ const MyCity = ({ setFieldValue, label, ...props }) => {
   );
 };
 
-const TextArea = ({ label, ...props }) => {
+const TextArea = ({ label, logCharCount, ...props }) => {
   const [field, meta] = useField(props);
+
   return (
     <div className="form-control flex flex-col ">
       <label
-        className="text-sm text-gray-400  "
+        className=" text-sm text-gray-400 "
         htmlFor={props.id || props.name}
       >
         {label}
@@ -80,9 +81,18 @@ const TextArea = ({ label, ...props }) => {
         {...field}
         {...props}
       ></textarea>
-      {meta.touched && meta.error ? (
-        <div className="error mt-[2px]">{meta.error}</div>
-      ) : null}
+      <div className="flex flex-row-reverse justify-between">
+        <div
+          className={`text-xs ${
+            logCharCount < 1000 ? 'text-gray-400' : 'text-red-600'
+          } `}
+        >
+          {logCharCount}/1000
+        </div>
+        {meta.touched && meta.error ? (
+          <div className="error mt-[2px]">{meta.error}</div>
+        ) : null}
+      </div>
     </div>
   );
 };
@@ -226,6 +236,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
       /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#-]+\/?)*$/,
       'Enter correct url'
     ),
+    aboutYou: Yup.string().max(1000, 'Too Long!'),
   });
 
   return (
@@ -514,6 +525,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       name="aboutYou"
                       type="text"
                       placeholder="My text"
+                      logCharCount={values.aboutYou.split('').length}
                     />
                   </div>
 
