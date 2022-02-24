@@ -38,20 +38,27 @@ export default function Home(props) {
       let response = await firstData;
       setEntries(response);
       setLoading(false);
+
+      // Randomise entries and save it as a shuffle state
+
+      const dataSortable = [...response].map((x) => {
+        return {
+          ...x,
+          sortKey: Math.random(),
+        };
+      });
+
+      dataSortable.sort((a, b) => a.sortKey - b.sortKey);
+
+      setShuffle(dataSortable);
     }
 
     fetchData();
   }, [firstData]);
 
-  // Randomise entries and save it as a shuffle state
-  useEffect(() => {
-    const shuffleEntries = entries.sort(() => Math.random() - 0.5);
-    setShuffle(shuffleEntries);
-  }, [entries]);
-
   // Clean & order entries data for usage in the filters
   useEffect(() => {
-    const mapCountries = entries.map((item) => item.values.justCountry);
+    const mapCountries = [...entries].map((item) => item.values.justCountry);
     const filterCountries = mapCountries
       .filter((item, index) => mapCountries.indexOf(item) >= index)
       .filter((item) => item !== '');
@@ -59,7 +66,7 @@ export default function Home(props) {
     const orderCountries = filterCountries.sort();
     setCleanCountry(orderCountries);
 
-    const mapDepartments = entries.map((item) => item.values.department);
+    const mapDepartments = [...entries].map((item) => item.values.department);
     const filterDepartments = mapDepartments.filter(
       (item, index) => mapDepartments.indexOf(item) >= index
     );
@@ -116,8 +123,8 @@ export default function Home(props) {
   ]);
 
   const firstHalf = Math.floor(entries.length / 2);
-  const colA = (loading ? firstData : shuffle).slice(0, firstHalf);
-  const colB = (loading ? firstData : shuffle).slice(firstHalf, entries.length);
+  const colA = shuffle.slice(0, firstHalf);
+  const colB = shuffle.slice(firstHalf, entries.length);
   console.log(loading ? 'loading firstLoad' : 'loading SHUFFLE');
 
   return (
