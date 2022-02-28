@@ -4,19 +4,6 @@ import PostFeed from '../components/PostFeed';
 
 import { firestore, postToJSON } from '../lib/firebase';
 
-// SSR is used for inital render for better UX
-// export async function getServerSideProps() {
-//   const postQuery = firestore
-//     .collectionGroup('entry_collection')
-//     .orderBy('id', 'asc');
-
-//   const firstLoad = (await postQuery.get()).docs.map(postToJSON);
-
-//   return {
-//     props: { firstLoad },
-//   };
-// }
-
 export async function getStaticProps() {
   const postQuery = firestore
     .collectionGroup('entry_collection')
