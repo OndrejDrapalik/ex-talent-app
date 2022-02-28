@@ -2,8 +2,40 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2022, 3, 1)
+
+
+        // Required for collection group queries
+        match /entry_collection/{entryId} {
+          allow read;
+        }
+
+        // creating a user doc
+        match /users/{userId} {
+          allow read;
+          allow create: if isValidUser(userId);
+          allow delete: if request.auth.uid == userId;
+        }
+
+        // creating a entry doc
+        match /users/{userId}/entry_collection/{entryId} {
+          allow read;
+          allow create: if canCreateEntry(userId);
+          allow delete: if request.auth.uid == userId;
+
+        }
+
+        function isValidUser(userId) {
+          let isOwner = request.auth.uid == userId;
+          return isOwner;
+        }
+
+        function canCreateEntry(userId) {
+          let isOwner = request.auth.uid == userId;
+          let isNow = request.time == request.resource.data.updatedAt;
+          let isValidContent = request.resource.data.values.aboutYou.size() < 1000;
+          return isOwner && isNow && isValidContent; 
+        }
+
     }
 
   }
