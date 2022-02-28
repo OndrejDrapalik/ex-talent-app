@@ -5,7 +5,19 @@ import PostFeed from '../components/PostFeed';
 import { firestore, postToJSON } from '../lib/firebase';
 
 // SSR is used for inital render for better UX
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
+//   const postQuery = firestore
+//     .collectionGroup('entry_collection')
+//     .orderBy('id', 'asc');
+
+//   const firstLoad = (await postQuery.get()).docs.map(postToJSON);
+
+//   return {
+//     props: { firstLoad },
+//   };
+// }
+
+export async function getStaticProps() {
   const postQuery = firestore
     .collectionGroup('entry_collection')
     .orderBy('id', 'asc');
@@ -14,6 +26,7 @@ export async function getServerSideProps() {
 
   return {
     props: { firstLoad },
+    revalidate: 30,
   };
 }
 
@@ -46,7 +59,6 @@ export default function Home(props) {
           sortKey: Math.random(),
         };
       });
-
       dataSortable.sort((a, b) => a.sortKey - b.sortKey);
 
       setShuffle(dataSortable);
@@ -134,7 +146,7 @@ export default function Home(props) {
         className="m-auto max-w-6xl px-[5vw] md:px-10"
       >
         <h1 className="pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
-          SSR. Please meet some talented people who’ve worked at Avast.
+          Please meet some talented people who’ve worked at Avast.
         </h1>
         <div
           // Filter group

@@ -20,6 +20,7 @@ service cloud.firestore {
         match /users/{userId}/entry_collection/{entryId} {
           allow read;
           allow create: if canCreateEntry(userId);
+          allow update: if canUpdateEntry(userId);
           allow delete: if request.auth.uid == userId;
 
         }
@@ -33,8 +34,18 @@ service cloud.firestore {
           let isOwner = request.auth.uid == userId;
           let isNow = request.time == request.resource.data.updatedAt;
           let isValidContent = request.resource.data.values.aboutYou.size() < 1000;
+
           return isOwner && isNow && isValidContent; 
         }
+
+        function canUpdateEntry(userId) {
+          let isOwner = request.auth.uid == userId;
+          let isNow = request.time == request.resource.data.updatedAt;
+          let isValidContent = request.resource.data.values.aboutYou.size() < 1000;
+
+          return isOwner && isNow && isValidContent; 
+        }
+
 
     }
 
