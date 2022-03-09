@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import TopRightMenu from './NavbarComponents/TopRightMenu';
 import NavBarIcons from './NavbarComponents/HelperComponents/NavBarIcons';
 import CreateOrEditEntry from './NavbarComponents/CreateOrEditEntry';
+import ThemeIcon from './NavbarComponents/ThemeIcon';
 
 // Top navbar
 export default function Navbar() {
@@ -66,7 +67,7 @@ export default function Navbar() {
     <>
       <div
         // Dumb background
-        className="bg-secondary h-16 w-screen"
+        className="bg-secondary h-16 w-screen dark:bg-red-300"
       >
         <div
           // NAV BAR heart
@@ -110,6 +111,7 @@ export default function Navbar() {
                     entry={entry}
                     entryCheck={entryCheck}
                   />
+                  <ThemeIcon />
                   <div className="invisible w-4" />
                   <TopRightMenu
                     photoURL={user.photoURL}
@@ -129,6 +131,7 @@ export default function Navbar() {
                     }}
                     icon={<FaUserPlus size="26" />}
                   />
+                  <ThemeIcon />
                 </div>
               )
             }
