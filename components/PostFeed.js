@@ -21,7 +21,7 @@ const PostItem = ({ entry }) => {
     <>
       <div
         // Inner box styling
-        className="flex flex-col rounded-lg border bg-white px-5 py-10 drop-shadow-lg"
+        className="dark:bg-dark/75 dark:text-lightest flex flex-col rounded-lg  bg-white px-5 py-10 drop-shadow-lg"
       >
         <div className=" pb-1 text-2xl font-bold">
           {entry.values.firstName} {entry.values.lastName}

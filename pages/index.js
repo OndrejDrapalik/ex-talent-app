@@ -139,7 +139,7 @@ export default function Home(props) {
           className="m-auto max-w-6xl px-[5vw] md:px-10
         "
         >
-          <h1 className="pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
+          <h1 className="text-darkest dark:text-lightest pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
             Please meet some talented people who’ve worked at Avast.
           </h1>
           <div
@@ -154,7 +154,7 @@ export default function Home(props) {
               <div className="w-auto">
                 <select
                   name="countryFilter"
-                  className="filter-main w-full"
+                  className="filter-main  dark:bg-lightest w-full"
                   value={countrySelected}
                   onChange={(e) => setCountrySelected(e.target.value)}
                 >
@@ -169,7 +169,7 @@ export default function Home(props) {
               <div className="w-auto">
                 <select
                   name="departmentFilter"
-                  className="filter-main w-full"
+                  className="filter-main dark:bg-lightest w-full"
                   value={departmentSelected}
                   onChange={(e) => setDepartmentSelected(e.target.value)}
                 >
@@ -184,7 +184,7 @@ export default function Home(props) {
               <div className="w-auto">
                 <select
                   name="departmentFilter"
-                  className="filter-main w-full"
+                  className="filter-main dark:bg-lightest w-full"
                   value={departmentSelected}
                   onChange={(e) => setDepartmentSelected(e.target.value)}
                 >
@@ -205,7 +205,7 @@ export default function Home(props) {
                 <button
                   onClick={() => setRemoteSelected(!remoteSelected)}
                   className={`filter-minor px-4 ${
-                    remoteSelected && 'bg-green-200'
+                    remoteSelected ? 'bg-accent' : 'dark:bg-lightest bg-white'
                   }`}
                 >
                   Open to remote
@@ -215,8 +215,10 @@ export default function Home(props) {
               <div>
                 <button
                   onClick={() => setRelocationSlected(!relocationSelected)}
-                  className={`filter-minor px-4 ${
-                    relocationSelected && 'bg-green-200'
+                  className={`filter-minor  px-4 ${
+                    relocationSelected
+                      ? 'bg-accent'
+                      : 'dark:bg-lightest bg-white'
                   }`}
                 >
                   Open to relocation

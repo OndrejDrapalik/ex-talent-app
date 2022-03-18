@@ -13,18 +13,19 @@ const MyCity = ({ setFieldValue, label, ...props }) => {
 
   return (
     <>
-      <label className="flex  text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']">
+      <label className="text-dark/75  dark:text-light/75  flex text-sm after:ml-0.5 after:text-red-500 after:content-['*']">
         {label}
       </label>
       <Autocomplete
         {...field}
         {...props}
-        className="text-input  mt-0.25 flex h-7 min-w-fit rounded-sm border bg-gray-100 pl-1
-                text-gray-900
-                placeholder-gray-400 autofill:bg-white
-                autofill:text-gray-700 focus:border-green-500  
-                focus:bg-white focus:placeholder-white
-                focus:outline-none focus:ring-1 focus:ring-green-500 "
+        className="  mt-0.25  dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50
+                flex
+                h-7 
+                min-w-fit 
+                rounded-sm  
+                pl-1
+               focus:outline-none "
         id="city"
         placeholder="My city"
         language="en"
@@ -71,20 +72,24 @@ const TextArea = ({ label, logCharCount, ...props }) => {
   return (
     <div className="form-control flex flex-col ">
       <label
-        className=" text-sm text-gray-400 "
+        className=" text-dark/75  dark:text-light/75 text-sm "
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
       <textarea
-        className=" h-[15vh] w-auto rounded-sm border pl-1"
+        className=" dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-[15vh]
+        w-auto rounded-sm pl-1 focus:outline-none 
+        "
         {...field}
         {...props}
       ></textarea>
       <div className="flex flex-row-reverse justify-between">
         <div
           className={`text-xs ${
-            logCharCount <= 1000 ? 'text-gray-400' : 'text-red-600'
+            logCharCount <= 1000
+              ? 'text-dark/75  dark:text-light/75'
+              : 'text-red-600'
           } `}
         >
           {logCharCount}/1000
@@ -102,19 +107,17 @@ const MyTextInput = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-sm text-gray-400  "
+        className="text-dark/75  dark:text-light/75  text-sm "
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
 
       <input
-        className="text-input h-7 rounded-sm  border bg-gray-100  pl-1
-        text-gray-900
-        placeholder-gray-400 autofill:bg-white
-        autofill:text-gray-700 focus:border-green-500  
-        focus:bg-white focus:placeholder-white
-        focus:outline-none focus:ring-1 focus:ring-green-500 "
+        className="dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 text-input
+        h-7
+rounded-sm pl-1  
+        focus:outline-none  "
         {...field}
         {...props}
       />
@@ -130,20 +133,18 @@ const MyTextInputRequired = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-sm text-gray-400 after:ml-0.5 after:text-red-500 after:content-['*']"
+        className="text-dark/75  dark:text-light/75 text-sm after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
       >
         {label}
       </label>
 
       <input
-        className="text-input h-7 rounded-sm border bg-gray-100
+        className="text-input dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-7
         
-        pl-1
-        text-gray-900 placeholder-gray-400
-        autofill:bg-white autofill:text-gray-700  
-        focus:border-green-500 focus:bg-white
-        focus:placeholder-white focus:outline-none focus:ring-1 focus:ring-green-500"
+        rounded-sm pl-1
+         focus:outline-none  
+        "
         {...field}
         {...props}
       />
@@ -174,7 +175,7 @@ const MySelect = ({ label, ...props }) => {
   return (
     <>
       <label
-        className="text-sm text-gray-400  after:ml-0.5 after:text-red-500 after:content-['*']"
+        className="text-dark/75  dark:text-light/75 text-sm  after:ml-0.5 after:text-red-500 after:content-['*']"
         htmlFor={props.id || props.name}
       >
         {label}
@@ -182,9 +183,10 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="bg-arrowDown flex h-7  w-full appearance-none rounded-sm border bg-gray-100  bg-no-repeat
-                    pl-1 text-gray-900
-                    [background-position:99%] invalid:text-gray-400  
+        className="bg-arrowDown dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 flex h-7 w-full  appearance-none
+                     rounded-sm
+                    bg-no-repeat 
+                    pl-1 [background-position:99%] focus:outline-none  
                     "
       />
       {meta.touched && meta.error ? (
@@ -276,16 +278,16 @@ export default function AddTextForm({ zIndex, onSubmit }) {
               <div
                 // Blue background
                 className={`fixed top-0 right-0 bottom-0 left-0 h-full w-full ${zIndex}
-                          bg-secondary cursor-default 
+                          bg-secondary bg-lightest dark:bg-darker cursor-default
                           opacity-100`}
               ></div>
               <div
-                // White window
-                className={`${zIndex} bg-primary m-auto flex w-screen max-w-3xl flex-col rounded-lg px-[3vw]
-                         py-[2vh] md:my-[3vh] md:px-10
+                // window
+                className={`${zIndex} bg-primary dark:bg-dark m-auto flex w-screen max-w-3xl flex-col rounded-lg bg-white px-[3vw]
+                         py-[2vh] shadow-lg md:my-[3vh] md:px-10
                   `}
               >
-                <h1 className="flex pb-[2vh] text-3xl text-gray-900">
+                <h1 className="text-darkest dark:text-lightest flex pb-[2vh] text-3xl">
                   {entryCheck ? 'Edit you entry' : 'Add your entry'}
                 </h1>
 
@@ -496,17 +498,21 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   <div className="pb-5">
                     <MyCheckbox
                       name="remoteWork"
-                      className="checked checked:bg-check-box checked:bg-secondary checked:border-secondary h-4  w-4 cursor-pointer appearance-none rounded-sm
+                      className="checked checked:bg-check-box  checked:bg-accent dark:checked:b checked:border-accent border-lighter h-4 w-4  cursor-pointer appearance-none rounded-sm 
                       border-2 bg-contain"
                     >
-                      <div className="pl-2">I am open to remote.</div>
+                      <div className="text-darkest dark:text-lightest pl-2">
+                        I am open to remote.
+                      </div>
                     </MyCheckbox>
                     <MyCheckbox
                       name="relocation"
-                      className="checked:bg-check-box checked:bg-secondary checked:border-secondary  h-4 w-4 cursor-pointer appearance-none
+                      className="checked:bg-check-box  checked:bg-accent checked:border-accent border-lighter  h-4 w-4 cursor-pointer appearance-none
                       rounded-sm border-2 bg-contain"
                     >
-                      <div className="pl-2">I am open to relocation.</div>
+                      <div className="text-darkest dark:text-lightest pl-2">
+                        I am open to relocation.
+                      </div>
                     </MyCheckbox>
                   </div>
 
@@ -517,7 +523,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <button
                       type="reset"
                       onClick={() => router.push('/')}
-                      className="w-[40vw] rounded-md bg-gray-200 py-2 
+                      className="bg-light hover:bg-light/75 text-darkest w-[40vw] rounded-md py-2 
                             md:w-[275px]"
                     >
                       Cancel
@@ -529,7 +535,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <button
                       type="submit"
                       disabled={!isValid}
-                      className="w-[40vw] rounded-md bg-green-500  py-2 disabled:opacity-30 
+                      className="text-darkest bg-accent hover:bg-accent/75 w-[40vw] rounded-md py-2 disabled:opacity-30 
                             md:w-[275px]"
                     >
                       Submit

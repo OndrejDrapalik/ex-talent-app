@@ -7,7 +7,7 @@
 /* Custom classes */
 @layer components {
   .navbar-icons {
-    @apply bg-lightest dark:bg-dark/50 text-darkest dark:text-lightest/50 hover:text-accent   dark:hover:text-accent 
+    @apply bg-lightest dark:bg-darker text-darkest dark:text-light/75 hover:text-accent   dark:hover:text-accent 
             flex h-12 
             w-12 cursor-pointer 
             appearance-none items-center
@@ -18,7 +18,7 @@
   }
 
   .navbar-tooltip {
-    @apply font-lato bg-lightest dark:bg-dark/50 text-darkest dark:text-lightest  m-2
+    @apply font-lato bg-lightest dark:bg-darker text-darkest dark:text-lightest  m-2
             flex w-[20vw] origin-right
             scale-0 rounded-md
             p-2 text-sm
@@ -34,11 +34,11 @@
   }
 
   .filter-main {
-    @apply bg-arrowDown mb-2 h-14  appearance-none  items-center justify-start rounded-lg border bg-white
-    bg-no-repeat pl-3 pr-7  drop-shadow-sm [background-position:97%] md:mb-4;
+    @apply bg-arrowDown mb-2 h-14  appearance-none  items-center justify-start rounded-lg  
+    bg-no-repeat pl-3 pr-7  drop-shadow-md [background-position:97%] md:mb-4;
   }
 
   .filter-minor {
-    @apply flex h-10 appearance-none items-center justify-start rounded-full border bg-white text-sm drop-shadow-sm;
+    @apply flex h-10 appearance-none items-center justify-start rounded-full  text-sm drop-shadow-md;
   }
 }

@@ -79,7 +79,7 @@ export default function Navbar() {
             <div
               // Home button + some test animation on click w effect state
               /// animation only works when Plus sign button is clicked
-              className={`text-darker dark:text-lightest hover:text-accent dark:hover:text-accent z-10 flex items-center ${
+              className={`text-darker dark:text-light/75 hover:text-accent dark:hover:text-accent z-10 flex items-center ${
                 effect && 'animate-spin'
               } `}
               onAnimationEnd={() => setEffect(false)}
