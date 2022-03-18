@@ -129,108 +129,113 @@ export default function Home(props) {
     <>
       <Navbar />
       <div
-        // Container main
-        className="m-auto max-w-6xl px-[5vw] md:px-10"
+        // Background
+        className="dark:bg-darker  bg-lightest 
+       top-0 right-0 bottom-0 left-0  h-screen w-screen
+      "
       >
-        <h1 className="pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
-          Please meet some talented people who’ve worked at Avast.
-        </h1>
         <div
-          // Filter group
-          className="flex-col 
+          // Container main
+          className="m-auto max-w-6xl px-[5vw] md:px-10
+        "
+        >
+          <h1 className="pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
+            Please meet some talented people who’ve worked at Avast.
+          </h1>
+          <div
+            // Filter group
+            className="flex-col 
                   "
-        >
-          <div
-            // Main filters
-            className=" grid grid-cols-1 md:grid-cols-3 md:gap-4"
           >
-            <div className="w-auto">
-              <select
-                name="countryFilter"
-                className="filter-main w-full"
-                value={countrySelected}
-                onChange={(e) => setCountrySelected(e.target.value)}
-              >
-                <option value="">All countries</option>
-                {cleanCountry.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+            <div
+              // Main filters
+              className=" grid grid-cols-1 md:grid-cols-3 md:gap-4"
+            >
+              <div className="w-auto">
+                <select
+                  name="countryFilter"
+                  className="filter-main w-full"
+                  value={countrySelected}
+                  onChange={(e) => setCountrySelected(e.target.value)}
+                >
+                  <option value="">All countries</option>
+                  {cleanCountry.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="w-auto">
+                <select
+                  name="departmentFilter"
+                  className="filter-main w-full"
+                  value={departmentSelected}
+                  onChange={(e) => setDepartmentSelected(e.target.value)}
+                >
+                  <option value="">All departments</option>
+                  {cleanDepartment.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="w-auto">
+                <select
+                  name="departmentFilter"
+                  className="filter-main w-full"
+                  value={departmentSelected}
+                  onChange={(e) => setDepartmentSelected(e.target.value)}
+                >
+                  <option value="">All departments</option>
+                  {cleanDepartment.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="w-auto">
-              <select
-                name="departmentFilter"
-                className="filter-main w-full"
-                value={departmentSelected}
-                onChange={(e) => setDepartmentSelected(e.target.value)}
-              >
-                <option value="">All departments</option>
-                {cleanDepartment.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="w-auto">
-              <select
-                name="departmentFilter"
-                className="filter-main w-full"
-                value={departmentSelected}
-                onChange={(e) => setDepartmentSelected(e.target.value)}
-              >
-                <option value="">All departments</option>
-                {cleanDepartment.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+            <div
+              // Minor fiters
+              className="flex flex-row md:flex-row "
+            >
+              <div>
+                <button
+                  onClick={() => setRemoteSelected(!remoteSelected)}
+                  className={`filter-minor px-4 ${
+                    remoteSelected && 'bg-green-200'
+                  }`}
+                >
+                  Open to remote
+                </button>
+              </div>
+              <div className=" w-2 md:w-4" />
+              <div>
+                <button
+                  onClick={() => setRelocationSlected(!relocationSelected)}
+                  className={`filter-minor px-4 ${
+                    relocationSelected && 'bg-green-200'
+                  }`}
+                >
+                  Open to relocation
+                </button>
+              </div>
             </div>
           </div>
           <div
-            // Minor fiters
-            className="flex flex-row md:flex-row "
+            // EntryFeed
+            className="grid grid-cols-1 pt-10  md:grid-cols-2 md:gap-x-5
+       "
           >
-            <div>
-              <button
-                onClick={() => setRemoteSelected(!remoteSelected)}
-                className={`filter-minor px-4 ${
-                  remoteSelected && 'bg-green-200'
-                }`}
-              >
-                Open to remote
-              </button>
+            <div className="">
+              <PostFeed entries={colA} />
             </div>
-            <div className=" w-2 md:w-4" />
-            <div>
-              <button
-                onClick={() => setRelocationSlected(!relocationSelected)}
-                className={`filter-minor px-4 ${
-                  relocationSelected && 'bg-green-200'
-                }`}
-              >
-                Open to relocation
-              </button>
+
+            <div className="">
+              <PostFeed entries={colB} />
             </div>
-          </div>
-        </div>
-        <div
-          // EntryFeed
-          className="flex flex-col  pt-10 
-       md:flex-row"
-        >
-          <div className="md:w-1/2 ">
-            <PostFeed entries={colA} />
-          </div>
-          <div
-            // Instead of 'md:gap-5' in the div above I use this div to create the space
-            className=" w-0 md:w-5"
-          />
-          <div className="md:w-1/2 ">
-            <PostFeed entries={colB} />
           </div>
         </div>
       </div>

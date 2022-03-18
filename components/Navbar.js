@@ -67,10 +67,10 @@ export default function Navbar() {
     <>
       <div
         // Dumb background
-        className="bg-secondary h-16 w-screen dark:bg-red-300"
+        className="bg-light dark:bg-darkest h-16 w-screen"
       >
         <div
-          // NAV BAR heart
+          // NAV BAR main
           className="text-primary shadow-mg  top-0
                   m-auto flex h-16 
                   max-w-6xl items-center justify-between px-[5vw] md:px-10"
@@ -79,7 +79,7 @@ export default function Navbar() {
             <div
               // Home button + some test animation on click w effect state
               /// animation only works when Plus sign button is clicked
-              className={`z-10 flex items-center text-purple-400 hover:text-white ${
+              className={`text-darker dark:text-lightest hover:text-accent dark:hover:text-accent z-10 flex items-center ${
                 effect && 'animate-spin'
               } `}
               onAnimationEnd={() => setEffect(false)}
@@ -111,6 +111,7 @@ export default function Navbar() {
                     entry={entry}
                     entryCheck={entryCheck}
                   />
+                  <div className="invisible w-4" />
                   <ThemeIcon />
                   <div className="invisible w-4" />
                   <TopRightMenu

@@ -1,3 +1,4 @@
+const { white } = require('tailwindcss/colors');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
@@ -11,9 +12,15 @@ module.exports = {
     extend: {
       colors: {
         // custom colors
-        primary: '#ffffff',
-        secondary: '#0F172A',
-        gray: colors.slate,
+        lightest: '#f4f4f5',
+        lighter: '#e4e4e7',
+        light: '#d4d4d8',
+
+        darkest: '#18181b',
+        darker: '#27272a',
+        dark: '#3f3f46',
+
+        accent: '#F7B928',
       },
 
       fontFamily: {

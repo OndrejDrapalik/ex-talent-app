@@ -1,5 +1,6 @@
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useDarkMode } from '../../lib/hooks/useDarkMode';
+import NavBarIcons from './HelperComponents/NavBarIcons';
 
 export default function ThemeIcon() {
   const [darkTheme, setDarkTheme] = useDarkMode();
@@ -7,9 +8,9 @@ export default function ThemeIcon() {
   return (
     <span onClick={handleMode}>
       {darkTheme ? (
-        <FaSun size="24" className="top-navigation-icon" />
+        <NavBarIcons icon={<FaSun size="24" />} />
       ) : (
-        <FaMoon size="24" className="top-navigation-icon" />
+        <NavBarIcons icon={<FaMoon size="24" />} />
       )}
     </span>
   );

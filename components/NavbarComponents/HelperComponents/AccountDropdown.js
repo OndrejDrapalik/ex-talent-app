@@ -7,7 +7,7 @@ export default function AccountDropdown({
       // The white background with shadow frame
       className="absolute  top-[52px] right-0 z-20 w-40 cursor-pointer rounded-lg
                 bg-white shadow-xl 
-                transition-all duration-100 ease-linear "
+                transition duration-300 ease-in-out "
     >
       <div
         // Logout group

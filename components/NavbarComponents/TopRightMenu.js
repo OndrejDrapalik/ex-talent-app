@@ -20,14 +20,14 @@ export default function TopRightMenu({
         onClick={onClick}
         icon={
           <Image
-            src={!photoURL ? photoURL : '/hacker.png'}
+            src={photoURL ? photoURL : '/hacker.png'}
             alt="user-profile-picture"
             width={32}
             height={32}
             unoptimized
             fill="none"
             tabIndex={1}
-            className="z-20 rounded-full"
+            className=" z-20 rounded-full"
           />
         }
       ></NavBarIcons>
