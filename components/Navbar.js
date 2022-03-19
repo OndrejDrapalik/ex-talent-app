@@ -80,7 +80,7 @@ export default function Navbar() {
               // Home button + some test animation on click w effect state
               /// animation only works when Plus sign button is clicked
               className={`text-darker dark:text-light/75 hover:text-accent dark:hover:text-accent z-10 flex items-center ${
-                effect && 'animate-spin'
+                effect && 'animate-wiggle'
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
@@ -118,7 +118,10 @@ export default function Navbar() {
                     photoURL={user.photoURL}
                     dropdown={dropdown}
                     onClick={() => setDropdown(!dropdown)}
-                    onClickSignOut={() => auth.signOut()}
+                    onClickSignOut={() => {
+                      auth.signOut();
+                      router.reload();
+                    }}
                     onClickDeleteAccount={deleteAccount}
                   />
                 </div>

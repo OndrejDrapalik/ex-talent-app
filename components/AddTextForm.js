@@ -21,7 +21,7 @@ const MyCity = ({ setFieldValue, label, ...props }) => {
         {...props}
         className="  mt-0.25  dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50
                 flex
-                h-7 
+                h-8 
                 min-w-fit 
                 rounded-sm  
                 pl-1
@@ -79,7 +79,7 @@ const TextArea = ({ label, logCharCount, ...props }) => {
       </label>
       <textarea
         className=" dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-[15vh]
-        w-auto rounded-sm pl-1 focus:outline-none 
+        w-auto rounded-sm px-2 py-2 focus:outline-none 
         "
         {...field}
         {...props}
@@ -115,7 +115,7 @@ const MyTextInput = ({ label, ...props }) => {
 
       <input
         className="dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 text-input
-        h-7
+        h-8
 rounded-sm pl-1  
         focus:outline-none  "
         {...field}
@@ -140,7 +140,7 @@ const MyTextInputRequired = ({ label, ...props }) => {
       </label>
 
       <input
-        className="text-input dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-7
+        className="text-input dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-8
         
         rounded-sm pl-1
          focus:outline-none  
@@ -183,10 +183,10 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="bg-arrowDown dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 flex h-7 w-full  appearance-none
-                     rounded-sm
-                    bg-no-repeat 
-                    pl-1 [background-position:99%] focus:outline-none  
+        className="bg-arrowDown dark:text-lightest text-darkest  dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50  invalid:text-dark/50 dark:invalid:text-light/50 flex  h-8
+                    w-full 
+                    appearance-none rounded-sm bg-no-repeat  
+                    pl-1 [background-position:99%] focus:outline-none
                     "
       />
       {meta.touched && meta.error ? (
@@ -364,14 +364,15 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       <MySelect
                         label="Department"
                         name="department"
-                        className="flex flex-col"
+                        className="flex-co flex "
+                        placeholder="Select something"
                         required
                       >
                         <option
                           disabled
+                          selected
                           // selected
                           value=""
-                          className="text-gray-400"
                         >
                           My department
                         </option>
@@ -523,7 +524,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <button
                       type="reset"
                       onClick={() => router.push('/')}
-                      className="bg-light hover:bg-light/75 text-darkest w-[40vw] rounded-md py-2 
+                      className="bg-lightest hover:bg-light/75 text-darkest w-[40vw] rounded-md py-2 
                             md:w-[275px]"
                     >
                       Cancel
