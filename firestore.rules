@@ -12,6 +12,7 @@ service cloud.firestore {
         // creating a user doc
         match /users/{userId} {
           allow read;
+          allow update: if isValidUser(userId)
           allow create: if isValidUser(userId);
           allow delete: if request.auth.uid == userId;
         }
