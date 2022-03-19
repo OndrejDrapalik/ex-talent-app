@@ -1,13 +1,17 @@
 export default function AccountDropdown({
   onClickSignOut,
   onClickDeleteAccount,
+  effect,
+  dropdown,
 }) {
   return (
     <div
       // The white background with shadow frame
-      className="bg-lightest  absolute top-[52px] right-0 z-20 w-40 cursor-pointer
-                rounded-lg shadow-xl 
-                transition duration-300 ease-in-out "
+      className={`bg-lightest  ${dropdown && 'animate-spin'} absolute top-[52px]
+                right-0 z-20 
+                w-40 cursor-pointer rounded-lg
+                shadow-xl transition duration-300
+                 ease-in-out`}
     >
       <div
         // Logout group

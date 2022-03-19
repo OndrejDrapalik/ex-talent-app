@@ -118,11 +118,9 @@ export default function Navbar() {
                     photoURL={user.photoURL}
                     dropdown={dropdown}
                     onClick={() => setDropdown(!dropdown)}
-                    onClickSignOut={() => {
-                      auth.signOut();
-                      router.reload();
-                    }}
+                    onClickSignOut={() => auth.signOut()}
                     onClickDeleteAccount={deleteAccount}
+                    effect={effect}
                   />
                 </div>
               ) : (

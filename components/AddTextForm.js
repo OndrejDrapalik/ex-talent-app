@@ -370,7 +370,6 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       >
                         <option
                           disabled
-                          selected
                           // selected
                           value=""
                         >

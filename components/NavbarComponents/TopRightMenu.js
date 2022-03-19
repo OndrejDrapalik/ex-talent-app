@@ -9,6 +9,7 @@ export default function TopRightMenu({
   onClick,
   onClickSignOut,
   onClickDeleteAccount,
+  effect,
 }) {
   return (
     <div
@@ -41,6 +42,8 @@ export default function TopRightMenu({
           <AccountDropdown
             onClickSignOut={onClickSignOut}
             onClickDeleteAccount={onClickDeleteAccount}
+            effect={effect}
+            dropdown={dropdown}
           />
         )
       }
