@@ -34,8 +34,8 @@
   }
 
   .filter-main {
-    @apply bg-arrowDown mb-2 h-14  appearance-none  items-center justify-start rounded-lg  
-    bg-no-repeat pl-3 pr-7  drop-shadow-md [background-position:97%] md:mb-4;
+    @apply bg-arrowDown mb-2 h-14 cursor-pointer  appearance-none  items-center justify-start rounded-lg  
+     bg-no-repeat pl-3 pr-7  drop-shadow-md [background-position:97%] md:mb-4;
   }
 
   .filter-minor {

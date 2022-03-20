@@ -7,6 +7,7 @@ import { UserContext } from '../lib/contexts/user-context';
 import { useRouter } from 'next/router';
 
 import Autocomplete from 'react-google-autocomplete';
+import { ArrowDown } from './NavbarComponents/HelperComponents/IconsSvg';
 
 const MyCity = ({ setFieldValue, label, ...props }) => {
   const [field, meta] = useField(props);
@@ -183,12 +184,13 @@ const MySelect = ({ label, ...props }) => {
       <select
         {...field}
         {...props}
-        className="bg-arrowDown dark:text-lightest text-darkest  dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50  invalid:text-dark/50 dark:invalid:text-light/50 flex  h-8
+        className=" dark:text-lightest text-darkest  dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50  invalid:text-dark/50 dark:invalid:text-light/50 flex  h-8
                     w-full 
-                    appearance-none rounded-sm bg-no-repeat  
-                    pl-1 [background-position:99%] focus:outline-none
+                    appearance-none rounded-sm   
+                    pl-1 focus:outline-none
                     "
-      />
+      ></select>
+
       {meta.touched && meta.error ? (
         <div className="error mt-[2px]">{meta.error}</div>
       ) : null}
@@ -360,7 +362,10 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                       />
                     </div>
 
-                    <div className="flex flex-col pb-2">
+                    <div className=" flex flex-col pb-2">
+                      <div className="relative">
+                        <ArrowDown className="stroke-lightest pointer-events-none absolute right-[4px] top-6" />
+                      </div>
                       <MySelect
                         label="Department"
                         name="department"
@@ -441,6 +446,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </div>
 
                     <div className="flex flex-col pb-2">
+                      <div className="relative">
+                        <ArrowDown className="stroke-lightest pointer-events-none absolute right-[4px] top-6" />
+                      </div>
                       <MySelect
                         label="Company"
                         name="company"
@@ -498,8 +506,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   <div className="pb-5">
                     <MyCheckbox
                       name="remoteWork"
-                      className="checked checked:bg-check-box  checked:bg-accent dark:checked:b checked:border-accent border-lighter h-4 w-4  cursor-pointer appearance-none rounded-sm 
-                      border-2 bg-contain"
+                      className="checked checked:bg-check-box checked:bg-accent   checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
+                      bg-cover bg-no-repeat"
                     >
                       <div className="text-darkest dark:text-lightest pl-2">
                         I am open to remote.
@@ -507,8 +515,8 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </MyCheckbox>
                     <MyCheckbox
                       name="relocation"
-                      className="checked:bg-check-box  checked:bg-accent checked:border-accent border-lighter  h-4 w-4 cursor-pointer appearance-none
-                      rounded-sm border-2 bg-contain"
+                      className="checked checked:bg-check-box checked:bg-accent  checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
+                      bg-cover bg-no-repeat"
                     >
                       <div className="text-darkest dark:text-lightest pl-2">
                         I am open to relocation.

@@ -3,15 +3,18 @@ export default function AccountDropdown({
   onClickDeleteAccount,
   effect,
   dropdown,
+  onClickSendSupport,
+  setEffect,
 }) {
   return (
     <div
       // The white background with shadow frame
-      className={`bg-lightest  ${dropdown && 'animate-spin'} absolute top-[52px]
+      className={`bg-lightest  ${effect && 'animate-spin'} absolute top-[52px]
                 right-0 z-20 
                 w-40 cursor-pointer rounded-lg
                 shadow-xl transition duration-300
                  ease-in-out`}
+      onAnimationEnd={setEffect}
     >
       <div
         // Logout group
@@ -36,6 +39,7 @@ export default function AccountDropdown({
       >
         <div className="left-0 py-1 pl-2">💸 </div>
         <p
+          onClick={onClickSendSupport}
           className=" font-lato  group-hover:text-lightest text-darkest
                     py-1 pr-2
                       text-right text-sm

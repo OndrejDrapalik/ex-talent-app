@@ -43,12 +43,11 @@ module.exports = {
 
       animation: {
         wiggle: 'wiggle 250ms 10 ease-in-out',
-        spin: 'spin 0.5s linear 1',
+        spin: 'spin 0.5s ease-in-out 1',
       },
       backgroundImage: {
-        'check-box': "url('../public/images/checkMark.png')",
-        arrowDown:
-          "url('https://img.icons8.com/ios/18/000000/expand-arrow--v2.png')",
+        'check-box': "url('../public/images/check.svg')",
+        arrowDown: "url('../public/images/chevron-down.svg')",
       },
     },
   },

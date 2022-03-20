@@ -103,10 +103,7 @@ export default function Navbar() {
                 // User logged
                 <div className="relative flex items-center">
                   <CreateOrEditEntry
-                    onClick={() => {
-                      setEffect(!effect);
-                      setEntry(true);
-                    }}
+                    onClick={() => setEntry(true)}
                     linkPath={`/admin/${user.uid}`}
                     entry={entry}
                     entryCheck={entryCheck}
@@ -120,7 +117,9 @@ export default function Navbar() {
                     onClick={() => setDropdown(!dropdown)}
                     onClickSignOut={() => auth.signOut()}
                     onClickDeleteAccount={deleteAccount}
+                    onClickSendSupport={() => setEffect(true)}
                     effect={effect}
+                    setEffect={() => setEffect(false)}
                   />
                 </div>
               ) : (
