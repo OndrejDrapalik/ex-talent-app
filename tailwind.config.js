@@ -39,11 +39,22 @@ module.exports = {
             transform: 'rotate(360deg)',
           },
         },
+        slide: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-5px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
 
       animation: {
         wiggle: 'wiggle 250ms 10 ease-in-out',
         spin: 'spin 0.5s ease-in-out 1',
+        slide: 'slide 250ms ease-in-out',
       },
       backgroundImage: {
         'check-box': "url('../public/images/check.svg')",

@@ -18,7 +18,7 @@ export const EyeExternalProps = ({ color }) => (
 
 export const ArrowDown = ({ color, className }) => (
   <svg
-    className={` ${className}`}
+    className={`${className}`}
     width="24"
     height="24"
     fill="none"

@@ -9,11 +9,13 @@ export default function AccountDropdown({
   return (
     <div
       // The white background with shadow frame
-      className={`bg-lightest  ${effect && 'animate-spin'} absolute top-[52px]
+      className={`bg-lightest
+      
+      ${dropdown && 'animate-slide'}
+      absolute top-[52px]
                 right-0 z-20 
                 w-40 cursor-pointer rounded-lg
-                shadow-xl transition duration-300
-                 ease-in-out`}
+                shadow-xl `}
       onAnimationEnd={setEffect}
     >
       <div
@@ -37,11 +39,14 @@ export default function AccountDropdown({
         className="group hover:bg-dark flex flex-row items-center
                   justify-between"
       >
-        <div className="left-0 py-1 pl-2">💸 </div>
+        <div className={`${effect && 'animate-spin'} left-0 py-1 pl-2`}>
+          💸{' '}
+        </div>
         <p
           onClick={onClickSendSupport}
           className=" font-lato  group-hover:text-lightest text-darkest
-                    py-1 pr-2
+                    ${effect &&
+                    'animate-spin'} py-1 pr-2
                       text-right text-sm
                       transition-all duration-100 ease-linear"
         >

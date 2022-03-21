@@ -364,7 +364,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                     <div className=" flex flex-col pb-2">
                       <div className="relative">
-                        <ArrowDown className="stroke-lightest pointer-events-none absolute right-[4px] top-6" />
+                        <ArrowDown className="dark:stroke-lightest stroke-dark/50 pointer-events-none absolute right-[4px] top-6" />
                       </div>
                       <MySelect
                         label="Department"
@@ -447,7 +447,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                     <div className="flex flex-col pb-2">
                       <div className="relative">
-                        <ArrowDown className="stroke-lightest pointer-events-none absolute right-[4px] top-6" />
+                        <ArrowDown className="dark:stroke-lightest stroke-dark/50 pointer-events-none absolute right-[4px] top-6" />
                       </div>
                       <MySelect
                         label="Company"
