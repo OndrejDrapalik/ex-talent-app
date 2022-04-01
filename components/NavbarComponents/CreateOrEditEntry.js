@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import NavBarIcons from './HelperComponents/NavBarIcons';
-import { FaHome, FaPlus, FaUserPlus, FaEdit } from 'react-icons/fa';
+import { Pencil, Plus } from './HelperComponents/IconsSvg';
 
 export default function CreateOrEditEntry({
   entryCheck,
@@ -20,7 +20,15 @@ export default function CreateOrEditEntry({
         >
           🖋 Edit your entry
         </span>
-        <NavBarIcons icon={<FaEdit size="20" />} onClick={onClick} />
+        <NavBarIcons
+          icon={
+            <Pencil
+              onClick={onClick}
+              className="dark:stroke-light stroke-darkest hover:stroke-accent dark:hover:stroke-accent transition-all
+            duration-300 ease-linear"
+            />
+          }
+        />
       </div>
     </Link>
   ) : (
@@ -35,7 +43,17 @@ export default function CreateOrEditEntry({
         >
           🖋 Add your entry
         </span>
-        <NavBarIcons icon={<FaPlus size="20" />} onClick={onClick} />
+
+        <NavBarIcons
+          icon={
+            <Plus
+              onClick={onClick}
+              className="dark:stroke-light stroke-darkest hover:stroke-accent dark:hover:stroke-accent transition-all
+            duration-300 ease-linear"
+            />
+          }
+          onClick={onClick}
+        />
       </div>
     </Link>
   );

@@ -20,7 +20,7 @@ module.exports = {
         darker: '#27272a',
         dark: '#3f3f46',
 
-        accent: '#F7B928',
+        accent: '#EA580C',
       },
 
       fontFamily: {

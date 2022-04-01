@@ -1,5 +1,6 @@
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { CheckmarkIcon } from 'react-hot-toast';
 import { useDarkMode } from '../../lib/hooks/useDarkMode';
+import { Sparkles, Sun } from './HelperComponents/IconsSvg';
 import NavBarIcons from './HelperComponents/NavBarIcons';
 
 export default function ThemeIcon() {
@@ -8,9 +9,23 @@ export default function ThemeIcon() {
   return (
     <span onClick={handleMode}>
       {darkTheme ? (
-        <NavBarIcons icon={<FaSun size="24" />} />
+        <NavBarIcons
+          icon={
+            <Sun
+              className="stroke-light hover:stroke-accent transition-all
+            duration-300 ease-linear"
+            />
+          }
+        />
       ) : (
-        <NavBarIcons icon={<FaMoon size="24" />} />
+        <NavBarIcons
+          icon={
+            <Sparkles
+              className="stroke-darkest hover:stroke-accent transition-all
+            duration-300 ease-linear"
+            />
+          }
+        />
       )}
     </span>
   );

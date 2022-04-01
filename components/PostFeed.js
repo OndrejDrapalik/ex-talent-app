@@ -1,10 +1,8 @@
 import {
-  FaLinkedinIn,
-  FaLink,
-  FaUserEdit,
-  FaRegAddressCard,
-  FaUser,
-} from 'react-icons/fa';
+  Link,
+  LinkedIn,
+  User,
+} from './NavbarComponents/HelperComponents/IconsSvg';
 
 export default function PostFeed({ entries }) {
   return entries
@@ -48,7 +46,7 @@ const PostItem = ({ entry }) => {
             {entry.values.linkedIn && (
               <div className="flex items-center">
                 <div>
-                  <FaLinkedinIn size="16" />
+                  <LinkedIn />
                 </div>
                 <a
                   className="pl-3 hover:opacity-50"
@@ -67,7 +65,7 @@ const PostItem = ({ entry }) => {
             {entry.values.otherURL && (
               <div className="flex items-center">
                 <div className="">
-                  <FaLink size="16" />
+                  <Link />
                 </div>
                 <a
                   className="pl-3 hover:opacity-50"
@@ -86,7 +84,9 @@ const PostItem = ({ entry }) => {
           </div>
         )}
         <div className="flex ">
-          <FaUser size="16" className="min-w-[16px] translate-y-1" />
+          <div>
+            <User />
+          </div>
           <div className="whitespace-pre-line pl-3">
             {entry.values.aboutYou}
           </div>

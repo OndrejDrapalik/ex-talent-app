@@ -6,13 +6,16 @@ import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { FaHome, FaUserPlus } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 import TopRightMenu from './NavbarComponents/TopRightMenu';
-import NavBarIcons from './NavbarComponents/HelperComponents/NavBarIcons';
 import CreateOrEditEntry from './NavbarComponents/CreateOrEditEntry';
 import ThemeIcon from './NavbarComponents/ThemeIcon';
+import {
+  Google,
+  MagnifyingGlass,
+} from './NavbarComponents/HelperComponents/IconsSvg';
+import useWindowSize from '../lib/hooks/useWindowSize';
 
 // Top navbar
 export default function Navbar() {
@@ -21,6 +24,7 @@ export default function Navbar() {
     useContext(AppContext);
 
   const router = useRouter();
+  const size = useWindowSize();
 
   const signInWithGoogle = async () => {
     try {
@@ -67,7 +71,7 @@ export default function Navbar() {
     <>
       <div
         // Dumb background
-        className="bg-light dark:bg-darkest h-16 w-screen"
+        className="bg-light/75 dark:bg-darkest h-16 w-screen"
       >
         <div
           // NAV BAR main
@@ -79,18 +83,15 @@ export default function Navbar() {
             <div
               // Home button + some test animation on click w effect state
               /// animation only works when Plus sign button is clicked
-              className={`text-darker dark:text-light/75 hover:text-accent dark:hover:text-accent z-10 flex items-center ${
+              className={`text-darker dark:text-light  z-10 flex items-center ${
                 effect && 'animate-wiggle'
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
-              {
-                <FaHome
-                  size="36"
-                  onClick={() => router.reload()}
-                  className="cursor-pointer"
-                />
-              }
+              <MagnifyingGlass className="cursor-pointer   fill-[#EA580C]" />
+              <h1 className="font-heading cursor-pointer pl-2 text-xl">
+                talents.fyi
+              </h1>
             </div>
           </Link>
 
@@ -125,14 +126,21 @@ export default function Navbar() {
               ) : (
                 // User NOT logged in
                 <div className="relative flex items-center gap-4">
-                  <NavBarIcons
+                  <ThemeIcon />
+
+                  <button
+                    className="flex items-center rounded-xl bg-white px-[12px] py-[8px]"
                     onClick={() => {
                       signInWithGoogle();
                       setDropdown(false);
                     }}
-                    icon={<FaUserPlus size="26" />}
-                  />
-                  <ThemeIcon />
+                  >
+                    <Google className=" bg-white" />
+
+                    <p className="font-roboto pl-4">
+                      {size.width < 550 ? 'Google' : 'Continue with Google '}
+                    </p>
+                  </button>
                 </div>
               )
             }
