@@ -168,7 +168,7 @@ export default function Home(props) {
           >
             <div
               // Main filters
-              className=" grid grid-cols-1 md:grid-cols-3 md:gap-4"
+              className=" grid grid-cols-1 md:grid-cols-2 md:gap-4"
             >
               <div className="w-auto">
                 <select
@@ -179,21 +179,6 @@ export default function Home(props) {
                 >
                   <option value="">All countries</option>
                   {cleanCountry.map((item, index) => (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="w-auto">
-                <select
-                  name="departmentFilter"
-                  className="filter-main dark:bg-lightest w-full"
-                  value={departmentSelected}
-                  onChange={(e) => setDepartmentSelected(e.target.value)}
-                >
-                  <option value="">All departments</option>
-                  {cleanDepartment.map((item, index) => (
                     <option key={index} value={item}>
                       {item}
                     </option>

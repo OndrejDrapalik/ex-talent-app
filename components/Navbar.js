@@ -88,7 +88,10 @@ export default function Navbar() {
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
-              <MagnifyingGlass className="cursor-pointer   fill-[#EA580C]" />
+              <MagnifyingGlass
+                className="dark:hover:fill-accent fill-accent cursor-pointer transition-all duration-300 
+              ease-linear hover:fill-yellow-400 dark:fill-yellow-400"
+              />
               <h1 className="font-heading cursor-pointer pl-2 text-xl">
                 talents.fyi
               </h1>

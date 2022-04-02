@@ -10,7 +10,7 @@ export default function Footer({}) {
             className="items-center px-4  text-inherit"
             //   style="background-color: rgba(0, 0, 0, 0.2);"
           >
-            Created with ❤️ by {``}
+            Created with 🧡 by {``}
             <a
               className=" text-inherit hover:opacity-50"
               href="https://github.com/OndrejDrapalik"
