@@ -2,6 +2,76 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/OndrejDrapalik/ex-talent-app/compare/v0.0.1...v0.0.3) (2022-04-02)
+
+
+### Features
+
+* add coutry select filter ([8b4c719](https://github.com/OndrejDrapalik/ex-talent-app/commit/8b4c719df6a017524e0d4bf8625db244759ccf44))
+* add cringy footer ([b4bf2ff](https://github.com/OndrejDrapalik/ex-talent-app/commit/b4bf2ff7fcd248363637a081861b54a8c836da20))
+* add CSR ([11cf2c6](https://github.com/OndrejDrapalik/ex-talent-app/commit/11cf2c695a48f358576215c4a124b23af76df88b))
+* add delete account ([fcb8df4](https://github.com/OndrejDrapalik/ex-talent-app/commit/fcb8df4938b80c146337431253f1db5d6079399e))
+* add edit existing datam ([07b42f6](https://github.com/OndrejDrapalik/ex-talent-app/commit/07b42f65fb56fa5f477b01c7c964beb15524ac78))
+* add Formik to the entry component ([76408fd](https://github.com/OndrejDrapalik/ex-talent-app/commit/76408fd975547ab1f4cc8777c9381b667bcfb35c))
+* add gloval app state with useContext hook ([a043de8](https://github.com/OndrejDrapalik/ex-talent-app/commit/a043de86ef2050280d77a0e09a94fb9cc5a2905f))
+* add google autocomplete ([a62cfe2](https://github.com/OndrejDrapalik/ex-talent-app/commit/a62cfe2fd3f61061df758e9de33dda0ff3e73769))
+* add icons to the postfeed, beautify it ([edba261](https://github.com/OndrejDrapalik/ex-talent-app/commit/edba261205b8838f3ee556b1297d2bf5a0b88582))
+* add light dark theme complete ([4c4c0a6](https://github.com/OndrejDrapalik/ex-talent-app/commit/4c4c0a6c0d28e1fa0d8aa524587d44db6e620d42))
+* add main page mvp ([d22a377](https://github.com/OndrejDrapalik/ex-talent-app/commit/d22a377d6370de689559eb2ffaa53c4d2a5bc960))
+* add menu keyframes animation custom with tailwind ([3ebd571](https://github.com/OndrejDrapalik/ex-talent-app/commit/3ebd5714873c450502ad67ae75043b753ca625dd))
+* add multiple department & country filter ([27e68e8](https://github.com/OndrejDrapalik/ex-talent-app/commit/27e68e83b12f0e64bcef96558b53d81e2d41073e))
+* add navbar with tailwind ([b061287](https://github.com/OndrejDrapalik/ex-talent-app/commit/b061287637047a603d0942887187eee5b5a6cb2f))
+* add only 2 main filters ([68f3b21](https://github.com/OndrejDrapalik/ex-talent-app/commit/68f3b21f9d513b3b81f88b47e7ac05f7bfcb7617))
+* add responseive layout to index.js ([0713c58](https://github.com/OndrejDrapalik/ex-talent-app/commit/0713c5828669b52c46446340689eee00b7bce69b))
+* add SSG ([05b0304](https://github.com/OndrejDrapalik/ex-talent-app/commit/05b03049fe6654bbd7e37f39e70eea0d32cc6c97))
+* add SSR ([fa81aac](https://github.com/OndrejDrapalik/ex-talent-app/commit/fa81aac1b70a8a13a9d17c1e2aea1f6f69cddc51))
+* add svg icons both bg and icons as components ([d4f6993](https://github.com/OndrejDrapalik/ex-talent-app/commit/d4f6993581c35c7839e33a8354317f5e90db9444))
+* add tailwind support ([87244a5](https://github.com/OndrejDrapalik/ex-talent-app/commit/87244a52bc8e21af92f818555a6e5dc92aac2440))
+* add user data to firebase on login ([4f4c50c](https://github.com/OndrejDrapalik/ex-talent-app/commit/4f4c50c5ce73c5b5fb8d28018034b10e0a1c9196))
+* add useWindowSize hopok ([6009279](https://github.com/OndrejDrapalik/ex-talent-app/commit/6009279cfed47a3097d03d0b77df8d38b84293a9))
+* basic server firebase security rules ([921e2e6](https://github.com/OndrejDrapalik/ex-talent-app/commit/921e2e6c989e646fed5e63b14d5cb8b0796d8250))
+* dark theme ([37a451e](https://github.com/OndrejDrapalik/ex-talent-app/commit/37a451e4a2adb146a4350caa3060ce4062d05d7a))
+* dark theme update ([f2d1ff3](https://github.com/OndrejDrapalik/ex-talent-app/commit/f2d1ff37a3c010f76ab261192d3d70f144156991))
+* implement client site rendering to main page to randomize entries ([adcc548](https://github.com/OndrejDrapalik/ex-talent-app/commit/adcc5485213c1265e3c16f43fa550169c059f1a2))
+* manual keyframes animation with tailwind toprightmenu example ([5f1e35a](https://github.com/OndrejDrapalik/ex-talent-app/commit/5f1e35a79c6135569e0a41a24be081d8039b734d))
+* swap reactIcons with Figma icons ([63f8add](https://github.com/OndrejDrapalik/ex-talent-app/commit/63f8add7d73b6b14bedf3e84ba6a59f1697c2f4b))
+
+
+### Bug Fixes
+
+* adapt AddTextForm for mobile layout ([85f6181](https://github.com/OndrejDrapalik/ex-talent-app/commit/85f6181ae5f3d4f3453881244e3388a93fd76a6a))
+* add custom react-google-autocomplete suggestion ([6610481](https://github.com/OndrejDrapalik/ex-talent-app/commit/6610481367a2b0c44ca2ca1977b995e8ec8b1276))
+* add from location city + country ([cea1317](https://github.com/OndrejDrapalik/ex-talent-app/commit/cea1317dad72dfc99d1f675f508ae6e12acfbdc1))
+* add grid to the index.js ([8433319](https://github.com/OndrejDrapalik/ex-talent-app/commit/84333199666d3da9085152eafc3f5d2b96a97b52))
+* add safari support for AddTextForm component ([f920c53](https://github.com/OndrejDrapalik/ex-talent-app/commit/f920c53f6092cd3750d68388f56e3849297f82d0))
+* add safari support for index.js - flex gap not supported ([6af4850](https://github.com/OndrejDrapalik/ex-talent-app/commit/6af48506b14173c6b95d996999c0ff98ff6244b6))
+* add SSR on first load + CSR for randomization ([c37bb5b](https://github.com/OndrejDrapalik/ex-talent-app/commit/c37bb5bd492e5ef7ceccde9a1f13d265eaa3feef))
+* add two column layout with flexbox in the index.js ([acba145](https://github.com/OndrejDrapalik/ex-talent-app/commit/acba1454bbb889bcb057d5c1118cf72fe437b85d))
+* AddTextForm component non google maps city input inserted bug fix ([115e6ba](https://github.com/OndrejDrapalik/ex-talent-app/commit/115e6ba9a8a905623b3969ecfb3fa34c20731d2e))
+* AddTextForm setFieldValue set via useRef ([3e4a5bd](https://github.com/OndrejDrapalik/ex-talent-app/commit/3e4a5bd758c7118e372555eb5acd435641cc0ce1))
+* AddTextForm TextField max limit ([ec808cd](https://github.com/OndrejDrapalik/ex-talent-app/commit/ec808cd93cd2380929c4cd65831882e197c2d0a1))
+* AddTextForm validation adjustment ([cc53f20](https://github.com/OndrejDrapalik/ex-talent-app/commit/cc53f20bc7a0da5dde7581ab4ca7c51808a59843))
+* admin/[entry] onreload bug ([184e4eb](https://github.com/OndrejDrapalik/ex-talent-app/commit/184e4eb1b39489483fdfd8248062a97826f48206))
+* admin/[entry]. js useEffect bug ([c8226ae](https://github.com/OndrejDrapalik/ex-talent-app/commit/c8226ae837ddb5b83eb638302e36269ac688541c))
+* email inclouded in the form ([7af0af9](https://github.com/OndrejDrapalik/ex-talent-app/commit/7af0af96ab5cfbd3c7102faabff77d8493494d3f))
+* expand column layout in the index from sm to md ([9299966](https://github.com/OndrejDrapalik/ex-talent-app/commit/9299966c23aa374a3de1d569943dbf4fbc67cdc0))
+* fetch user image with useEffect hook ([e50f12e](https://github.com/OndrejDrapalik/ex-talent-app/commit/e50f12e5a05414aa5582f090bf7e4e2169579a71))
+* firebase rules ([b136c92](https://github.com/OndrejDrapalik/ex-talent-app/commit/b136c929ed69c2570bb3fd8ebd4f356d2109d77b))
+* fix formik ui ([fe839c1](https://github.com/OndrejDrapalik/ex-talent-app/commit/fe839c1b9aaa5c084997161405c73bb1a5d45c74))
+* fix navbar gray state bug ([b6eab70](https://github.com/OndrejDrapalik/ex-talent-app/commit/b6eab70cfe9cbe4862823d3357feffb36e853a6f))
+* formating of google autocomplete - react-google-autocomplete ([dcbbac6](https://github.com/OndrejDrapalik/ex-talent-app/commit/dcbbac6fb25a250bba6e880ca5861a06f106df2d))
+* formik select plaholder text ([4ec5a42](https://github.com/OndrejDrapalik/ex-talent-app/commit/4ec5a420d989699b18c4bec41aec20640fc867dd))
+* index passes state to navbar ([298810d](https://github.com/OndrejDrapalik/ex-talent-app/commit/298810d6742acf77fab2fb7faeb35b81d830412d))
+* index.js mutable sort() and array of object randomization ([448a279](https://github.com/OndrejDrapalik/ex-talent-app/commit/448a279974a6faaddd97980c6e71a676308be0ee))
+* next.js react server hydratation mismatch error ([ae6a837](https://github.com/OndrejDrapalik/ex-talent-app/commit/ae6a837d84baed3083e2d3214010eae17ce22dc8))
+* PostFeed css fix ([84add8a](https://github.com/OndrejDrapalik/ex-talent-app/commit/84add8ac1e6ca5b3cb29c38b856a20c7b5433a4c))
+* refactor multiple country & department filter ([3645fb0](https://github.com/OndrejDrapalik/ex-talent-app/commit/3645fb0d0de31854f79199ba7cdfc7364d8c4e6f))
+* refactor multiple country & department with synchronous fn filters ([3abd745](https://github.com/OndrejDrapalik/ex-talent-app/commit/3abd745ea06f24fad8b4fdcfe0941208c990e196))
+* refactor responsive css - margin:auto max-w-6xl ([816baed](https://github.com/OndrejDrapalik/ex-talent-app/commit/816baed563260fa6544a83f1955e1bc66614aaea))
+* rules error when user logged after second time ([198aa58](https://github.com/OndrejDrapalik/ex-talent-app/commit/198aa586ad50df983074aa10c761dbd41fc6cb82))
+* set global state to the AppState ([ef5f9c1](https://github.com/OndrejDrapalik/ex-talent-app/commit/ef5f9c1166e1f5c5d4eca418122866581233aeb1))
+* shuffle entries on index.js ([41d9886](https://github.com/OndrejDrapalik/ex-talent-app/commit/41d9886941abe77b73f8d4e5ebf89f8061d66899))
+
 ### [0.0.2](https://github.com/OndrejDrapalik/ex-talent-app/compare/v0.0.1...v0.0.2) (2022-04-02)
 
 
