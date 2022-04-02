@@ -173,7 +173,7 @@ export default function Home(props) {
               <div className="w-auto">
                 <select
                   name="countryFilter"
-                  className="filter-main  dark:bg-lightest w-full"
+                  className="filter-main dark:bg-lightest  w-full bg-white"
                   value={countrySelected}
                   onChange={(e) => setCountrySelected(e.target.value)}
                 >
@@ -188,7 +188,7 @@ export default function Home(props) {
               <div className="w-auto">
                 <select
                   name="departmentFilter"
-                  className="filter-main dark:bg-lightest w-full"
+                  className="filter-main dark:bg-lightest w-full bg-white"
                   value={departmentSelected}
                   onChange={(e) => setDepartmentSelected(e.target.value)}
                 >
