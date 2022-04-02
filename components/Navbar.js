@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import TopRightMenu from './NavbarComponents/TopRightMenu';
 import CreateOrEditEntry from './NavbarComponents/CreateOrEditEntry';
 import ThemeIcon from './NavbarComponents/ThemeIcon';
+
 import {
   Google,
   MagnifyingGlass,
@@ -71,13 +72,13 @@ export default function Navbar() {
     <>
       <div
         // Dumb background
-        className="bg-light/75 dark:bg-darkest h-16 w-screen"
+        className="bg-light/75 dark:bg-darkest w-screen"
       >
         <div
           // NAV BAR main
-          className="text-primary shadow-mg  top-0
-                  m-auto flex h-16 
-                  max-w-6xl items-center justify-between px-[5vw] md:px-10"
+          className=" text-primary shadow-mg  top-0
+                  m-auto flex h-20 max-w-6xl items-center
+                   justify-between px-[5vw] md:px-10"
         >
           <Link href={'/'} passHref>
             <div
@@ -88,13 +89,20 @@ export default function Navbar() {
               } `}
               onAnimationEnd={() => setEffect(false)}
             >
-              <MagnifyingGlass
-                className="dark:hover:fill-accent fill-accent cursor-pointer transition-all duration-300 
+              <div className="dark:bg-darkest mr-2 flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                <MagnifyingGlass
+                  className="dark:hover:fill-accent fill-accent  flex cursor-pointer   transition-all duration-300 
               ease-linear hover:fill-yellow-400 dark:fill-yellow-400"
-              />
-              <h1 className="font-heading cursor-pointer pl-2 text-xl">
-                talents.fyi
-              </h1>
+                />
+              </div>
+
+              {size.width < 420 ? (
+                <h1 className="font-heading cursor-pointer pl-2 text-xl"></h1>
+              ) : (
+                <h1 className="font-heading cursor-pointer pl-2 text-xl">
+                  talents.fyi
+                </h1>
+              )}
             </div>
           </Link>
 

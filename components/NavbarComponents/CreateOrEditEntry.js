@@ -16,7 +16,9 @@ export default function CreateOrEditEntry({
       >
         <span
           /// animation only works when there's not a text input field
-          className={`navbar-tooltip ${!entry && 'group-hover:scale-100'}`}
+          className={`navbar-tooltip hidden sm:inline ${
+            !entry && 'group-hover:scale-100'
+          }`}
         >
           🖋 Edit your entry
         </span>
@@ -39,7 +41,9 @@ export default function CreateOrEditEntry({
       >
         <span
           /// animation only works when there's not a text input field
-          className={`navbar-tooltip ${!entry && 'group-hover:scale-100'}`}
+          className={`navbar-tooltip hidden sm:inline ${
+            !entry && 'group-hover:scale-100'
+          }`}
         >
           🖋 Add your entry
         </span>

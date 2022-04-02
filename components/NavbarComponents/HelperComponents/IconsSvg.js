@@ -37,8 +37,8 @@ export const ArrowDown = ({ color, className }) => (
 export const MagnifyingGlass = ({ className }) => (
   <svg
     className={`${className}`}
-    width="32"
-    height="32"
+    width="48"
+    height="48"
     viewBox="0 0 16 16"
     xmlns="http://www.w3.org/2000/svg"
   >
