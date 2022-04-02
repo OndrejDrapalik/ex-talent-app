@@ -56,8 +56,8 @@ module.exports = {
         slide: 'slide 250ms ease-in-out',
       },
       backgroundImage: {
-        'check-box': "url('../public/images/check.svg')",
-        arrowDown: "url('../public/images/chevron-down.svg')",
+        checkBox: "url('/static/check.svg')",
+        arrowDown: "url('/static/chevron-down.svg')",
       },
     },
   },

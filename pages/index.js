@@ -209,7 +209,9 @@ export default function Home(props) {
                 <button
                   onClick={() => setRemoteSelected(!remoteSelected)}
                   className={`filter-minor px-4 ${
-                    remoteSelected ? 'bg-accent' : 'dark:bg-lightest bg-white'
+                    remoteSelected
+                      ? 'bg-accent text-white'
+                      : 'dark:bg-lightest bg-white'
                   }`}
                 >
                   Open to remote
@@ -221,7 +223,7 @@ export default function Home(props) {
                   onClick={() => setRelocationSlected(!relocationSelected)}
                   className={`filter-minor  px-4 ${
                     relocationSelected
-                      ? 'bg-accent'
+                      ? 'bg-accent text-white'
                       : 'dark:bg-lightest bg-white'
                   }`}
                 >

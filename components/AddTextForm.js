@@ -506,7 +506,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                   <div className="pb-5">
                     <MyCheckbox
                       name="remoteWork"
-                      className="checked checked:bg-check-box checked:bg-accent   checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
+                      className="checked checked:bg-checkBox checked:bg-accent   checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
                       bg-cover bg-no-repeat"
                     >
                       <div className="text-darkest dark:text-lightest pl-2">
@@ -515,7 +515,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     </MyCheckbox>
                     <MyCheckbox
                       name="relocation"
-                      className="checked checked:bg-check-box checked:bg-accent  checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
+                      className="checked checked:bg-checkBox checked:bg-accent  checked:border-accent border-lighter h-4 w-4 cursor-pointer  appearance-none rounded-sm border-2 
                       bg-cover bg-no-repeat"
                     >
                       <div className="text-darkest dark:text-lightest pl-2">
@@ -543,7 +543,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
                     <button
                       type="submit"
                       disabled={!isValid}
-                      className="text-darkest bg-accent hover:bg-accent/75 w-[40vw] rounded-md py-2 disabled:opacity-30 
+                      className="bg-accent hover:bg-accent/75 w-[40vw] rounded-md py-2 text-white disabled:opacity-30 
                             md:w-[275px]"
                     >
                       Submit
