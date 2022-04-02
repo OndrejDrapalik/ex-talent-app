@@ -139,8 +139,27 @@ export default function Home(props) {
           className="m-auto max-w-6xl px-[5vw] md:px-10
         "
         >
-          <h1 className="text-darkest dark:text-lightest pt-20 pb-10 text-3xl sm:text-4xl md:pb-10 md:text-5xl">
-            Please meet some talented people who’ve worked at Avast.
+          <div className="flex flex-col items-center  ">
+            <q
+              cite="https://www.pse.cz/en/news/avast-norton-merger-to-be-closed-in-mid-2022-avast-ceo"
+              className="text-dark font-heading dark:text-lightest text-md sm:text-md md:text-md pt-20	pb-4 italic md:pb-5 md:font-normal md:leading-[1.1]"
+            >
+              The merger will lead to organisational savings and staff reduction
+              in both companies.
+            </q>
+            <a
+              className="text-dark font-heading dark:text-lightest font-light hover:opacity-50"
+              href="https://www.pse.cz/en/news/avast-norton-merger-to-be-closed-in-mid-2022-avast-ceo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              – Czech Press Center
+            </a>
+          </div>
+          <h1 className="text-darkest font-heading  dark:text-lightest pt-10 pb-10 text-3xl	sm:text-4xl md:pb-20 md:text-[50px] md:font-medium md:leading-[1.1]">
+            Please meet some talented people who’ve worked at{' '}
+            <u className="decoration-accent">Avast</u> or{' '}
+            <u className="decoration-yellow-400">Norton</u>.
           </h1>
           <div
             // Filter group

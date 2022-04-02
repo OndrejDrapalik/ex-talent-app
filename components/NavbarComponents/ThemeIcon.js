@@ -1,4 +1,3 @@
-import { CheckmarkIcon } from 'react-hot-toast';
 import { useDarkMode } from '../../lib/hooks/useDarkMode';
 import { Sparkles, Sun } from './HelperComponents/IconsSvg';
 import NavBarIcons from './HelperComponents/NavBarIcons';
