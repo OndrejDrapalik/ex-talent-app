@@ -28,7 +28,7 @@ export default function Navbar() {
 
   const signInWithGoogle = async () => {
     try {
-      const userObject = await auth.signInWithPopup(googleAuthProvider);
+      const userObject = await auth.signInWithRedirect(googleAuthProvider);
       saveData(userObject);
     } catch (error) {
       console.log(error);
