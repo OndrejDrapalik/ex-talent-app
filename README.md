@@ -1,5 +1,5 @@
 ## Live demo
-This is a [link](https://ex-talent-fah3e64vd-ondrejdrapalik.vercel.app/)
+[This is a link](https://ex-talent-app.vercel.app/)
 
 
 ## Getting Started
