@@ -79,7 +79,7 @@ const TextArea = ({ label, logCharCount, ...props }) => {
         {label}
       </label>
       <textarea
-        className=" dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-[15vh]
+        className=" dark:text-lightest text-darkest dark:placeholder-light/50 dark:bg-darker  bg-lighter dark:focus:bg-darkest  focus:bg-lightest dark:focus:placeholder-light/50 placeholder-dark/50 h-[20vh]
         w-auto rounded-sm px-2 py-2 focus:outline-none 
         "
         {...field}
@@ -278,15 +278,9 @@ export default function AddTextForm({ zIndex, onSubmit }) {
           return (
             <>
               <div
-                // Blue background
-                className={`fixed top-0 right-0 bottom-0 left-0 h-full w-full ${zIndex}
-                          bg-secondary bg-lightest dark:bg-darker cursor-default
-                          opacity-100`}
-              ></div>
-              <div
                 // window
-                className={`${zIndex} bg-primary dark:bg-dark m-auto flex w-screen max-w-3xl flex-col rounded-lg bg-white px-[3vw]
-                         py-[2vh] shadow-lg md:my-[3vh] md:px-10
+                className={`${zIndex} bg-primary dark:bg-dark m-auto flex h-auto min-h-screen w-screen max-w-3xl flex-col rounded-lg bg-white
+                         px-[3vw] py-[2vh] shadow-lg md:my-[3vh] md:min-h-full md:px-10
                   `}
               >
                 <h1 className="text-darkest dark:text-lightest flex pb-[2vh] text-3xl">
@@ -526,7 +520,7 @@ export default function AddTextForm({ zIndex, onSubmit }) {
 
                   <div
                     // Buttons
-                    className="flex items-center justify-between"
+                    className="flex items-center justify-between pb-9 pt-4"
                   >
                     <button
                       type="reset"

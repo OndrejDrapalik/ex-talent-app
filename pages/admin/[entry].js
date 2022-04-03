@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../lib/contexts/user-context';
 
 import { firestore, auth, serverTimestamp } from '../../lib/firebase';
+import Footer from '../../components/Footer';
 
 export default function EntryPage() {
   const { user, entryCheck } = useContext(UserContext);
@@ -40,7 +41,7 @@ export default function EntryPage() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="bg-lightest dark:bg-darker flex min-h-screen cursor-default flex-col items-center">
       <AddTextForm zIndex="z-20" onSubmit={handleFormikSubmit}></AddTextForm>
     </div>
   );
