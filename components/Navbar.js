@@ -138,7 +138,7 @@ export default function Navbar() {
                 // User NOT logged in
                 <div className="relative flex items-center gap-4">
                   <ThemeIcon />
-
+                  <div className="invisible w-4" />
                   <button
                     className="flex items-center rounded-xl bg-white px-[12px] py-[8px]"
                     onClick={() => {
