@@ -136,7 +136,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 // User NOT logged in
-                <div className="relative flex items-center gap-4">
+                <div className="relative flex items-center">
                   <ThemeIcon />
                   <div className="invisible w-4" />
                   <button
