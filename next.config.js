@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   reactStrictMode: true,
 
@@ -7,6 +9,6 @@ module.exports = {
     path: 'https://lh3.googleusercontent.com/',
   },
   env: {
-    GOOGLE_MAPS_API_KEY: 'AIzaSyC2rno8ak7rFPq3kbHwFju-Cuihg1j10Lg',
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
   },
 };
